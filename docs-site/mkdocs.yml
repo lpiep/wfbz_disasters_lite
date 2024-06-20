@@ -1,0 +1,11 @@
+site_name: Wildfire Disaster Dataset Harmonization
+nav:  
+  - Home: index.md
+  - Raw Data Descriptions:
+    - NIFC: raw_data_desc/nifc.md
+    - FEMA: raw_data_desc/fema.md
+    - MTBS: raw_data_desc/mtbs.md
+    - FIRED: raw_data_desc/fired.md
+  - Papers: papers.md
+theme:
+  name: material
