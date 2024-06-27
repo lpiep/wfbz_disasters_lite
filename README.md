@@ -30,3 +30,37 @@ With Docker installed:
 $ chmod +x exec_docker.sh
 $ ./exec_docker.sh
 ```
+
+## Data Sources
+
+### Spatial 
+
+* MBTS 
+	* Will be updated
+	* Included here
+* FIRED
+  * Will be updated
+  * Included here
+* USGS
+	* Unsure about updates per authors
+	* Not included here
+* GEOMAC
+  * Will not be updated (migrated to NIFT in 2020)
+  * Not included here
+* NIFC 
+  * Will be updated
+  * Included here
+
+
+### Non-Spatial
+
+* FEMA Disaster Declarations
+  * Will be updated
+  * Included here
+* ICS 
+  * Not updated
+  * Included here
+  * Could possibly be replicated on future data using their code, though it may already be in FEMA data? 
+* REDBOOKS _to do_
+  
+https://github.com/katiemcconnell/ICS-209-PLUS_spatiotemporal_linkage

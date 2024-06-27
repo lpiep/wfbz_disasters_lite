@@ -1,5 +1,7 @@
 # Data files
 data/*
+_targets/*
+conf/*
 
 # History files
 .Rhistory
