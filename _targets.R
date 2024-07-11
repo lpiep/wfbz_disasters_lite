@@ -3,7 +3,7 @@ library(targets)
 library(tarchetypes)
 
 options(timeout = max(600, getOption("timeout")))
-options(wilfire_disasters_lite.cue_downloads = 'never') # Make 'always' for production
+options(wilfire_disasters_lite.cue_downloads = 'always') # Make 'always' for production
 
 # Set target options:
 tar_option_set(
