@@ -9,7 +9,7 @@ and completeness in favor of a more automated process.
 ## Run
 
 Clone this repo, and run `main.R` in R. I include a script to run the same code using the `rocker/geospatial` docker image as 
-well for reproducibility. 
+well for reproducibility. _Note: `targets` is not included in `rocker/geospatial`. Creating a development container is a TO DO._
 
 With your system R:
 
@@ -57,10 +57,9 @@ $ ./exec_docker.sh
 * FEMA Disaster Declarations
   * Will be updated
   * Included here
-* ICS 
-  * Not updated
+* ICS-209-PLUS
+  * Will be updated with access to API(s) and processing with St Denis et al code. 
   * Included here
-  * Could possibly be replicated on future data using their code, though it may already be in FEMA data? 
 * REDBOOKS _to do_
   
 https://github.com/katiemcconnell/ICS-209-PLUS_spatiotemporal_linkage
