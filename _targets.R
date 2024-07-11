@@ -14,9 +14,6 @@ tar_option_set(
 # tar_make_clustermq() configuration (okay to leave alone):
 options(clustermq.scheduler = "multicore")
 
-# tar_make_future() configuration (okay to leave alone):
-future::plan(future.callr::callr)
-
 # Run the R scripts in the R/ folder with your custom functions:
 tar_source()
 

@@ -1,12 +1,12 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-clean_fema|function|4ea1beeb3f907ffc|||||||||||||||
-clean_fired|function|cec9014e1ec7e7ad|||||||||||||||
+clean_fema|function|07792cbca52cea23|||||||||||||||
+clean_fired|function|052485f6d9634088|||||||||||||||
 clean_mbts|function|250d80e31f1a9fca|||||||||||||||
-clean_mtbs|function|f563825e4b181aca|||||||||||||||
-clean_nifc|function|0da6acf19f228f66|||||||||||||||
+clean_mtbs|function|5c032a592ad6e331|||||||||||||||
+clean_nifc|function|a5f6bc9ccf65e158|||||||||||||||
 event_fema|stem|3570b5e7197b52a7|2d29376cff9c71bc|4b3ae2cdcbed9760|-1277839353||t19915.7726268078s|17191f3e7b708b0b|121615|rds|local|vector|||1.283||
 event_fema_raw|stem|69270d324b437b2a|40aca43552d7a98c|463096d98f170dc4|-1965147259|data/raw/nonstatic/event/fema.csv|t19915.7726110205s|ba27fabe64db82a2|20682058|file|local|vector|||11.626||
-event_ics_raw_current_year|stem|5763c77c2501dc3e|0f84686c3cf5f1a3|a9a1ad94261b1f58|2010349512|data/raw/nonstatic/event/ics_raw.json|t19915.7715025282s|ac6a99386f0ee81d|14501382|file|local|vector|||16.302||
+event_ics_raw_current_year|stem|5763c77c2501dc3e|9ba6b3bc14130b0e|2c530c1562a7fbd1|-353299962|data/raw/nonstatic/event/ics_raw.json|t19915.7715025282s||14501382|file|local|vector|||3.144|no nonmissing arguments to max returning Inf|could not find packages snakecase in library paths
 spatial_fired|stem|069dec1a33a40923|cbca955bcf4b2726|cc83366b59189a73|2017665497||t19899.6361371296s|f76b9cdb2779a523|142027242|rds|local|vector|||122.13||
 spatial_fired_raw|stem|06dd9d562b74c87b|e606cc1121ffc563|6004923b662a0101|-60241538|data/raw/nonstatic/spatial/fired|t19915.7724699068s|f30a0004d26925ea|1122953525|file|local|vector|||12.172||
 spatial_mtbs|stem|e6dfbab0e7f38d07|3ed418cbc9acfe31|cebbe0095d39945d|1645422407||t19892.9757163216s|a2c80bab3484b915|256453058|rds|local|vector|||179.736||
@@ -18,5 +18,5 @@ spatial_tiger_counties_1990_raw|stem|dbad1bb3b4bcb430|8363bf4c3a2c2e00|6004923b6
 spatial_tiger_counties_2000_raw|stem|2724a688cdb650e8|f8dc38042203e809|6004923b662a0101|-1495555566|data/reference/county_2000|t19899.0106372415s|351c034706c531c0|122603992|file|local|vector|||3.074||
 spatial_tiger_counties_2010_raw|stem|e0ee31020ef2fda5|121aba03914412bd|6004923b662a0101|1502454152|data/reference/county_2010|t19899.0106008519s|9b79f92e9b16b1f3|121980245|file|local|vector|||4.095||
 spatial_tiger_counties_2020_raw|stem|aff31daace99b7df|658407dbc32f1c5c|6004923b662a0101|239716309|data/reference/county_2020|t19899.0107109928s|8c0b5ab79a3de4e4|130618175|file|local|vector|||3.881||
-standardize_place_name|function|8e5b9aec7f477cb8|||||||||||||||
-unzip_url|function|7bb25354dda6c4f3|||||||||||||||
+standardize_place_name|function|d00e03aa7f93db44|||||||||||||||
+unzip_url|function|7032cd3c17ae5244|||||||||||||||
