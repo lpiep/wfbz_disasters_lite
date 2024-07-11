@@ -1,4 +1,5 @@
 {
+    "name": "wildfire_disasters_lite_dev",
     "build": { "dockerfile": "Dockerfile" },
     "customizations": {
       "vscode": {
