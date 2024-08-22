@@ -1,4 +1,4 @@
-# how to python
+# Python Setup
 
 ## Install Conda 
 
@@ -7,6 +7,8 @@
 ```
 conda --version
 ```
+
+If so, skip to making the environement below. 
 
 1. Download correct binary here: 
 https://docs.anaconda.com/miniconda/
