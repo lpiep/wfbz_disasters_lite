@@ -14,22 +14,23 @@ well for reproducibility. _Note: `targets` is not included in `rocker/geospatial
 With your system R:
 
 ```
-$ Rscript main.R
+$ git clone https://github.com/lpiep/wildfire_disasters_lite.git
+$ cd wildfire_disasters_lite
+$ Rscript main.sh
 ```
 
-With Singularity installed:
+With Docker: 
 
 ```
-$ chmod +x exec_singularity.sh
-$ ./exec_singularity.sh
+$ git clone https://github.com/lpiep/wildfire_disasters_lite.git
+$ cd wildfire_disasters_lite
+$ docker build
+$ docker exec main.sh
 ```
 
-With Docker installed:
+## Document
 
-```
-$ chmod +x exec_docker.sh
-$ ./exec_docker.sh
-```
+
 
 ## Data Sources
 
