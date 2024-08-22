@@ -30,11 +30,49 @@ $ docker exec main.sh
 
 ## Document
 
+## Python Setup
+
+### Install Conda 
+
+0. See if conda is already installed. 
+
+```
+conda --version
+```
+
+If so, skip to making the environement below. 
+
+1. Download correct binary here: 
+https://docs.anaconda.com/miniconda/
+
+For Mac with M Chips:
+
+```
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
+chmod +x Miniconda3-latest-MacOSX-arm64.sh 
+./Miniconda3-latest-MacOSX-arm64.sh 
+```
+
+For Windows: 
+```
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
+```
+
+### Make Environment for this Code
+
+From `wildfire_disasters_lite` directory: 
+
+```
+conda env create -f wf.yml
+conda activate wf
+pre-commit install
+```
 
 
-## Data Sources
 
-### Spatial 
+# Data Sources
+
+## Spatial 
 
 * MBTS 
 	* Will be updated
@@ -53,7 +91,7 @@ $ docker exec main.sh
   * Included here
 
 
-### Non-Spatial
+## Non-Spatial
 
 * FEMA Disaster Declarations
   * Will be updated
