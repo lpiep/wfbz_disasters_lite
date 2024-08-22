@@ -6,6 +6,7 @@ data/01_raw/*
 data/02_processed/*
 !data/utm_popden.csv
 !data/02_processed/fire_pop_density_criteria.csv
+!data/01_raw/all_disasters_select_vars.rdata
 _targets/*
 conf/*
 
