@@ -68,8 +68,6 @@ conda activate wf
 pre-commit install
 ```
 
-
-
 # Data Sources
 
 ## Spatial 
@@ -102,3 +100,14 @@ pre-commit install
 * REDBOOKS _to do_
   
 https://github.com/katiemcconnell/ICS-209-PLUS_spatiotemporal_linkage
+
+
+# Updating Docs
+
+This repo has a documentation website at https://lpiep.github.io/wildfire_disasters_lite/.
+
+It is created using `mkdocs` which is included in the `wf` conda environment. Make changes to 
+the markdown files at `docs-site/docs/` to update content, and to the YML file at `docs-site/mkdocs.yml`
+to update the site structure or add pages. 
+
+To apply updates to the GH Pages site, run `mkdocs gh-deploy -f docs-site/mkdocs.yml`. 
