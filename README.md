@@ -28,24 +28,21 @@ $ docker build
 $ docker exec main.sh
 ```
 
-## Document
-
 ## Python Setup
 
 ### Install Conda 
 
-0. See if conda is already installed. 
+1. See if conda is already installed. 
 
 ```
 conda --version
 ```
 
-If so, skip to making the environement below. 
+If so, skip to making the environement (3) below. 
 
-1. Download correct binary here: 
-https://docs.anaconda.com/miniconda/
+2. Install conda.
 
-For Mac with M Chips:
+For Mac (Apple Silicon):
 
 ```
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
@@ -53,11 +50,20 @@ chmod +x Miniconda3-latest-MacOSX-arm64.sh
 ./Miniconda3-latest-MacOSX-arm64.sh 
 ```
 
-For Windows: 
+For Windows:
+
 ```
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
+curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe -o miniconda.exe
+start miniconda.exe 
 ```
 
+Walk through the installer GUI. 
+
+```
+del miniconda.exe
+```
+
+Continue in the "Anaconda Prompt" program that has been added to your start menu.
 ### Make Environment for this Code
 
 From `wildfire_disasters_lite` directory: 
@@ -68,9 +74,9 @@ conda activate wf
 pre-commit install
 ```
 
-# Data Sources
+## Data Sources
 
-## Spatial 
+### Spatial 
 
 * MBTS 
 	* Will be updated
@@ -89,7 +95,7 @@ pre-commit install
   * Included here
 
 
-## Non-Spatial
+### Non-Spatial
 
 * FEMA Disaster Declarations
   * Will be updated
@@ -102,7 +108,7 @@ pre-commit install
 https://github.com/katiemcconnell/ICS-209-PLUS_spatiotemporal_linkage
 
 
-# Updating Docs
+### Updating Docs
 
 This repo has a documentation website at https://lpiep.github.io/wildfire_disasters_lite/.
 
