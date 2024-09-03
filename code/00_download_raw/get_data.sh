@@ -19,6 +19,7 @@ unzip -j GHS_POP_E2010_GLOBE_R2023A_54009_100_V1_0.zip GHS_POP_E2010_GLOBE_R2023
 unzip -j GHS_POP_E2015_GLOBE_R2023A_54009_100_V1_0.zip GHS_POP_E2015_GLOBE_R2023A_54009_100_V1_0.tif
 unzip -j GHS_POP_E2020_GLOBE_R2023A_54009_100_V1_0.zip GHS_POP_E2020_GLOBE_R2023A_54009_100_V1_0.tif
 
+
 # Download raw zips
 # wget -v https://socscape.edu.pl/socscape_data/us_grids/us_pop/us_pop2000myc.zip
 # wget -v https://socscape.edu.pl/socscape_data/us_grids/us_pop/us_pop2010myc.zip
