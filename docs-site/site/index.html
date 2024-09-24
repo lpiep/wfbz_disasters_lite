@@ -235,6 +235,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#data-dictionary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Dictionary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#general-notes" class="md-nav__link">
     <span class="md-ellipsis">
       General Notes
@@ -424,6 +433,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="raw_data_desc/redbook/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Red Book
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -476,6 +506,15 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-dictionary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Dictionary
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#general-notes" class="md-nav__link">
@@ -535,6 +574,109 @@
 
 
 <h1 id="wildfire-disaster-dataset-harmonization">Wildfire Disaster Dataset Harmonization</h1>
+<h2 id="data-dictionary">Data Dictionary</h2>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Data Type</th>
+<th>Unique</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>harm_id</code></td>
+<td><code>character</code></td>
+<td>True</td>
+<td>Harmonized ID</td>
+</tr>
+<tr>
+<td><code>harm_year</code></td>
+<td><code>date</code></td>
+<td></td>
+<td>Harmonized Year [YYYY] of Fire</td>
+</tr>
+<tr>
+<td><code>harm_states</code></td>
+<td><code>date</code></td>
+<td></td>
+<td>Harmonized US State(s) in which fire occurred (pipe-delimited if more than one)</td>
+</tr>
+<tr>
+<td><code>harm_area</code></td>
+<td><code>float</code></td>
+<td></td>
+<td>Harmonized burned area in square miles</td>
+</tr>
+<tr>
+<td><code>harm_fatalities</code></td>
+<td><code>integer</code></td>
+<td></td>
+<td>Harmonized number of fatalities ????</td>
+</tr>
+<tr>
+<td><code>harm_civil_fatalities</code></td>
+<td><code>integer</code></td>
+<td></td>
+<td>Harmonized number of civilian fatalities ????</td>
+</tr>
+<tr>
+<td><code>harm_struct_destroyed</code></td>
+<td><code>integer</code></td>
+<td></td>
+<td>Harmonized number of structures destroyed</td>
+</tr>
+<tr>
+<td><code>harm_community</code></td>
+<td><code>boolean</code></td>
+<td></td>
+<td>Harmonized criteria for whether a population center was affected</td>
+</tr>
+<tr>
+<td><code>redbook_id</code></td>
+<td><code>character</code></td>
+<td></td>
+<td>Native ID of associated Red Book data, if applicable</td>
+</tr>
+<tr>
+<td><code>ics_id</code></td>
+<td><code>character</code></td>
+<td></td>
+<td>Native ID of associated ICS/209 data, if applicable</td>
+</tr>
+<tr>
+<td><code>fired_id</code></td>
+<td><code>character</code></td>
+<td></td>
+<td>Native ID of associated FIRED data, if applicable</td>
+</tr>
+<tr>
+<td><code>mtbs_id</code></td>
+<td><code>character</code></td>
+<td></td>
+<td>Native ID of associated MTBS data, if applicable</td>
+</tr>
+<tr>
+<td><code>nifc_id</code></td>
+<td><code>character</code></td>
+<td></td>
+<td>Native ID of associated NIFC data, if applicable</td>
+</tr>
+<tr>
+<td><code>geometry_src</code></td>
+<td><code>character</code></td>
+<td></td>
+<td>Data set from which <code>geometry</code> originates (One of "FIRED", "MTBS", "NIFC")</td>
+</tr>
+<tr>
+<td><code>geometry</code></td>
+<td><code>geometry</code></td>
+<td></td>
+<td>Harmonized Geometry of Fire</td>
+</tr>
+</tbody>
+</table>
 <h2 id="general-notes">General Notes</h2>
 <h3 id="linkages">Linkages</h3>
 <ul>
