@@ -53,19 +53,10 @@ clean_fired <- function(spatial_fired_raw){
 	
 	fired_2000_pres <- st_make_valid(fired_2000_pres)
 	
-	#table(st_geometry_type(fired_2000_pres))
-	
-	# Create NAD83 CONUS projection string ------------------------------------------
-	
-	#epsg: 102003 - NAD83 CONUS with meters unit
-	
-	nad83_proj_conus <-
-		"+proj=aea +lat_0=37.5 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs +type=crs"
-	
-	# Reproject to NAD83 CONUS ------------------------------------------------------
+	# Reproject to NAD83  ------------------------------------------------------
 	
 	fired_2000_pres <-
-		st_transform(fired_2000_pres, crs = nad83_proj_conus)
+		st_transform(fired_2000_pres, crs = 4269)
 	
 	# remove nad83 string -----------------------------------------------------
 	

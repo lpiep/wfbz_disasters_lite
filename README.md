@@ -6,6 +6,13 @@ It is off Milo Gordon's work that created a harmonized data set for the years 20
 of manual data cleaning. This project aims to reproduce that work for future data releases, sacrificing some accuracy 
 and completeness in favor of a more automated process. 
 
+## TO DO
+
+* [ ] Figure out if Cal Fire should be included since it can't be automatically updated
+* [ ] Waiting on USFS IT for access to 2020 - 2023 ICS reports
+* [ ] Harmonize events (waiting on above)
+
+
 ## Run
 
 Clone this repo, and run `main.R` in R. I include a script to run the same code using the `rocker/geospatial` docker image as 

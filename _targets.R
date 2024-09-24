@@ -3,19 +3,20 @@ library(targets)
 library(tarchetypes)
 
 options(timeout = max(600, getOption("timeout")))
-options(wilfire_disasters_lite.cue_downloads = 'always') # Make 'always' for production
+options(scipen = 999999)
+options(wilfire_disasters_lite.cue_downloads = 'never') # Make 'always' for production
 
 # Set target options:
 tar_option_set(
-  packages = c("sf", "tidyverse", "httr", "snakecase", "fs", "jsonlite"), # packages that your targets need to run
-  format = "rds" # default storage format
+  packages = c("sf", "tidyverse", "httr", "snakecase", "fs", "jsonlite", "qs", "readxl"), # packages that your targets need to run
+  format = "qs" # default storage format
 )
 
 # tar_make_clustermq() configuration (okay to leave alone):
 options(clustermq.scheduler = "multicore")
 
 # Run the R scripts in the R/ folder with your custom functions:
-tar_source()
+tar_source(files = 'code/')
 
 list(
 	### Non Spatial Source Files ###
@@ -47,6 +48,11 @@ list(
   	},
   	format = 'file',
   	cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
+  ),
+  tar_target(
+  	name = event_redbook_raw,
+  	'data/01_raw/redbook/calfire_provided/',
+  	format = 'file',
   ),
   ### Spatial Source Files ###
   tar_target(
@@ -138,10 +144,10 @@ list(
   	name = spatial_tiger_counties,
   	{
 	  	list(
-	  		`1990` = read_sf(spatial_tiger_counties_1990_raw) %>% transmute(FIPS = paste0(ST, CO), NAME, CENSUS_YEAR = 1990),
-	  		`2000` = read_sf(spatial_tiger_counties_2000_raw) %>% transmute(FIPS = CNTYIDFP00, NAME = NAME00, CENSUS_YEAR = 2000),
-	  		`2010` = read_sf(spatial_tiger_counties_2010_raw) %>% transmute(FIPS = GEOID10, NAME = NAME10, CENSUS_YEAR = 2010),
-	  		`2020` = read_sf(spatial_tiger_counties_2020_raw) %>% transmute(FIPS = GEOID, NAME = NAME, CENSUS_YEAR = 2020)
+	  		`1990` = read_sf(spatial_tiger_counties_1990_raw, crs = 4269) %>% transmute(FIPS = paste0(ST, CO), NAME, CENSUS_YEAR = 1990),
+	  		`2000` = read_sf(spatial_tiger_counties_2000_raw, crs = 4269) %>% transmute(FIPS = CNTYIDFP00, NAME = NAME00, CENSUS_YEAR = 2000),
+	  		`2010` = read_sf(spatial_tiger_counties_2010_raw, crs = 4269) %>% transmute(FIPS = GEOID10, NAME = NAME10, CENSUS_YEAR = 2010),
+	  		`2020` = read_sf(spatial_tiger_counties_2020_raw, crs = 4269) %>% transmute(FIPS = GEOID, NAME = NAME, CENSUS_YEAR = 2020)
 	  	)
   	}
   )

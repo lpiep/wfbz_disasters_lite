@@ -90,18 +90,9 @@ clean_mtbs <- function(spatial_mbts_raw){
 	#table(st_geometry_type(mtbs_all_years)) #28982 are multipolygon
 	
 	# Create NAD83 CONUS projection string ------------------------------------------
-	# currently mtbs is in NAD83 epsg 4269
-	# we want it to be in NAD83 with meters unit
-	#epsg: 102003 - NAD83 CONUS with meters unit
-	# albers equal area conic
-	
-	nad83_proj_conus <-
-		"+proj=aea +lat_0=37.5 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs +type=crs"
-	
-	# Reproject to NAD83 CONUS ------------------------------------------------------
-	
+
 	mtbs_2000_pres <-
-		st_transform(mtbs_2000_pres, crs = nad83_proj_conus)
+		st_transform(mtbs_2000_pres, crs = 4269)
 	
 	
 	# remove nad83 string -----------------------------------------------------
