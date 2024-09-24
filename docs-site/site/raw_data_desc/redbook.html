@@ -11,7 +11,7 @@
 
 
 
-<title>ics209</title>
+<title>redbook</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -358,32 +358,57 @@ pre code {
 </div>
 
 
-<div id="ics209" class="section level1">
-<h1>ICS209</h1>
-<p>ISC209s are forms submitted to the Federal Government to describe
-emergencies. St. Dennis et al have published code to clean and harmonize
-historical ICS209 data (their project is called ICS209-PLUS), but only
-publish the resulting data through 2020. To recreate and extend their
-procedure, we need to obtain the raw ICS209 summaries from USFS. The
-current year and historical summaries are kept separately.</p>
-<div id="historical-summaries" class="section level2">
-<h2>Historical Summaries</h2>
-<p>You’ll need to obtain approval to access the FAMWEB database from
-USFS IT. I contacted the contact for FAMWEB listed on <a href="https://www.wildfire.gov/contact-us">wildfire.gov</a>.</p>
-<p>Visit <a href="https://famauth.wildfire.gov/?PAGENAV=dashboard">FamAuth</a> and
-click the link for Data Warehouse. You may need to allow pop-ups. Follow
-the prompts to describe yourself, and submit a request for access to the
-USFS official you’re in contact with.</p>
-<p>Once approved, follow the FamAuth link again to access the FAM Cognos
-site. From here, click your user icon on the upper left, select “Profile
-and Settings”, then “My API Keys”, and create a key to be used in the
-code.</p>
+<div id="calfire-red-books" class="section level1">
+<h1>CALFIRE Red Books</h1>
+<p>Source: <a href="https://www.fire.ca.gov/our-impact/statistics" class="uri">https://www.fire.ca.gov/our-impact/statistics</a> (and
+direct correspondence Cal Fire)</p>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>Lists of large fire incidents compiled by Cal Fire using state and
+federal data. Note that these data are not released in a consistent,
+machine-readable format. When contacted, a representative at Cal Fire
+did not believe there was a single database from which the annual report
+is drawn, and that there was no guarantee about data format in the
+future.</p>
+<p>Data is pulled from the “Large Fires 300 Acres and Greater” table in
+each report. The subtitle for this table indicates:</p>
+<blockquote>
+<p>The information on this list is gathered from the ICS 209 incident
+reports and Damage Inspection (DINS) database, then verified in the
+California Incident Data and Statistics (CalStats) database and includes
+information on fire activity within the Direct Protection Areas of CAL
+FIRE and Contract Counties.</p>
+</blockquote>
 </div>
-<div id="current-year-summaries" class="section level2">
-<h2>Current Year Summaries</h2>
-<p>You can access current year summaries at <a href="https://famdwh-dev.nwcg.gov/sit209/cognos_report_queries/sit209_data_report" class="uri">https://famdwh-dev.nwcg.gov/sit209/cognos_report_queries/sit209_data_report</a>.
-Ask your contact at USFS IT to provide the current credentials, or
-contact <a href="loganap@uw.edu">me</a>.</p>
+<div id="fields" class="section level2">
+<h2>Fields</h2>
+<p><em>Field names may span rows.</em></p>
+<ul>
+<li><code>Incident #</code> - Unclear what this links to</li>
+<li><code>County</code> - County Name (e.g. “BUTTE”)</li>
+<li><code>Fire Name</code> - E.g. “AIRPORT”</li>
+<li><code>Date Start</code> - start date of fire (MM/DD/YY)</li>
+<li><code>Date Contained</code> - containment date of fire
+(MM/DD/YY)</li>
+<li><code>Origin DPA</code> - The agency on whose Direct Protection Area
+(DPA) the fires started. ( “CC”: Contract Counties, “LOCAL” = Local Fire
+Departments, “MIL” = Military Land, “BLM” = Bureau of Land Management,
+“BIA” = Bureau of Indian Affairs, “FWS” = Fish and Wildlife Service,
+“NPS” = National Park Service, “USFS” = United States Forest
+Service).</li>
+<li><code>Acres Burned Total</code> - total area burned</li>
+<li><code>Veg. Type</code></li>
+<li><code>Cause</code></li>
+<li><code>Structures Dest.</code> - Residence, commercial property,
+outbuilding, or other structure that is declared unusable.</li>
+<li><code>Structures Dam.</code> - Residence, commercial property,
+outbuilding, or other structure that its usefulness or value is
+impaired.</li>
+<li><code>Fatalities Fire</code> - Death of fire service personnel
+assigned to the incident.</li>
+<li><code>Fatalities Civil</code> - Death of civilian service personnel
+assigned to the incident.</li>
+</ul>
 </div>
 </div>
 
