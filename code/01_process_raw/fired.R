@@ -15,7 +15,7 @@ clean_fired <- function(spatial_fired_raw){
 	
 	fired <- st_read(fs::dir_ls(spatial_fired_raw, regexp = 'event.*gpkg$')) %>%
 		st_set_geometry("geometry") %>% 
-		st_transform(4326) %>% 
+		st_transform(4267) %>% 
 		st_make_valid() %>% 
 		rename_at(vars(!matches('geometry')), ~ paste0("fired_", .)) %>% 
 		mutate(across(matches('date'), ymd)) %>% 
