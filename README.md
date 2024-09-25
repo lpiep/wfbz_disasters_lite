@@ -11,7 +11,7 @@ and completeness in favor of a more automated process.
 * [ ] Figure out if Cal Fire should be included since it can't be automatically updated
 * [ ] Waiting on USFS IT for access to 2020 - 2023 ICS reports
 * [ ] Harmonize events (waiting on above)
-
+* [ ] Do some validation of data sets as they come in
 
 ## Run
 
