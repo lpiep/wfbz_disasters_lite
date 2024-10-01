@@ -124,3 +124,8 @@ the markdown files at `docs-site/docs/` to update content, and to the YML file a
 to update the site structure or add pages. 
 
 To apply updates to the GH Pages site, run `mkdocs gh-deploy -f docs-site/mkdocs.yml`. 
+
+
+### Process
+
+<img src="docs-site/docs/wildfire_disasters_lite_diagram.png">

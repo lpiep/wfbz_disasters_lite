@@ -1,0 +1,35 @@
+# Render Drawio Diagrams
+name: convert_diagram_to_img
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      # PNG EXPORT
+      #- run: rm -f png_files/*.png 
+      - name: Export drawio files and png files
+        uses: rlespinasse/drawio-export-action@v2
+        with:
+          path: docs-site/docs/
+          output: .
+          format: png
+          width: 1500
+          remove-page-suffix: true
+          action-mode: all
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          #file_pattern: .
+          commit_message: Update diagrams
