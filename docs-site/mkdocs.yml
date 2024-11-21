@@ -7,6 +7,7 @@ nav:
     - MTBS: raw_data_desc/mtbs.md
     - FIRED: raw_data_desc/fired.md
     - ICS209: raw_data_desc/ics209.md
+    - Red Book: raw_data_desc/redbook.md
   - Papers: papers.md
 theme:
   name: material

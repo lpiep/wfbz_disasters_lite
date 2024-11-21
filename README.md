@@ -6,6 +6,13 @@ It is off Milo Gordon's work that created a harmonized data set for the years 20
 of manual data cleaning. This project aims to reproduce that work for future data releases, sacrificing some accuracy 
 and completeness in favor of a more automated process. 
 
+## TO DO
+
+* [ ] Figure out if Cal Fire should be included since it can't be automatically updated
+* [ ] Waiting on USFS IT for access to 2020 - 2023 ICS reports
+* [ ] Harmonize events (waiting on above)
+* [ ] Do some validation of data sets as they come in
+
 ## Run
 
 Clone this repo, and run `main.R` in R. I include a script to run the same code using the `rocker/geospatial` docker image as 
@@ -117,3 +124,8 @@ the markdown files at `docs-site/docs/` to update content, and to the YML file a
 to update the site structure or add pages. 
 
 To apply updates to the GH Pages site, run `mkdocs gh-deploy -f docs-site/mkdocs.yml`. 
+
+
+### Process
+
+<img src="docs-site/docs/wildfire_disasters_lite_diagram.png">
