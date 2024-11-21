@@ -7,6 +7,9 @@ import numpy as np
 import rasterra as rt
 import argparse
 
+import warnings
+
+
 #-----------------
 # helper functions
 def make_convolution_kernel(
@@ -54,9 +57,9 @@ def main(
     #-----------------
     # read in data
     # fires
-    fires_hi = gpd.read_parquet(data_dir / "01_raw/all_disaster_perimeters_buffers_hawaii_dist_select_vars.parquet")
-    fires_ak = gpd.read_parquet(data_dir / "01_raw/all_disaster_perimeters_buffers_alaska_dist_select_vars.parquet")
-    fires_conus = gpd.read_parquet(data_dir / "01_raw/all_disaster_perimeters_buffers_conus_dist_select_vars.parquet")
+    fires_hi = gpd.read_parquet(data_dir / "01_raw/all_disaster_perimeters_ics_and_news_buffers_hawaii_select_variables.parquet")
+    fires_ak = gpd.read_parquet(data_dir / "01_raw/all_disaster_perimeters_ics_and_news_buffers_alaska_select_variables.parquet")
+    fires_conus = gpd.read_parquet(data_dir / "01_raw/all_disaster_perimeters_ics_and_news_buffers_conus_select_variables.parquet")
 
     # utm map
     utm_map = pd.read_csv(data_dir / "utm_popden.csv")
@@ -65,22 +68,33 @@ def main(
     utm_map = {s.strip(): f"EPSG:{crs}" for s, crs in utm_map.items()}
     utm_map["PR"] = "EPSG:3920"
 
+    warnings.simplefilter("error", category=RuntimeWarning)
 
     #-----------------
     # run loop
     fire_dfs = []
+    failed_ids = []
     for df in [fires_conus, fires_ak, fires_hi]: 
-        df['state'] = df['aggregate_states'].apply(lambda s: s[:2])
+        df['state'] = df['disaster_list_states'].apply(lambda s: s[:2])
         df['year'] = df['aggregate_year'].apply(lambda y: round(y / 5)*5)
-        keep_cols = ['disaster_id_clean', 'year', 'state', 'shape']
-        row_tuples = list(df[keep_cols].itertuples(index=False, name=None))# [:5]
-        for disaster_id, year, state, fire_poly in tqdm.tqdm(row_tuples):
+        df['disaster_id'] = df['disaster_id_clean']
+        keep_cols = ['disaster_id', 'year', 'state', 'shape']
+        row_tuples = list(df[keep_cols].itertuples(index=False, name=None))
+        for disaster_id, year, state, fire_poly in tqdm.tqdm(row_tuples[-200:]):
             fire_crs = utm_map[state]
             fire_series = gpd.GeoSeries([fire_poly], crs=df.crs).to_crs(fire_crs)
+            if not fire_series.is_valid.iloc[0]:
+                print(disaster_id, 'is invalid')
+                failed_ids.append(disaster_id)
+                continue
             buffer_dist = large_fire_buffer if fire_series.area.iloc[0] > area_thresh else small_fire_buffer 
             buffered_fire_series = fire_series.buffer(buffer_dist) # buffer dist in meters
             
             bounding_box = buffered_fire_series.envelope.buffer(pop_average_radius*1.1).to_crs(mol_crs).iloc[0]
+
+            if bounding_box.area/1000**2 > 25_000: # 25k sq kilometers (2x the biggest fire in the us)
+                failed_ids.append(disaster_id)
+                continue
 
             # II. load pop data 
             pop = rt.load_raster(data_dir / f"01_raw/pop_data/GHS_POP_E{year}_GLOBE_R2023A_54009_100_V1_0.tif", bounding_box).to_crs(fire_crs)
@@ -110,6 +124,7 @@ def main(
                 
             })
             fire_dfs.append(df_fire)
+    print("\n".join(failed_ids))
 
     #-----------------
     # write out data
@@ -130,7 +145,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Population density criteria evaluations.")
 
     parser.add_argument("-o", "--data-dir", type=str, required=True, help="Path to data directory within wildfire repository")
-    parser.add_argument("--area-thresh", type=int, default=1000, help="Threshold by which we determine if a fire is large or small. Fires greater than or equal to the area threshold are considered large. Based on size, fires get different buffers (we use one buffer for small fires and one for large).")
+    parser.add_argument("--area-thresh", type=int, default=1000, help="Threshold (acres) by which we determine if a fire is large or small. Fires greater than or equal to the area threshold are considered large. Based on size, fires get different buffers (we use one buffer for small fires and one for large).")
     parser.add_argument("--large-fire-buffer", type=int, default=20000, help="Large fire buffer in meters. This puts a buffer of this size around the perimeter of the wildfire in order to account for people being affected beyond the fire perimeter polygon.")
     parser.add_argument("--small-fire-buffer", type=int, default=10000, help="Small fire buffer in meters. This puts a buffer of this size around the perimeter of the wildfire in order to account for people being affected beyond the fire perimeter polygon.")
     parser.add_argument("--pop-average-area", type=int, default=300, help="This is the radius for a circle with the area that we are using in our denominator of population density. In other words, if our criteria is per 1 square-kilometer, this is the radius of a circle that has an area of 1 square-kilometer (or 1000 square-meters). This is parameterized in meters.")
