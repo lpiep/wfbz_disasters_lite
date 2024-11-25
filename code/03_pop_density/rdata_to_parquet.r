@@ -6,7 +6,7 @@
 # Author: Lauren Wilner
 # Date: 2024-08-24
 
-if(FALSE){
+
 #-------------------------
 # setup
 library(arrow)
@@ -18,15 +18,12 @@ path <- "~/Desktop/Desktop/epidemiology_PhD/00_repos/wildfire_disasters_lite/dat
 
 #-------------------------
 # convert rdata to parquet
-load(paste0(path, "all_disasters_select_vars.rdata"))
+load(paste0(path, "joined_disaster_fires_2000_2019_select.rdata"))
+names(which(unlist(eapply(.GlobalEnv,is.data.frame))))
 
-st_write_parquet(all_disaster_perimeters_buffers_conus_dist_select_vars,
-    paste0(path, "all_disaster_perimeters_buffers_hawaii_dist_select_vars.parquet"))
-st_write_parquet(all_disaster_perimeters_buffers_alaska_dist_select_vars,
-    paste0(path, "all_disaster_perimeters_buffers_hawaii_dist_select_vars.parquet"))
-st_write_parquet(all_disaster_perimeters_buffers_hawaii_dist_select_vars,
-    paste0(path, "all_disaster_perimeters_buffers_hawaii_dist_select_vars.parquet"))
-st_write_parquet(all_disaster_with_ics_poo_no_acreage_cont_us_select_vars,
-    paste0(path,"all_disaster_with_ics_poo_no_acreage_cont_us_select_vars.parquet"))
-
-}
+st_write_parquet(joined_disaster_fires_2000_2019_conus_aggregated_select,
+    paste0(path, "all_disaster_perimeters_ics_and_news_buffers_conus_select_variables.parquet"))
+st_write_parquet(joined_disaster_fires_2000_2019_alaska_aggregated_select,
+    paste0(path, "all_disaster_perimeters_ics_and_news_buffers_alaska_select_variables.parquet"))
+st_write_parquet(joined_disaster_fires_2000_2019_hawaii_aggregated_select,
+    paste0(path, "all_disaster_perimeters_ics_and_news_buffers_hawaii_select_variables.parquet"))
