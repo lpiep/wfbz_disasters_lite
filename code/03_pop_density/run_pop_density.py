@@ -7,6 +7,7 @@ import numpy as np
 import rasterra as rt
 import argparse
 
+
 import warnings
 
 
@@ -75,17 +76,25 @@ def main(
     fire_dfs = []
     failed_ids = []
     for df in [fires_conus, fires_ak, fires_hi]: 
-        df['state'] = df['disaster_list_states'].apply(lambda s: s[:2])
-        df['year'] = df['aggregate_year'].apply(lambda y: round(y / 5)*5)
-        df['disaster_id'] = df['disaster_id_clean']
+        df['state'] = df['states_aggregated_list'].apply(lambda s: s[:2])
+        df['year'] = df['year'].apply(lambda y: round(y / 5)*5)
+        df['disaster_id'] = df['ics_209_incident_id']
         keep_cols = ['disaster_id', 'year', 'state', 'shape']
         row_tuples = list(df[keep_cols].itertuples(index=False, name=None))
-        for disaster_id, year, state, fire_poly in tqdm.tqdm(row_tuples[-200:]):
+        # row_tuples = row_tuples[-89:]
+        for disaster_id, year, state, fire_poly in tqdm.tqdm(row_tuples):
+            if fire_poly.is_empty:
+                failed_ids.append(
+                    (disaster_id, "empty_geometry")
+                )
+                continue
             fire_crs = utm_map[state]
             fire_series = gpd.GeoSeries([fire_poly], crs=df.crs).to_crs(fire_crs)
             if not fire_series.is_valid.iloc[0]:
                 print(disaster_id, 'is invalid')
-                failed_ids.append(disaster_id)
+                failed_ids.append(
+                    (disaster_id, "invalid_geometry")
+                )
                 continue
             buffer_dist = large_fire_buffer if fire_series.area.iloc[0] > area_thresh else small_fire_buffer 
             buffered_fire_series = fire_series.buffer(buffer_dist) # buffer dist in meters
@@ -93,11 +102,16 @@ def main(
             bounding_box = buffered_fire_series.envelope.buffer(pop_average_radius*1.1).to_crs(mol_crs).iloc[0]
 
             if bounding_box.area/1000**2 > 25_000: # 25k sq kilometers (2x the biggest fire in the us)
-                failed_ids.append(disaster_id)
+                failed_ids.append(
+                    (disaster_id, "bounding_box_too_large")
+                )
                 continue
 
             # II. load pop data 
-            pop = rt.load_raster(data_dir / f"01_raw/pop_data/GHS_POP_E{year}_GLOBE_R2023A_54009_100_V1_0.tif", bounding_box).to_crs(fire_crs)
+            try:
+                pop = rt.load_raster(data_dir / f"01_raw/pop_data/GHS_POP_E{year}_GLOBE_R2023A_54009_100_V1_0.tif", bounding_box).to_crs(fire_crs)
+            except:
+                import pdb; pdb.set_trace()
             pop_density_per_sq_km = pop * (1000**2 / pop.x_resolution**2)
 
             # III. build kernel and do convolution with kernel - for every pixel, sum all the people within a kilometer of that pixel,
@@ -121,10 +135,9 @@ def main(
                 'buffer_distance': [buffer_dist],
                 'geometry': [fire_series.iloc[0]],
                 'crs': [fire_crs],
-                
             })
             fire_dfs.append(df_fire)
-    print("\n".join(failed_ids))
+    # print("\n".join(failed_ids))
 
     #-----------------
     # write out data
@@ -136,8 +149,19 @@ def main(
     df['pop_average_radius'] = pop_average_radius
     df['pop_density_criteria'] = pop_density_criteria
     df['disaster_id'] = df['disaster_id'].astype(str)
+
+    # write out data for plotting
     df.to_parquet(data_dir / "02_processed/fire_pop_density_criteria.parquet")
+    # write out little csv 
     df[["disaster_id", "density_criteria_met"]].to_csv(data_dir / "02_processed/fire_pop_density_criteria.csv")
+    # write out full dataset 
+    fires_conus = fires_conus.merge(df[["disaster_id", "density_criteria_met"]], on='disaster_id', how='left')
+    fires_ak = fires_ak.merge(df[["disaster_id", "density_criteria_met"]], on='disaster_id', how='left')
+    fires_hi = fires_hi.merge(df[["disaster_id", "density_criteria_met"]], on='disaster_id', how='left')
+    fires_conus.to_parquet(data_dir / "02_processed/fires_conus_pop_density.parquet", index=False)
+    fires_ak.to_parquet(data_dir / "02_processed/fires_alaska_pop_density.parquet", index=False)
+    fires_hi.to_parquet(data_dir / "02_processed/fires_hawaii_pop_density.parquet", index=False)
+
 
 
 
