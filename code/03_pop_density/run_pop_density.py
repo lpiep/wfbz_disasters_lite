@@ -76,13 +76,12 @@ def main(
     fire_dfs = []
     failed_ids = []
     for df in [fires_conus, fires_ak, fires_hi]: 
-        df['state'] = df['states_aggregated_list'].apply(lambda s: s[:2])
-        df['year'] = df['year'].apply(lambda y: round(y / 5)*5)
-        df['disaster_id'] = df['ics_209_incident_id']
-        keep_cols = ['disaster_id', 'year', 'state', 'shape']
+        keep_cols = ['disaster_id', 'year', 'states_aggregated_list', 'shape']
         row_tuples = list(df[keep_cols].itertuples(index=False, name=None))
         # row_tuples = row_tuples[-89:]
-        for disaster_id, year, state, fire_poly in tqdm.tqdm(row_tuples):
+        for disaster_id, old_year, state_list, fire_poly in tqdm.tqdm(row_tuples):
+            year = round(old_year / 5)*5
+            state = state_list[:2]
             if fire_poly.is_empty:
                 failed_ids.append(
                     (disaster_id, "empty_geometry")
