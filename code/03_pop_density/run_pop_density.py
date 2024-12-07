@@ -6,10 +6,12 @@ import geopandas as gpd
 import numpy as np
 import rasterra as rt
 import argparse
+from shapely.validation import make_valid
 
 
 import warnings
-
+import time 
+start_time = time.time()
 
 #-----------------
 # helper functions
@@ -94,13 +96,14 @@ def main(
                 failed_ids.append(
                     (disaster_id, "invalid_geometry")
                 )
-                continue
+                fire_series.iloc[0] = make_valid(fire_series.iloc[0])
+
             buffer_dist = large_fire_buffer if fire_series.area.iloc[0] > area_thresh else small_fire_buffer 
             buffered_fire_series = fire_series.buffer(buffer_dist) # buffer dist in meters
             
             bounding_box = buffered_fire_series.envelope.buffer(pop_average_radius*1.1).to_crs(mol_crs).iloc[0]
 
-            if bounding_box.area/1000**2 > 25_000: # 25k sq kilometers (2x the biggest fire in the us)
+            if bounding_box.area/1000**2 > 100_000: # 100k sq kilometers
                 failed_ids.append(
                     (disaster_id, "bounding_box_too_large")
                 )
@@ -158,9 +161,11 @@ def main(
     fires_ak = fires_ak.merge(df[["disaster_id", "density_criteria_met"]], on='disaster_id', how='left')
     fires_hi = fires_hi.merge(df[["disaster_id", "density_criteria_met"]], on='disaster_id', how='left')
     fires_conus.to_parquet(data_dir / "02_processed/fires_conus_pop_density.parquet", index=False)
+    fires_conus.to_file(data_dir / "02_processed/fires_conus_pop_density.geojson", driver="GeoJSON")
     fires_ak.to_parquet(data_dir / "02_processed/fires_alaska_pop_density.parquet", index=False)
+    fires_ak.to_file(data_dir / "02_processed/fires_alaska_pop_density.geojson", driver="GeoJSON")
     fires_hi.to_parquet(data_dir / "02_processed/fires_hawaii_pop_density.parquet", index=False)
-
+    fires_hi.to_file(data_dir / "02_processed/fires_hawaii_pop_density.geojson", driver="GeoJSON")
 
 
 
@@ -187,5 +192,10 @@ if __name__ == "__main__":
         pop_average_radius=pop_average_radius,
         pop_density_criteria=args.pop_density_criteria,
     )
+
+end_time = time.time()
+runtime = end_time - start_time
+
+print(f"Script runtime: {runtime:.2f} seconds")
 
 # python code/03_pop_density/run_pop_density.py -o data
