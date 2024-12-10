@@ -39,7 +39,7 @@
 `wildfire_poo_lat` | `decimal` | | Fire point of origin latitude in WGS84 |
 `wildfire_poo_lon` | `decimal` | | Fire point of origin longitude in WGS84 |
 `geometry_src`| `character` | | Data set from which `geometry` originates (One of "FIRED", "MTBS", "NIFC") | 
-`geometry` | `geometry` | | Wildfire Geometry of Fire |
+`geometry` | `geometry` | | Geometry of Fire |
 
 ### Native IDs
 
