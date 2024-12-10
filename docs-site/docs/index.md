@@ -7,14 +7,19 @@
 `wildfire_id` | `character` | True | Harmonized ID | 
 `wildfire_year` | `date` | | Harmonized Year [YYYY] of Fire |
 `wildfire_states` | `date` | | Harmonized US State(s) in which fire occurred (pipe-delimited if more than one) |
-`wildfire_area` | `float` | | Harmonized burned area in square miles |
+`wildfire_counties` | `date` | | Harmonized US County FIPS code(s) in which fire occurred (pipe-delimited if more than one) |
+`wildfire_area` | `float` | | Harmonized burned area in square kilometers |
+`wildfire_fema_dec` | `boolean` | |  FEMA disaster declaration |
 `wildfire_fatalities` | `integer` | |  Harmonized number of fatalities ???? |
 `wildfire_civil_fatalities` | `integer` | |  Harmonized number of civilian fatalities ???? |
 `wildfire_struct_destroyed` | `integer` | |  Harmonized number of structures destroyed |
 `wildfire_populated` | `boolean` | |  Harmonized criteria for whether a population center was affected |
 `wildfire_ignition` | `date` | | Harmonized date of fire ignition | 
+`wildfire_fema_dec_date` | `date` | | Date of FEMA disaster declaration | 
 `wildfire_end` | `date` | | Harmonized date of fire end |
 `wildfire_complex` | `boolean` | | Fire is a complex of multiple member fires |
+`wildfire_poo_lat` | `decimal` | | Fire point of origin latitude in WGS84 |
+`wildfire_poo_lon` | `decimal` | | Fire point of origin longitude in WGS84 |
 `redbook_id` | `character` | | Native ID of associated Red Book data, if applicable | 
 `ics_id` | `character` | | Native ID of associated ICS/209 data, if applicable | 
 `fired_id` | `character` | | Native ID of associated FIRED data, if applicable | 
