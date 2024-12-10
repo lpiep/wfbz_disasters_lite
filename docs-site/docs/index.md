@@ -4,14 +4,17 @@
 
 | Variable      | Data Type     | Unique | Description|
 | ------------- | ------------- | -------| ---------- | 
-`harm_id` | `character` | True | Harmonized ID | 
-`harm_year` | `date` | | Harmonized Year [YYYY] of Fire |
-`harm_states` | `date` | | Harmonized US State(s) in which fire occurred (pipe-delimited if more than one) |
-`harm_area` | `float` | | Harmonized burned area in square miles |
-`harm_fatalities` | `integer` | |  Harmonized number of fatalities ???? |
-`harm_civil_fatalities` | `integer` | |  Harmonized number of civilian fatalities ???? |
-`harm_struct_destroyed` | `integer` | |  Harmonized number of structures destroyed |
-`harm_community` | `boolean` | |  Harmonized criteria for whether a population center was affected |
+`wildfire_id` | `character` | True | Harmonized ID | 
+`wildfire_year` | `date` | | Harmonized Year [YYYY] of Fire |
+`wildfire_states` | `date` | | Harmonized US State(s) in which fire occurred (pipe-delimited if more than one) |
+`wildfire_area` | `float` | | Harmonized burned area in square miles |
+`wildfire_fatalities` | `integer` | |  Harmonized number of fatalities ???? |
+`wildfire_civil_fatalities` | `integer` | |  Harmonized number of civilian fatalities ???? |
+`wildfire_struct_destroyed` | `integer` | |  Harmonized number of structures destroyed |
+`wildfire_populated` | `boolean` | |  Harmonized criteria for whether a population center was affected |
+`wildfire_ignition` | `date` | | Harmonized date of fire ignition | 
+`wildfire_end` | `date` | | Harmonized date of fire end |
+`wildfire_complex` | `boolean` | | Fire is a complex of multiple member fires |
 `redbook_id` | `character` | | Native ID of associated Red Book data, if applicable | 
 `ics_id` | `character` | | Native ID of associated ICS/209 data, if applicable | 
 `fired_id` | `character` | | Native ID of associated FIRED data, if applicable | 
