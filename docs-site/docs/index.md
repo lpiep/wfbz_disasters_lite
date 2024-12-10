@@ -5,29 +5,29 @@
 | Variable      | Data Type     | Unique | Description|
 | ------------- | ------------- | -------| ---------- | 
 
-General Descriptors | | | |
+General Descriptors | | | 
 `wildfire_id` | `character` | True | Wildfire ID | 
 `wildfire_year` | `date` | | Wildfire Year [YYYY] of Fire |
 `wildfire_states` | `character` | | Wildfire US State(s) in which fire occurred (pipe-delimited if more than one) |
 `wildfire_counties` | `character` | | Wildfire US County FIPS code(s) in which fire occurred (pipe-delimited if more than one) |
 `wildfire_area` | `decimal` | | Wildfire burned area in square kilometers |
-Criteria | | | | 
+Criteria | | | 
 `wildfire_fatalities` | `integer` | |  Wildfire number of fatalities ???? |
 `wildfire_civil_fatalities` | `integer` | |  Wildfire number of civilian fatalities ???? |
 `wildfire_struct_destroyed` | `integer` | |  Wildfire number of structures destroyed |
 `wildfire_community_intersect` | `boolean` | |  Wildfire criteria for community intersect |
 `wildfire_fema_dec` | `boolean` | | FEMA disaster declaration | 
-Dates | | | |
+Dates | | |
 `wildfire_ignition_date` | `date` | | Wildfire date of fire ignition | 
 `wildfire_fema_dec_date` | `date` | | Date of FEMA disaster declaration | 
 `wildfire_end_date` | `date` | | Wildfire date of fire end |
 `wildfire_complex` | `boolean` | | Fire is a complex of multiple member fires |
-Location | | | |
+Location | | |
 `wildfire_poo_lat` | `decimal` | | Fire point of origin latitude in WGS84 |
 `wildfire_poo_lon` | `decimal` | | Fire point of origin longitude in WGS84 |
 `geometry_src`| `character` | | Data set from which `geometry` originates (One of "FIRED", "MTBS", "NIFC") | 
 `geometry` | `geometry` | | Wildfire Geometry of Fire |
-Native IDs | | | |
+Native IDs | | |
 `redbook_id` | `character` | | Native ID of associated Red Book data, if applicable | 
 `ics_id` | `character` | | Native ID of associated ICS/209 data, if applicable | 
 `fired_id` | `character` | | Native ID of associated FIRED data, if applicable | 
