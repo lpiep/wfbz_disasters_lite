@@ -4,19 +4,19 @@
 
 | Variable      | Data Type     | Unique | Description|
 | ------------- | ------------- | -------| ---------- | 
-`wildfire_id` | `character` | True | Harmonized ID | 
-`wildfire_year` | `date` | | Harmonized Year [YYYY] of Fire |
-`wildfire_states` | `date` | | Harmonized US State(s) in which fire occurred (pipe-delimited if more than one) |
-`wildfire_counties` | `date` | | Harmonized US County FIPS code(s) in which fire occurred (pipe-delimited if more than one) |
-`wildfire_area` | `float` | | Harmonized burned area in square kilometers |
+`wildfire_id` | `character` | True | Wildfire ID | 
+`wildfire_year` | `date` | | Wildfire Year [YYYY] of Fire |
+`wildfire_states` | `date` | | Wildfire US State(s) in which fire occurred (pipe-delimited if more than one) |
+`wildfire_counties` | `date` | | Wildfire US County FIPS code(s) in which fire occurred (pipe-delimited if more than one) |
+`wildfire_area` | `float` | | Wildfire burned area in square kilometers |
 `wildfire_fema_dec` | `boolean` | |  FEMA disaster declaration |
-`wildfire_fatalities` | `integer` | |  Harmonized number of fatalities ???? |
-`wildfire_civil_fatalities` | `integer` | |  Harmonized number of civilian fatalities ???? |
-`wildfire_struct_destroyed` | `integer` | |  Harmonized number of structures destroyed |
-`wildfire_populated` | `boolean` | |  Harmonized criteria for whether a population center was affected |
-`wildfire_ignition` | `date` | | Harmonized date of fire ignition | 
+`wildfire_fatalities` | `integer` | |  Wildfire number of fatalities ???? |
+`wildfire_civil_fatalities` | `integer` | |  Wildfire number of civilian fatalities ???? |
+`wildfire_struct_destroyed` | `integer` | |  Wildfire number of structures destroyed |
+`wildfire_populated` | `boolean` | |  Wildfire criteria for whether a population center was affected |
+`wildfire_ignition` | `date` | | Wildfire date of fire ignition | 
 `wildfire_fema_dec_date` | `date` | | Date of FEMA disaster declaration | 
-`wildfire_end` | `date` | | Harmonized date of fire end |
+`wildfire_end` | `date` | | Wildfire date of fire end |
 `wildfire_complex` | `boolean` | | Fire is a complex of multiple member fires |
 `wildfire_poo_lat` | `decimal` | | Fire point of origin latitude in WGS84 |
 `wildfire_poo_lon` | `decimal` | | Fire point of origin longitude in WGS84 |
@@ -26,7 +26,7 @@
 `mtbs_id` | `character` | | Native ID of associated MTBS data, if applicable | 
 `nifc_id` | `character` | | Native ID of associated NIFC data, if applicable | 
 `geometry_src`| `character` | | Data set from which `geometry` originates (One of "FIRED", "MTBS", "NIFC") | 
-`geometry` | `geometry` | | Harmonized Geometry of Fire |
+`geometry` | `geometry` | | Wildfire Geometry of Fire |
 
 
 ## General Notes
