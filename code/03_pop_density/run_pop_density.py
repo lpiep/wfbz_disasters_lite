@@ -89,6 +89,13 @@ def main(
                     (disaster_id, "empty_geometry")
                 )
                 continue
+            # if fire_poly.geom_type != "Polygon" and fire_poly.geom_type != "MultiPolygon":
+            #     print(
+            #         f"Invalid geometry type for disaster_id {disaster_id}: "
+            #         f"Expected Polygon or MultiPolygon, got {fire_poly.geom_type}"
+            #     )
+            #     failed_ids.append((disaster_id, f"invalid_geometry_type_{fire_poly.geom_type}"))
+            #     continue
             fire_crs = utm_map[state]
             fire_series = gpd.GeoSeries([fire_poly], crs=df.crs).to_crs(fire_crs)
             if not fire_series.is_valid.iloc[0]:
