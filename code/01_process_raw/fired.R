@@ -22,8 +22,7 @@ clean_fired <- function(spatial_fired_raw){
 		filter(fired_ig_year >= 2000) %>%
 		transmute(fired_id, 
 					 fired_ig_date,
-					 fired_ig_year,
-					 fired_last_date,
+					 fired_end_date = fired_last_date,
 					 fired_event_dur,
 					 fired_area_sqmi = fired_tot_ar_km2 * 0.38610216
 		)

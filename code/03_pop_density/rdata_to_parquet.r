@@ -6,7 +6,7 @@
 # Author: Lauren Wilner
 # Date: 2024-08-24
 
-
+if(FALSE){
 #-------------------------
 # setup
 library(arrow)
@@ -27,3 +27,5 @@ st_write_parquet(joined_disaster_fires_2000_2019_alaska_aggregated_select,
     paste0(path, "all_disaster_perimeters_ics_and_news_buffers_alaska_select_variables.parquet"))
 st_write_parquet(joined_disaster_fires_2000_2019_hawaii_aggregated_select,
     paste0(path, "all_disaster_perimeters_ics_and_news_buffers_hawaii_select_variables.parquet"))
+
+}

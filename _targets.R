@@ -1,14 +1,16 @@
 # Load packages required to define the pipeline:
-library(targets)
-library(tarchetypes)
+if(!require(pacman)){install.packages("pacman");require(pacman)}
+pkgs <- c("targets", "tarchetypes", "sf", "tidyverse", "httr", "snakecase", "fs", "jsonlite", "qs", "readxl", "glue")
+p_load(char = pkgs)
 
 options(timeout = max(600, getOption("timeout")))
 options(scipen = 999999)
-options(wilfire_disasters_lite.cue_downloads = 'never') # Make 'always' for production
+options(readr.show_col_types = FALSE)
+#options(wilfire_disasters_lite.cue_downloads = 'never') # Make 'always' for production
 
 # Set target options:
 tar_option_set(
-  packages = c("sf", "tidyverse", "httr", "snakecase", "fs", "jsonlite", "qs", "readxl"), # packages that your targets need to run
+  packages = pkgs, # packages that your targets need to run
   format = "qs" # default storage format
 )
 
@@ -22,63 +24,37 @@ list(
 	### Non Spatial Source Files ###
   tar_target(
     name = event_fema_raw, # see https://www.fema.gov/api/open/v1/OpenFemaDataSetFields?$filter=openFemaDataSet%20eq%20%27FemaWebDisasterSummaries%27%20and%20datasetVersion%20eq%201 for metadata
-    {
-	    dst <- 'data/raw/nonstatic/event/fema.csv'
-	    dir_create(path_dir(dst))
-    	download.file(
-    		'https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries.csv',
-    		dst
-	    )
-    	dst
-    },
+    download_event_fema_raw(),
     format = 'file',
     cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
   ),
   tar_target(
-  	name = event_ics_raw_current_year,
-  	{
-  		dst <- 'data/raw/nonstatic/event/ics_raw.json'
-  		dir_create(path_dir(dst))
-  		httr::GET(
-  			url = 'https://famdwh-dev.nwcg.gov/sit209/cognos_report_queries/sit209_data_report',
-  			authenticate('famdwhapiusr', 'Welcome1234!', type = "basic"), # non-secret authentication
-  			write_disk(path = dst, overwrite = TRUE)
-  		)
-  		dst
-  	},
+  	name = event_redbook_raw,
+  	'data/01_raw/event/redbook/',
   	format = 'file',
-  	cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
   ),
   tar_target(
-  	name = event_redbook_raw,
-  	'data/01_raw/redbook/calfire_provided/',
+  	name = event_ics209_plus_raw,
+  	download_event_ics209_plus_raw(),	
   	format = 'file',
+  	cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
   ),
   ### Spatial Source Files ###
   tar_target(
   	name = spatial_mtbs_raw,
-  	unzip_url(
-  		'https://edcintl.cr.usgs.gov/downloads/sciweb1/shared/MTBS_Fire/data/composite_data/burned_area_extent_shapefile/mtbs_perimeter_data.zip',
-  		dir_create('data/raw/nonstatic/spatial/mtbs')  	
-  	),	
+  	download_spatial_mtbs_raw(),	
   	format = 'file',
   	cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
   ),
   tar_target(
   	name = spatial_fired_raw,
-  	unzip_url(
-  		'https://scholar.colorado.edu/downloads/h702q749s',
-  		dir_create('data/raw/nonstatic/spatial/fired')
-  	),	
+  	download_spatial_fired_raw(),	
   	format = 'file',
   	cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
   ),
   tar_target(
   	name = spatial_nifc_raw,
-  	unzip_url(
-  		'https://opendata.arcgis.com/api/v3/datasets/e02b85c0ea784ce7bd8add7ae3d293d0_0/downloads/data?format=shp&spatialRefId=4326&where=1%3D1',
-  		dir_create('data/raw/nonstatic/spatial/nifc')
-  	),	
+  	download_spatial_nifc_raw(),	
   	format = 'file',
   	cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
   ),
@@ -121,9 +97,7 @@ list(
   	format = 'file',
   	cue = tar_cue(mode = "never") # expected to be static
   ), 
-  
   ### Clean Data ###
-  # See R/process_raw #
   tar_target(
   	name = spatial_mtbs,
   	clean_mtbs(spatial_mtbs_raw)
@@ -141,13 +115,17 @@ list(
   	clean_fema(event_fema_raw)
   ),
   tar_target(
+  	name = event_ics209_plus,
+  	clean_ics209_plus(event_ics209_plus_raw)
+  ),
+  tar_target(
   	name = spatial_tiger_counties,
   	{
 	  	list(
-	  		`1990` = read_sf(spatial_tiger_counties_1990_raw, crs = 4269) %>% transmute(FIPS = paste0(ST, CO), NAME, CENSUS_YEAR = 1990),
-	  		`2000` = read_sf(spatial_tiger_counties_2000_raw, crs = 4269) %>% transmute(FIPS = CNTYIDFP00, NAME = NAME00, CENSUS_YEAR = 2000),
-	  		`2010` = read_sf(spatial_tiger_counties_2010_raw, crs = 4269) %>% transmute(FIPS = GEOID10, NAME = NAME10, CENSUS_YEAR = 2010),
-	  		`2020` = read_sf(spatial_tiger_counties_2020_raw, crs = 4269) %>% transmute(FIPS = GEOID, NAME = NAME, CENSUS_YEAR = 2020)
+	  		`1990` = read_sf(spatial_tiger_counties_1990_raw, crs = 4269) %>% transmute(STATE_FIPS = ST, FIPS = paste0(ST, CO), NAME, CENSUS_YEAR = 1990),
+	  		`2000` = read_sf(spatial_tiger_counties_2000_raw, crs = 4269) %>% transmute(STATE_FIPS = STATEFP00, COUNTY_FIPS = CNTYIDFP00, NAME = NAME00, CENSUS_YEAR = 2000),
+	  		`2010` = read_sf(spatial_tiger_counties_2010_raw, crs = 4269) %>% transmute(STATE_FIPS = STATEFP10, COUNTY_FIPS = GEOID10, NAME = NAME10, CENSUS_YEAR = 2010),
+	  		`2020` = read_sf(spatial_tiger_counties_2020_raw, crs = 4269) %>% transmute(STATE_FIPS = STATEFP, COUNTY_FIPS = GEOID, NAME = NAME, CENSUS_YEAR = 2020)
 	  	)
   	}
   )

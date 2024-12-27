@@ -2,8 +2,8 @@
 
 clean_redbook <- function(event_redbook_raw){
 	
-	redbooks_raw <- fs::dir_ls(event_redbook_raw, recurse = TRUE, glob = '*.xlsx') %>%
-		map(read_excel, sheet = 1, skip = 2) 
+	redbooks_raw <- fs::dir_ls(event_redbook_raw, recurse = TRUE, glob = '*.csv') %>%
+		map(read_csv, skip = 4) 
 	
 		
 }
