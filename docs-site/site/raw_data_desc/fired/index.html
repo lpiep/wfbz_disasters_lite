@@ -208,6 +208,26 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wildfire_disasters_lite_diagram.png" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Process Flow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -220,10 +240,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -234,8 +254,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Raw Data Descriptions
           </label>
@@ -518,9 +538,10 @@
 <p>This is event- and daily-level polygons for the Fire event delineation (FIRED) product for the coterminous United States from November 2001 to March 2021. It is derived from the MODIS MCD64A1 burned area product (see https://lpdaac.usgs.gov/products/mcd64a1v006/ for more details). The MCD64A1 is a monthly raster grid of estimated burned dates. Firedpy (www.github.com/earthlab/firedpy) is an algorithm that converts these rasters into events by stacking the entire time series into a spatial-temporal data cube, then uses an algorithm to assign event identification numbers to pixels that fit into the same 3-dimensional spatial temporal window. This particular dataset was created using a spatial parameter of 5 pixels and 11 days. The primary benefit to this dataset over others is the ability to calculate fire spread rate. For each of these products (events and daily) the event identification numbers are the same, but the event-level product has only single polygons for each entire event, while the daily product has separate polygons for each date per event.</p>
 <p>This download contains a "daily" and "event" format. Daily has a unique polygon for each day <em>and</em> event. We will use the "event" format (<code>fired_conus-ak_events_nov2001-mar2021.gpkg</code>)</p>
 <h2 id="fields">Fields</h2>
+<p><em>Bold fields are carried over into harmonized data set.</em></p>
 <ul>
-<li><code>id</code> -  Unique identifier of the fire event.</li>
-<li><code>ig_date</code> -  The earliest date contained in the event</li>
+<li><code>id</code> -  <strong>Unique identifier of the fire event.</strong></li>
+<li><code>ig_date</code> -  <strong>The earliest date contained in the event</strong></li>
 <li><code>ig_day</code>  -  The day of the year of the earliest date contained in the event</li>
 <li><code>ig_month</code>  -  The month of the earliest date contained in the event</li>
 <li><code>ig_year</code> -  The year of the earliest date contained in the event.</li>
@@ -528,7 +549,7 @@
 <li><code>event_day</code>  -  Days since ignition date + 1 (ignition date is day 1)</li>
 <li><code>pixels</code> -  Total number of pixels burned that day. </li>
 <li><code>tot_px</code>  -   Total pixels burned for the entire event. </li>
-<li><code>tot_ar_km2</code> -  Area burned in square kilometers for the entire event. </li>
+<li><code>tot_ar_km2</code> -  <strong>Area burned in square kilometers for the entire event (Units converted to square miles in harmonized data set).</strong> </li>
 <li><code>fsr_px_dy</code> -  Total pixels burned for the entire event divided by the duration of the fire event. </li>
 <li><code>fsr_km2_dy</code> -  Total kilometers burned for the entire event divided by the duration of the fire event. </li>
 <li><code>mx_grw_px</code> -  maximum growth in pixels</li>

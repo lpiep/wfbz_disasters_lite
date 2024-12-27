@@ -8,10 +8,12 @@ and completeness in favor of a more automated process.
 
 ## TO DO
 
-* [ ] Figure out if Cal Fire should be included since it can't be automatically updated
-* [ ] Waiting on USFS IT for access to 2020 - 2023 ICS reports
-* [ ] Harmonize events (waiting on above)
+* [ ] Implement new process flow in code
+  * [ ] Port Milo's joins into code
+* [ ] Implement out ICS-209-PLUS build as a separate repo (will read in complete ICS-209-PLUS data set from there)
 * [ ] Do some validation of data sets as they come in
+* [ ] Integrate population filter
+* [ ] LAST: Build out docker container
 
 ## Run
 
@@ -106,11 +108,10 @@ pre-commit install
 
 * FEMA Disaster Declarations
   * Will be updated
-  * Included here
 * ICS-209-PLUS
   * Will be updated with access to API(s) and processing with St Denis et al code. 
-  * Included here
-* REDBOOKS _to do_
+* REDBOOKS 
+	* Manually wrote out csvs from Milo's processing code -- will need to manually redo each year as it currently stands. 
   
 https://github.com/katiemcconnell/ICS-209-PLUS_spatiotemporal_linkage
 

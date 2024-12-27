@@ -208,6 +208,26 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wildfire_disasters_lite_diagram.png" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Process Flow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -220,10 +240,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -234,8 +254,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Raw Data Descriptions
           </label>
@@ -384,6 +404,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Historical Summaries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extracting-with-wine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extracting with WINE
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -485,6 +520,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Historical Summaries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extracting-with-wine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extracting with WINE
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -521,14 +571,18 @@ fires that occur or are still occurring in the current year, so in order
 to capture a hypothetical fire that ends on 12/31 we should be running the 
 updated daily (or, at the very least, yearly on the last day of the year).</p>
 <h2 id="historical-summaries">Historical Summaries</h2>
-<p>1999 - 2021 are available as MS Access EXEs here: https://www.wildfire.gov/page/historical-sit-data. </p>
-<p>For 2022 - Current year, you'll need to obtain approval to access the FAMWEB database from USFS IT. I contacted the contact for FAMWEB listed on <a href="https://www.wildfire.gov/contact-us">wildfire.gov</a>. </p>
-<p>Visit <a href="https://famauth.wildfire.gov/?PAGENAV=dashboard">FamAuth</a> and click the link for Data Warehouse. 
-You may need to allow pop-ups. Follow the prompts to describe yourself, and submit a request for access
-to the USFS official you're in contact with. </p>
-<p>Once approved, follow the FamAuth link again to access the FAM Cognos site. From here, click your user
-icon on the upper left, select "Profile and Settings", then "My API Keys", and create a key to be 
-used in the code. </p>
+<p>1999 - 2023 are available as MS Access EXEs here: https://www.wildfire.gov/application/sit209. When run, each 
+file will open a popup asking where to save the access db files. Unfortunately, it does not appear to be 
+simple to automate the extraction of these files, but their date will be made available here and kept up to
+date.</p>
+<h3 id="extracting-with-wine">Extracting with WINE</h3>
+<p>Don't have access to a Windows machine to run EXE files? Use <a href="https://www.winehq.org/">WINE</a> on Linux or OSX.</p>
+<p>For each file, you'll need to run <code>$ wine the_file.exe</code> at the terminal and extract the files to the "Z:\" 
+drive, which points to your actual root directory (as opposed to the "C:\Documents" folder in WINE, which
+is part of the Windows Emulator (I know, WINE Is Not an Emulator, but whatever). </p>
+<p>Grab a cup of coffee, put on a podcast, and do that for a bit. Next you can install <code>mdbtools</code> to deal with the
+<code>mdb</code> files. The <code>Hmisc</code> package has a nice <code>mdb.get</code> function that uses that library to pull everything into R. </p>
+<p>For current year data, you'll need to obtain approval to access the FAMWEB database from USFS IT. I contacted the contact for FAMWEB listed on <a href="https://www.wildfire.gov/contact-us">wildfire.gov</a>. </p>
 <h2 id="current-year-summaries">Current Year Summaries</h2>
 <p>You can access current year summaries at https://famdwh-dev.nwcg.gov/sit209/cognos_report_queries/sit209_data_report.
 Ask your contact at USFS IT to provide the current credentials, or contact <a href="mailto:loganap@uw.edu">me</a>. </p>

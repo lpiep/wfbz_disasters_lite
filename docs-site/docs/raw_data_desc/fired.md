@@ -12,8 +12,10 @@ This download contains a "daily" and "event" format. Daily has a unique polygon 
 
 ## Fields
 
-* `id` -  Unique identifier of the fire event.
-* `ig_date` -  The earliest date contained in the event
+_Bold fields are carried over into harmonized data set._
+
+* `id` -  **Unique identifier of the fire event.**
+* `ig_date` -  **The earliest date contained in the event**
 * `ig_day`  -  The day of the year of the earliest date contained in the event
 * `ig_month`  -  The month of the earliest date contained in the event
 * `ig_year` -  The year of the earliest date contained in the event.
@@ -21,7 +23,7 @@ This download contains a "daily" and "event" format. Daily has a unique polygon 
 * `event_day`  -  Days since ignition date + 1 (ignition date is day 1)
 * `pixels` -  Total number of pixels burned that day. 
 * `tot_px`  -   Total pixels burned for the entire event. 
-* `tot_ar_km2` -  Area burned in square kilometers for the entire event. 
+* `tot_ar_km2` -  **Area burned in square kilometers for the entire event (Units converted to square miles in harmonized data set).** 
 * `fsr_px_dy` -  Total pixels burned for the entire event divided by the duration of the fire event. 
 * `fsr_km2_dy` -  Total kilometers burned for the entire event divided by the duration of the fire event. 
 * `mx_grw_px` -  maximum growth in pixels

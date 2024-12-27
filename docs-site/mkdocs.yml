@@ -1,6 +1,7 @@
 site_name: Wildfire Disaster Dataset Harmonization
 nav:  
   - Home: index.md
+  - Process Flow: wildfire_disasters_lite_diagram.png
   - Raw Data Descriptions:
     - NIFC: raw_data_desc/nifc.md
     - FEMA: raw_data_desc/fema.md
