@@ -1,5 +1,6 @@
 .DS_Store
 */.DS_Store
+.lintr
 
 # Data files
 data/01_raw/*
