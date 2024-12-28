@@ -12,6 +12,8 @@
 `wildfire_states` | `character` | | Wildfire US State(s) in which fire occurred (pipe-delimited if more than one) |
 `wildfire_counties` | `character` | | Wildfire US County FIPS code(s) in which fire occurred (pipe-delimited if more than one) |
 `wildfire_area` | `decimal` | | Wildfire burned area in square kilometers |
+`wildfire_complex` | `boolean` | | Fire is a complex of multiple member fires |
+`wildfire_complex_names` | `character` | | List of wildfires in the wildfire complex |
 
 ### Criteria 
 
@@ -28,9 +30,9 @@
 | Variable      | Data Type     | Unique | Description|
 | ------------- | ------------- | -------| ---------- | 
 `wildfire_ignition_date` | `date` | | Wildfire date of fire ignition | 
-`wildfire_fema_dec_date` | `date` | | Date of FEMA disaster declaration | 
+`wildfire_fema_dec_date_start` | `date` | | Date of FEMA disaster declaration | 
+`wildfire_fema_dec_date_end` | `date` | | Date of FEMA disaster declaration end | 
 `wildfire_end_date` | `date` | | Wildfire date of fire end |
-`wildfire_complex` | `boolean` | | Fire is a complex of multiple member fires |
 
 ### Location 
 
@@ -50,7 +52,9 @@
 `fired_id` | `character` | | Native ID of associated FIRED data, if applicable | 
 `mtbs_id` | `character` | | Native ID of associated MTBS data, if applicable | 
 `nifc_id` | `character` | | Native ID of associated NIFC data, if applicable | 
-
+`usgs_id` | `character` | | Native ID of associated USGS data, if applicable | 
+`geomac_id` | `character` | | Native ID of associated GEOMAC data, if applicable | 
+`fema_id` | `character` | | Native ID of associated FEMA data, if applicable | 
 
 
 ## General Notes
