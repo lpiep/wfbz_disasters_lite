@@ -30,9 +30,9 @@
 | Variable      | Data Type     | Unique | Description|
 | ------------- | ------------- | -------| ---------- | 
 `wildfire_ignition_date` | `date` | | Wildfire date of fire ignition | 
+`wildfire_end_date` | `date` | | Wildfire date of fire end |
 `wildfire_fema_dec_date_start` | `date` | | Date of FEMA disaster declaration | 
 `wildfire_fema_dec_date_end` | `date` | | Date of FEMA disaster declaration end | 
-`wildfire_end_date` | `date` | | Wildfire date of fire end |
 
 ### Location 
 
@@ -51,7 +51,6 @@
 `ics_id` | `character` | | Native ID of associated ICS/209 data, if applicable | 
 `fired_id` | `character` | | Native ID of associated FIRED data, if applicable | 
 `mtbs_id` | `character` | | Native ID of associated MTBS data, if applicable | 
-`nifc_id` | `character` | | Native ID of associated NIFC data, if applicable | 
 `usgs_id` | `character` | | Native ID of associated USGS data, if applicable | 
 `geomac_id` | `character` | | Native ID of associated GEOMAC data, if applicable | 
 `fema_id` | `character` | | Native ID of associated FEMA data, if applicable | 
