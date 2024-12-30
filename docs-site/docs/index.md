@@ -32,7 +32,6 @@
 `wildfire_ignition_date` | `date` | | Wildfire date of fire ignition | 
 `wildfire_end_date` | `date` | | Wildfire date of fire end |
 `wildfire_fema_dec_date_start` | `date` | | Date of FEMA disaster declaration | 
-`wildfire_fema_dec_date_end` | `date` | | Date of FEMA disaster declaration end | 
 
 ### Location 
 
