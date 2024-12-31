@@ -29,8 +29,10 @@
 
 | Variable      | Data Type     | Unique | Description|
 | ------------- | ------------- | -------| ---------- | 
-`wildfire_ignition_date` | `date` | | Wildfire date of fire ignition | 
-`wildfire_end_date` | `date` | | Wildfire date of fire end |
+`wildfire_ignition_date_min` | `date` | | Wildfire date of fire ignition (earliest recorded date) | 
+`wildfire_end_date_min` | `date` | | Wildfire date of fire end (earliest recorded containment date) |
+`wildfire_ignition_date_max` | `date` | | Wildfire date of fire ignition (latest recorded date) | 
+`wildfire_end_date_max` | `date` | | Wildfire date of fire end (latest recorded containment date) |
 `wildfire_fema_dec_date_start` | `date` | | Date of FEMA disaster declaration | 
 
 ### Location 
