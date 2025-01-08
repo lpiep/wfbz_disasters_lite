@@ -33,7 +33,7 @@
 `wildfire_containment_date` | `date` | | Wildfire date of fire end (earliest recorded containment date) |
 `wildfire_ignition_date_max` | `date` | | Wildfire date of fire ignition (latest recorded date) | 
 `wildfire_containment_date_max` | `date` | | Wildfire date of fire end (latest recorded containment date) |
-`wildfire_fema_dec_date_start` | `date` | | Date of FEMA disaster declaration | 
+`wildfire_fema_dec_date` | `date` | | Date of FEMA disaster declaration | 
 
 ### Location 
 
