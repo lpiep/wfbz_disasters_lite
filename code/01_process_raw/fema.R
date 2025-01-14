@@ -1,6 +1,44 @@
-
 clean_fema <- function(event_fema_raw){
-	fema_all <- read_csv(tar_read(event_fema_raw))
+	fema_all <- read_csv(
+			event_fema_raw, 
+			col_types = cols_only(
+				femaDeclarationString = col_character(),
+				disasterNumber = col_character(),
+				state = col_character(),
+				declarationType = col_character(),
+				declarationDate = col_datetime(),
+				incidentType = col_character(),
+				declarationTitle = col_character(),
+				incidentBeginDate = col_datetime(),
+				incidentEndDate = col_datetime(),
+				tribalRequest = col_logical(),
+				designatedArea = col_character(),
+				fipsStateCode = col_character(),
+				fipsCountyCode = col_character(),
+				lastRefresh = col_datetime()
+			)
+		) %>%
+		filter(incidentType == 'Fire') %>%
+		filter(incidentBeginDate >= ymd("2000-01-01")) %>% 
+		mutate( # Disaggregate Area (usually county or equivalent) name from type -- mark native areas as "AIAN Area" and take their place name as is 
+			designatedArea_name = na_if(designatedArea, 'Statewide'),
+			designatedArea_name = str_extract(designatedArea, '.*(?=\\()'),
+			designatedArea_type = str_extract(designatedArea, '(?<=\\().*(?=\\))'),
+			designatedArea_type = if_else(str_detect(designatedArea, '(Tribe|Reservation|ANV)') | tribalRequest == 1, 'AIAN Area', designatedArea_type),
+			designatedArea_name = if_else(str_detect(designatedArea, '(Tribe|Reservation|ANV)') | tribalRequest == 1, designatedArea, designatedArea_name)
+		) %>%
+		mutate( # Standardize the fire name
+			declarationTitle_standardized = standardize_place_name(declarationTitle)
+		) %>%
+		mutate(across(matches('Date'), as.Date)) # convert datetime cols to date
+	
+	names(fema_all) <- paste0('fema_', to_snake_case(names(fema_all))) 
+	fema_all
+}
+	
+clean_fema_OLD <- function(event_fema_raw){
+	fema_all <- read_csv(tar_read(event_fema_raw)) %>%
+
 	
 	# Convert all column names to snake case ----------------------------------
 	
@@ -213,10 +251,6 @@ clean_fema <- function(event_fema_raw){
 			fire_name_match
 		))
 	
-	# still a few fires with parentheses
-	#PARKS HIGHWAY (TAMARACK)
-	#BLANCO (CR 4901)
-	#LEHIGH ACRES (ANNA AVE. N.)
 	
 	# Create Complex Name variable --------------------------------------------
 	
@@ -255,12 +289,6 @@ clean_fema <- function(event_fema_raw){
 	fm_2000_pres <- fm_2000_pres %>%
 		rename(fema_declaration_string = fema_fema_declaration_string)
 	
-	# Drop misclassified fire -------------------------------------------------------------------
-	
-	# drop FM-2856-CA -  it is a gas leak (https://en.wikipedia.org/wiki/San_Bruno_pipeline_explosion)
-	
-	fm_2000_pres <- fm_2000_pres %>%
-		filter(!fema_declaration_string %in% c("FM-2856-CA"))
 	
 	# Filter to unique FM declaration only -----------------------------------
 	

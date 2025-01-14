@@ -13,11 +13,12 @@ download_event_fema_raw <- function(){
 	dst
 }
 
-download_event_ics209_plus_raw <- function(){
-	dst <- 'data/01_raw/event/ics209_plus'
-	unzip_url(
-		'https://figshare.com/ndownloader/files/38766504',
-		dir_create('data/01_raw/event/ics209_plus')  	
-	)
+download_event_ics209_raw <- function(){
+	dst <- 'data/01_raw/event/ics209'
+	if(fs::dir_exists(dst)) fs::dir_delete(dst)
+	fs::dir_create(dst)
+	download.file('https://github.com/lpiep/ics209_minimal/raw/refs/heads/main/data/historical/historical_cleaned.parquet', file.path(dst, 'historical_cleaned.parquet'))
+	download.file('https://github.com/lpiep/ics209_minimal/raw/refs/heads/main/data/current/current_cleaned.parquet',  file.path(dst, 'current_cleaned.parquet'))
+	dst
 }
 

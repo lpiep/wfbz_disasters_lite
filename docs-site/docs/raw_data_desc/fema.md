@@ -2,6 +2,8 @@
 
 Source: https://www.fema.gov/openfema-data-page/disaster-declarations-summaries-v2
 
+## Note: full data set included only "FM" disaster type. But we leave all three in here (major disaster = DR, fire management assistance = FM, emergency declaration = EM) for now.
+
 ## Summary
 
 Disaster Declarations Summaries is a summarized dataset describing all federally declared disasters. This dataset lists all official FEMA Disaster Declarations, beginning with the first disaster declaration in 1953 and features all three disaster declaration types: major disaster, emergency, and fire management assistance. The dataset includes declared recovery programs and geographic areas (county not available before 1964; Fire Management records are considered partial due to historical nature of the dataset).

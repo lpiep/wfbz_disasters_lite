@@ -1,6 +1,6 @@
 # Load packages required to define the pipeline:
 if(!require(pacman)){install.packages("pacman");require(pacman)}
-pkgs <- c("targets", "tarchetypes", "sf", "tidyverse", "httr", "snakecase", "fs", "jsonlite", "qs", "readxl", "glue")
+pkgs <- c("targets", "tarchetypes", "sf", "tidyverse", "httr", "snakecase", "fs", "jsonlite", "qs", "readxl", "glue", "arrow")
 p_load(char = pkgs)
 
 options(timeout = max(600, getOption("timeout")))
@@ -34,8 +34,8 @@ list(
   	format = 'file',
   ),
   tar_target(
-  	name = event_ics209_plus_raw,
-  	download_event_ics209_plus_raw(),	
+  	name = event_ics209_raw,
+  	download_event_ics209_raw(),	
   	format = 'file',
   	cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
   ),
@@ -115,18 +115,22 @@ list(
   	clean_fema(event_fema_raw)
   ),
   tar_target(
-  	name = event_ics209_plus,
-  	clean_ics209_plus(event_ics209_plus_raw)
+  	name = event_ics209,
+  	bind_rows(
+  		read_parquet(file.path(event_ics209_raw, 'current_cleaned.parquet')),
+  		read_parquet(file.path(event_ics209_raw, 'historical_cleaned.parquet'))
+  	) %>%
+  		mutate(ics_county = standardize_county_names(ics_county)) 
   ),
   tar_target(
   	name = spatial_tiger_counties,
   	{
 	  	list(
-	  		`1990` = read_sf(spatial_tiger_counties_1990_raw, crs = 4269) %>% transmute(STATE_FIPS = ST, FIPS = paste0(ST, CO), NAME, CENSUS_YEAR = 1990),
-	  		`2000` = read_sf(spatial_tiger_counties_2000_raw, crs = 4269) %>% transmute(STATE_FIPS = STATEFP00, COUNTY_FIPS = CNTYIDFP00, NAME = NAME00, CENSUS_YEAR = 2000),
-	  		`2010` = read_sf(spatial_tiger_counties_2010_raw, crs = 4269) %>% transmute(STATE_FIPS = STATEFP10, COUNTY_FIPS = GEOID10, NAME = NAME10, CENSUS_YEAR = 2010),
-	  		`2020` = read_sf(spatial_tiger_counties_2020_raw, crs = 4269) %>% transmute(STATE_FIPS = STATEFP, COUNTY_FIPS = GEOID, NAME = NAME, CENSUS_YEAR = 2020)
-	  	)
+	  		`1990` = read_sf(spatial_tiger_counties_1990_raw, crs = 4269) %>% transmute(STATE_FIPS = ST, COUNTY_FIPS = paste0(ST, CO), COUNTY_NAME = standardize_county_names(NAME), CENSUS_YEAR = 1990),
+	  		`2000` = read_sf(spatial_tiger_counties_2000_raw, crs = 4269) %>% transmute(STATE_FIPS = STATEFP00, COUNTY_FIPS = CNTYIDFP00, COUNTY_NAME = standardize_county_names(NAME00), CENSUS_YEAR = 2000),
+	  		`2010` = read_sf(spatial_tiger_counties_2010_raw, crs = 4269) %>% transmute(STATE_FIPS = STATEFP10, COUNTY_FIPS = GEOID10, COUNTY_NAME = standardize_county_names(NAME10), CENSUS_YEAR = 2010),
+	  		`2020` = read_sf(spatial_tiger_counties_2020_raw, crs = 4269) %>% transmute(STATE_FIPS = STATEFP, COUNTY_FIPS = GEOID, COUNTY_NAME = standardize_county_names(NAME), CENSUS_YEAR = 2020)
+	  	) 
   	}
   )
 )
