@@ -24,24 +24,47 @@ unzip_url <- function(url, dst) {
   dst
 }
 
-standardize_county_names <- function(county_name){
+standardize_county_name <- function(county_name){
 
    county_name <- str_replace_all(county_name,"[^[:graph:]]", " ") # replace non-printable chars
+   
+   # try to split multiple counties with bar
+   county_name <- str_replace_all(county_name, '\\s*(/|,|&)\\s*', '|') 
+   county_name <- str_replace_all(county_name, '\\s+AND\\s+', '|') 
+   county_name <- str_replace_all(county_name, '-', '|') 
+   
+   # get dangling state abbreviations
+   county_name <- str_replace(county_name, '[\\ ,][A-Z]{2}$', '')
+   county_name <- str_replace_all(county_name, '[\\ ,][A-Z]{2}(?=\\|)', '')
+   
    county_name <- toupper(county_name)
    county_name <- na_if(county_name, 'N/A') 
    county_name <- na_if(county_name, 'NA') 
    county_name <- str_replace(county_name, ', [A-Z]{2}$', '') # remove state abbreviations
-   county_name <- str_replace(county_name, '\\s+(COUNTY|CTY|CO|CITY|BOROUGH|BORO|PARISH)$', '') # remove "county" or equiv
-   county_name <- str_replace(county_name, '\\s*(/|,|&)\\s*', '|') # try to split multiple counties with bar
-   county_name <- str_replace(county_name, '\\s+AND\\s+', '|') # try to split multiple counties with bar
+   county_name <- str_replace(county_name, '\\s+(COUNTY|CTY|CO|CITY|BOROUGH|BORO|PARISH|CENSUS AREA)$', '') # remove "county" or equiv
    county_name <- str_replace(county_name, 'LEWIS\\|CLARK', 'LEWIS AND CLARK') # fix these counties with an AND in name
    county_name <- str_replace(county_name, 'LAKE\\|PENINSULA', 'LAKE AND PENINSULA') # fix these counties with an AND in name
    county_name <- str_replace(county_name, 'KING\\|QUEEN', 'KING AND QUEEN') # fix these counties with an AND in name
    county_name <- str_replace(county_name, '\\bSTE(\\.|\\s)\\s*', 'SAINTE ') # Unabbreviate SAINTE
    county_name <- str_replace(county_name, '\\bST(\\.|\\s)\\s*', 'SAINT ') # Unabbreviate SAINT
+   
    # standardize some important counties
    county_name <- str_replace(county_name, 'MIAMI DADE', 'MIAMI-DADE') 
-   county_name <- str_replace(county_name, 'LA', 'LOS ANGELES') 
+   county_name <- str_replace(county_name, '\\bLA$', 'LOS ANGELES') 
+   county_name <- str_replace_all(county_name, '\\bLA(?=\\|)', 'LOS ANGELES')
+   
+   # fix counties that really should have dashes
+   county_name <- str_replace(county_name, 'HOONAH\\|ANGOON', 'HOONAH-ANGOON')
+   county_name <- str_replace(county_name, 'MATANUSKA\\|SUSITNA', 'MATANUSKA-SUSITNA')
+   county_name <- str_replace(county_name, 'PRINCE OF WALES\\|HYDER', 'PRINCE OF WALES-HYDER')
+   county_name <- str_replace(county_name, 'PRINCE OF WALES\\|OUTER KETCHIKAN', 'PRINCE OF WALES-OUTER KETCHIKAN')
+   county_name <- str_replace(county_name, 'SKAGWAY\\|YAKUTAT\\|ANGOON', 'SKAGWAY-YAKUTAT-ANGOON')
+   county_name <- str_replace(county_name, 'SKAGWAY\\|HOONAH\\|ANGOON', 'SKAGWAY-HOONAH-ANGOON')
+   county_name <- str_replace(county_name, 'VALDEZ\\|CORDOVA', 'VALDEZ-CORDOVA')
+   county_name <- str_replace(county_name, 'WRANGELL\\|PETERSBURG', 'WRANGELL-PETERSBURG')
+   county_name <- str_replace(county_name, 'YUKON\\|KOYUKUK', 'YUKON-KOYUKUK')
+   county_name <- str_replace(county_name, 'MIAMI\\|DADE', 'MIAMI-DADE')
+
    county_name
 }
 
