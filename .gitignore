@@ -5,9 +5,10 @@
 # Data files
 data/01_raw/*
 data/02_processed/*
+data/reference/*
 !data/utm_popden.csv
 !data/02_processed/fire_pop_density_criteria.csv
-_targets/*
+_targets/
 conf/*
 
 # History files

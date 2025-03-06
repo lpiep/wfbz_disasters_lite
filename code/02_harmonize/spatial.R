@@ -97,6 +97,8 @@ harmonize_spatial <- function(
 	## Tier 3B: FIRED ##
 	
 	### Tier 3C: Approximate Burn Zone from ICS POO ###
-		
+	
+	### Add State/County from final geometry
+	
 }
 
