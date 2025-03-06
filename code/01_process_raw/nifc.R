@@ -7,6 +7,7 @@ clean_nifc <- function(spatial_nifc_raw){
 		st_transform(crs = 4269) %>% 
 		mutate(UNQE_FIRE_ = gsub("NA", NA, UNQE_FIRE_)) %>%
 		mutate(
+			OBJECTID = as.character(OBJECTID),
 			wildfire_complex = str_detect(toupper(INCIDENT), "COMPLEX|CPLX|CX|CMP|CMPL|CMPLX|COMPL|COMPL|COMPLE|COMPLX|COMLX|CLX|CPX|-COM[.]"),
 			INCIDENT = standardize_place_name(INCIDENT),
 			IRWINID = str_replace_all(IRWINID, '(^\\{|\\}$)', '') # remove {brackets} around ID
@@ -31,11 +32,10 @@ clean_nifc <- function(spatial_nifc_raw){
 				INCIDENT =  paste(unique(INCIDENT), collapse = '|'),
 				wildfire_complex = any(wildfire_complex),
 				state_from_id = paste(unique(state_from_id), collapse = '|'),
-				geometry = st_union(geometry)
+				geometry = st_make_valid(st_union(geometry))
 			)
 	)
 	
-
   nifc %>%
 		transmute(
 			wildfire_year = FIRE_YEAR,
