@@ -126,19 +126,38 @@ list(
   	name = spatial_tiger_counties,
   	{
 	  	list(
-	  		`1990` = read_sf(spatial_tiger_counties_1990_raw, crs = 4269) %>% transmute(STATE_FIPS = ST, COUNTY_FIPS = paste0(ST, CO), COUNTY_NAME = standardize_county_name(NAME), CENSUS_YEAR = 1990),
-	  		`2000` = read_sf(spatial_tiger_counties_2000_raw, crs = 4269) %>% transmute(STATE_FIPS = STATEFP00, COUNTY_FIPS = CNTYIDFP00, COUNTY_NAME = standardize_county_name(NAME00), CENSUS_YEAR = 2000),
-	  		`2010` = read_sf(spatial_tiger_counties_2010_raw, crs = 4269) %>% transmute(STATE_FIPS = STATEFP10, COUNTY_FIPS = GEOID10, COUNTY_NAME = standardize_county_name(NAME10), CENSUS_YEAR = 2010),
-	  		`2020` = read_sf(spatial_tiger_counties_2020_raw, crs = 4269) %>% transmute(STATE_FIPS = STATEFP, COUNTY_FIPS = GEOID, COUNTY_NAME = standardize_county_name(NAME), CENSUS_YEAR = 2020)
+	  		`1990` = read_sf(spatial_tiger_counties_1990_raw, crs = 4269) %>% 
+	  			transmute(STATE_FIPS = ST, COUNTY_FIPS = paste0(ST, CO), COUNTY_NAME = standardize_county_name(NAME), CENSUS_YEAR = 1990) %>%
+	  			left_join(STATE_FIPS, by = 'STATE_FIPS'),
+	  		`2000` = read_sf(spatial_tiger_counties_2000_raw, crs = 4269) %>% 
+	  			transmute(STATE_FIPS = STATEFP00, COUNTY_FIPS = CNTYIDFP00, COUNTY_NAME = standardize_county_name(NAME00), CENSUS_YEAR = 2000) %>% 
+	  			left_join(STATE_FIPS, by = 'STATE_FIPS'),
+	  		`2010` = read_sf(spatial_tiger_counties_2010_raw, crs = 4269) %>% 
+	  			transmute(STATE_FIPS = STATEFP10, COUNTY_FIPS = GEOID10, COUNTY_NAME = standardize_county_name(NAME10), CENSUS_YEAR = 2010) %>% 
+	  			left_join(STATE_FIPS, by = 'STATE_FIPS'),
+	  		`2020` = read_sf(spatial_tiger_counties_2020_raw, crs = 4269) %>% 
+	  			transmute(STATE_FIPS = STATEFP, COUNTY_FIPS = GEOID, COUNTY_NAME = standardize_county_name(NAME), CENSUS_YEAR = 2020) %>%
+	  			left_join(STATE_FIPS, by = 'STATE_FIPS')
 	  	) 
   	}
-  )#,
+  ),
   ### Harmonize Data ###
-#   tar_target(
-#   	event,
-# 	  harmonize_event(
-# 			event_fema,
-# 			event_ics209
-# 	  )
-#   )
+  tar_target(
+  	event,
+	  harmonize_event(
+			event_ics209,
+      event_redbook,
+			event_fema
+	  )
+  ),
+  tar_target(
+  	spatial,
+  	harmonize_spatial(
+  		event,
+  		spatial_mtbs,
+  		spatial_fired,
+  		spatial_nifc,
+  		spatial_tiger_counties
+  	)
+  )
 )
