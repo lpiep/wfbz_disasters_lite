@@ -9,7 +9,7 @@ clean_mtbs <- function(spatial_mtbs_raw){
 			Incid_Name,
 			Incid_Type,
 			Ig_Date = as.Date(as.character(Ig_Date), format = "%Y-%m-%d"),
-			irwinID
+			irwinID = na_if(irwinID, 'No IRWINID')
 		)  %>%
 		filter(year(Ig_Date) >= 2000) %>%
 		filter(Incid_Type != "Prescribed Fire") %>%
@@ -20,6 +20,20 @@ clean_mtbs <- function(spatial_mtbs_raw){
 		) 
 	mtbs <- st_make_valid(mtbs) %>% # Repair geometries and transform
 		st_transform(mtbs, crs = 4269)
+	
+	mtbs <- bind_rows( # fix rare cases where multiple fires share an irwin ID
+		mtbs %>% filter(is.na(irwinID)), 
+		mtbs %>% filter(!is.na(irwinID)) %>% 
+			group_by(irwinID) %>%
+			summarize(
+				Event_ID =  paste(unique(Event_ID), collapse = '|'),
+				Incid_Name =  paste(unique(Incid_Name), collapse = '|'),
+				wildfire_complex = any(wildfire_complex),
+				Ig_Date = min(Ig_Date),
+				wildfire_state = paste(unique(wildfire_state), collapse = '|'),
+				geometry = st_union(geometry)
+			)
+	)
 	
 	mtbs %>%
 		transmute(
