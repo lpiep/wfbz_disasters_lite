@@ -24,6 +24,28 @@ unzip_url <- function(url, dst) {
   dst
 }
 
+# For spatial data frames, use TIGER data to identify county or counties. Will create a duplicate row for each overlapping county
+append_county <- function(dat_sf, refdate){
+   stopifnot('sf' %in% class(dat_sf))
+   
+   # Split by decade & join in appropriate census
+   dat_sf <- dat_sf %>% 
+      split(year(floor_date(refdate, '10 years')))
+   
+   map(names(dat_sf), function(decade) st_join(dat_sf[[decade]], spatial_tiger_counties[[decade]], left = TRUE)) %>%
+      bind_rows()
+   
+}
+
+dedupe_pipe_delim <- function(z){
+   str_split(z, pattern = '\\|') %>% 
+      map(unique) %>% 
+      map(~ setdiff(.x, 'NA')) %>% 
+      map(paste, collapse = '|') %>% 
+      unlist() %>%
+      na_if('')
+}
+
 standardize_county_name <- function(county_name){
 
    county_name <- str_replace_all(county_name,"[^[:graph:]]", " ") # replace non-printable chars
@@ -65,7 +87,7 @@ standardize_county_name <- function(county_name){
    county_name <- str_replace(county_name, 'YUKON\\|KOYUKUK', 'YUKON-KOYUKUK')
    county_name <- str_replace(county_name, 'MIAMI\\|DADE', 'MIAMI-DADE')
 
-   county_name
+   str_squish(county_name)
 }
 
 standardize_place_name <- function(place_name) {
@@ -199,6 +221,7 @@ standardize_place_name <- function(place_name) {
      `\bWALL\b` = "WALL", `\bWY\b` = "WAY", `\bWAYS\b` = "WAYS", `\bWELL\b` = "WL", 
      `\bWELLS\b` = "WLS")
    place_name <- str_replace_all(place_name, pattern = pub28)
+   place_name <- str_squish(place_name)
    place_name
 }
 

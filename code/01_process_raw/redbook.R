@@ -7,6 +7,7 @@ clean_redbook <- function(event_redbook_raw){
 		bind_rows(.id = 'src') %>%
 		transmute(
 			src,
+			redbook_id = row_number(),
 			wildfire_name = standardize_place_name(incident_name),
 			wildfire_year = as.numeric(start_year),
 			wildfire_ignition_date = if_else(str_detect(date_start, '^[0-9]{5}$'), as.Date(as.numeric(date_start), origin = "1899-12-30"), mdy(date_start)), #excel date for csvs
@@ -14,7 +15,7 @@ clean_redbook <- function(event_redbook_raw){
 			wildfire_counties = standardize_county_name(county_unit),
 			wildfire_struct_destroyed = as.numeric(structures_dest), 
 			wildfire_civil_fatalities = as.numeric(fatalities_civilian),
-			wildfire_fatalities = coalesce(wildfire_civil_fatalities, 0) + as.numeric(fatalities_fire),
+			wildfire_total_fatalities = coalesce(wildfire_civil_fatalities, 0) + as.numeric(fatalities_fire),
 			wildfire_area = as.numeric(acres_burned) * 0.00404686 # sq km
 		) %>%
 		filter(

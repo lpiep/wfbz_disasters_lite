@@ -29,7 +29,7 @@ clean_fema <- function(event_fema_raw){
 		# 	designatedArea_name = if_else(str_detect(designatedArea, '(Tribe|Reservation|ANV)') | tribalRequest == 1, designatedArea, designatedArea_name)
 		# ) %>%
 		mutate( # Standardize the fire name
-			declarationTitle = standardize_place_name(str_trim(declarationTitle))
+			declarationTitle = standardize_place_name(declarationTitle)
 		) %>%
 		mutate(across(matches('Date'), as.Date)) # convert datetime cols to date
 	
@@ -50,6 +50,16 @@ clean_fema <- function(event_fema_raw){
 			wildfire_containment_date = incidentEndDate ,
 			wildfire_counties = COUNTY_NAME
 		)
+	
+	# collapse county and state columns
+	fema_all %>% 
+		group_by(fema_id) %>% 
+		nest(data = c(wildfire_counties, wildfire_states)) %>%
+		mutate(
+			wildfire_counties = map(data, ~ pluck(.x, 'wildfire_counties') %>% na.omit() %>% unique() %>% paste(collapse = '|')), 
+			wildfire_states = map(data, ~ pluck(.x, 'wildfire_states') %>% na.omit() %>% unique() %>% paste(collapse = '|')) 
+		) %>%
+		select(-data)
 
 	fema_all
 }

@@ -39,7 +39,7 @@ clean_nifc <- function(spatial_nifc_raw){
   nifc %>%
 		transmute(
 			wildfire_year = FIRE_YEAR,
-			wildfire_state = state_from_id,
+			wildfire_states = state_from_id,
 			irwin_id = IRWINID,
 			nifc_id = OBJECTID,
 			wildfire_name = INCIDENT,
