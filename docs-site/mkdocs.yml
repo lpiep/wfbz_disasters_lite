@@ -9,6 +9,6 @@ nav:
     - FIRED: raw_data_desc/fired.md
     - ICS209: raw_data_desc/ics209.md
     - Red Book: raw_data_desc/redbook.md
-  - Papers: papers.md
+    - GHS Population: raw_data_desc/ghs.md
 theme:
   name: material
