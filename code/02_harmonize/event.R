@@ -74,7 +74,11 @@ harmonize_event <- function(
 		 	wildfire_fema_dec = !is.na(wildfire_fema_dec_date_fema),
 		 	wildfire_struct_destroyed = pmax(wildfire_struct_destroyed_ics209, wildfire_struct_destroyed_redbook, na.rm = TRUE),
 		 	wildfire_civil_fatalities = pmax(wildfire_civil_fatalities_ics209, wildfire_civil_fatalities_redbook, na.rm = TRUE),
-		 	wildfire_total_fatalities = pmax(wildfire_total_fatalities_ics209, wildfire_total_fatalities_redbook, na.rm = TRUE)
+		 	wildfire_total_fatalities = pmax(wildfire_total_fatalities_ics209, wildfire_total_fatalities_redbook, na.rm = TRUE),
+		 	wildfire_max_civil_fatalities = case_when(
+		 		wildfire_year_redbook < 2014 & !is.na(wildfire_civil_fatalities_redbook) ~ wildfire_civil_fatalities_redbook,
+		 		TRUE ~ wildfire_civil_fatalities
+		 	)
 		 ) %>%
 		filter(
 			wildfire_fema_dec | 
@@ -82,7 +86,7 @@ harmonize_event <- function(
 			coalesce(wildfire_civil_fatalities, 0) > 0 | 
 			coalesce(wildfire_total_fatalities, 0) > 0
 		) 
-	
+
 	# take records from sources in order of precedence (redbook > ics209 > fema) or by min/maxing
 	event_merged %>% 
 		unite('wildfire_complex_names', c(wildfire_name_redbook, wildfire_name_ics209, wildfire_name_fema), sep = '|', na.rm = TRUE) %>% 
@@ -95,6 +99,7 @@ harmonize_event <- function(
 			wildfire_complex_names = dedupe_pipe_delim(wildfire_complex_names), # rm dupes
 			wildfire_total_fatalities,
 			wildfire_civil_fatalities,
+			wildfire_max_civil_fatalities,
 			wildfire_struct_destroyed = coalesce(wildfire_struct_destroyed_redbook, wildfire_struct_destroyed_ics209),
 			wildfire_fema_dec,
 			wildfire_ignition_date = pmin(wildfire_ignition_date_fema, wildfire_ignition_date_ics209, wildfire_ignition_date_redbook, na.rm = TRUE),
