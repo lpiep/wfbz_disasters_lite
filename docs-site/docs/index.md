@@ -9,8 +9,7 @@
 | ------------- | ------------- | -------| ---------- | 
 `wildfire_id` | `character` | True | Wildfire ID | 
 `wildfire_year` | `date` | | Wildfire Year [YYYY] of Fire |
-`wildfire_states` | `character` | | Wildfire US State(s) in which fire occurred (pipe-delimited if more than one) |
-`wildfire_counties` | `character` | | Wildfire US County FIPS code(s) in which fire occurred (pipe-delimited if more than one) |
+`wildfire_states` | `character` | | Wildfire US State(s) in which fire occurred (comma-delimited if more than one) |
 `wildfire_area` | `decimal` | | Wildfire burned area in square kilometers |
 `wildfire_complex` | `boolean` | | Fire is a complex of multiple member fires |
 `wildfire_complex_names` | `character` | | List of wildfires in the wildfire complex |
@@ -19,11 +18,13 @@
 
 | Variable      | Data Type     | Unique | Description|
 | ------------- | ------------- | -------| ---------- | 
-`wildfire_fatalities` | `integer` | |  Wildfire number of fatalities ???? |
-`wildfire_civil_fatalities` | `integer` | |  Wildfire number of civilian fatalities ???? |
-`wildfire_struct_destroyed` | `integer` | |  Wildfire number of structures destroyed |
-`wildfire_community_intersect` | `boolean` | |  Wildfire criteria for community intersect |
+`wildfire_total_fatalities` | `integer` | | Total wildfire fatalities, firefighter and civilian combined. |
+`wildfire_max_civil_fatalities` | `integer` | |  Best estimate of civilian fatalities from 2000-2019. From 2000-2013, only California RedBooks reported civilian fatalities alone. Therefore, from 2000-2013, this variable reports the maximum total fatalities for wildfires outside California but civilian specific fatalities from California. From 2014-2019, this variable reports the maximum civilian fatalities from each fire. |
+`wildfire_civil_fatalities` | `integer` | | Total wildfire civilian fatalities (before 2014, these data are only available from CalFire. all other states are missing information on civilian only fatalities prior to 2014). |
+`wildfire_struct_destroyed` | `integer` | |  Wildfire criteria was met for number of structures destroyed. |
+`wildfire_community_intersect` | `boolean` | |  Wildfire criteria was met for community intersection based on population density of 96 people per square kilometer. |
 `wildfire_fema_dec` | `boolean` | | FEMA disaster declaration | 
+`wildfire_disaster_criteria_met` | `integer` | | Wildfire disaster criteria met, including civilian fatalities, structures burned, or an FMAG declaration, or a combination of these variables. |
 
 ### Dates
 
