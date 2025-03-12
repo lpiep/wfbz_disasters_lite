@@ -1,4 +1,4 @@
-# Wildfire Disaster Data Harmonization
+# Wildfire Wildfire Burn Zone Disaster (WFBZ) Data Harmonization
 ## "Lite" Version
 
 This program will harmonize wildfire and disaster data from several sources to produce a single geospatial data set. 
