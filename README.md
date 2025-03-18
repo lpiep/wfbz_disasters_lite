@@ -6,26 +6,17 @@ It is off Milo Gordon's work that created a harmonized data set for the years 20
 of manual data cleaning. This project aims to reproduce that work for future data releases, sacrificing some accuracy 
 and completeness in favor of a more automated process. 
 
-## TO DO
-
-* [ ] Implement new process flow in code
-  * [ ] Port Milo's joins into code
-* [ ] Implement out ICS-209-PLUS build as a separate repo (will read in complete ICS-209-PLUS data set from there)
-* [ ] Do some validation of data sets as they come in
-* [ ] Integrate population filter
-* [ ] LAST: Build out docker container
-
 ## Run
 
-Clone this repo, and run `main.R` in R. I include a script to run the same code using the `rocker/geospatial` docker image as 
-well for reproducibility. _Note: `targets` is not included in `rocker/geospatial`. Creating a development container is a TO DO._
+Clone this repo, and run `run.R` in R. You can run the same code using the `rocker/geospatial` docker image as 
+well for reproducibility. _Note: `targets` is not included in `rocker/geospatial`.
 
 With your system R:
 
 ```
 $ git clone https://github.com/lpiep/wildfire_disasters_lite.git
 $ cd wildfire_disasters_lite
-$ Rscript main.sh
+$ Rscript run.R
 ```
 
 With Docker: 
@@ -33,10 +24,18 @@ With Docker:
 ```
 $ git clone https://github.com/lpiep/wildfire_disasters_lite.git
 $ cd wildfire_disasters_lite
-$ docker build
-$ docker exec main.sh
+$ docker build -t wflite .
+$ docker run --rm -v "output:/app/output" wflite
 ```
 
+With Apptainer/Singularity:
+
+```
+$ git clone https://github.com/lpiep/wildfire_disasters_lite.git
+$ cd wildfire_disasters_lite
+$ singularity build --remote wflite.sif apptainer.def
+$ singularity exec --bind ".:/app/" wflite.sif /app/wfbz_disasters_lite.sh
+```
 ## Python Setup
 
 ### Install Conda 

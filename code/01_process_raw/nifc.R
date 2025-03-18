@@ -4,6 +4,7 @@ clean_nifc <- function(spatial_nifc_raw){
 	# Interagency All Years Perimeters
 	nifc <- st_read(spatial_nifc_raw) %>% 
 		mutate(FIRE_YEAR=as.numeric(FIRE_YEAR)) %>%
+		filter(between(FIRE_YEAR, 1999, year(today()))) %>%  
 		st_transform(crs = 4269) %>% 
 		mutate(UNQE_FIRE_ = gsub("NA", NA, UNQE_FIRE_)) %>%
 		mutate(

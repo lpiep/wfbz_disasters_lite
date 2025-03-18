@@ -1,0 +1,32 @@
+---
+title: "Wildfire Disasters Lite Summary Report"
+format: html
+editor: visual
+---
+
+```{r}
+#| include: true
+library(tidyverse)
+library(targets)
+library(gt)
+library(sf)
+output_file <- tar_read(output_file)
+data <- tar_read(pop_density)
+head(data)
+```
+
+_Last run: `r today()`_
+
+Output File Details:
+
+``r output_file``
+
+* File Size: ``r as.character(fs::file_info(path = output_file)$size)``
+* File Checksum (md5): ``r tools::md5sum(output_file)``
+
+
+
+## Documentation
+
+See detailed documentation for the input and output data sets here: [https://lpiep.github.io/wildfire_disasters_lite/](https://lpiep.github.io/wildfire_disasters_lite/)
+

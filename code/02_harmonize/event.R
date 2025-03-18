@@ -109,7 +109,7 @@ harmonize_event <- function(
 			wildfire_fema_dec_date = wildfire_fema_dec_date_fema,
 			wildfire_poo_lat = wildfire_poo_lat_ics209,
 			wildfire_poo_lon = wildfire_poo_lon_ics209,
-			redbook_id,
+			redbook_id = as.character(redbook_id),
 			ics_id,
 			fema_id,
 			irwin_id

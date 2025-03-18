@@ -21,5 +21,9 @@ clean_ics209 <- function(event_ics209_raw){
 			wildfire_total_fatalities = ics_wildfire_fatalities_tot,
 			wildfire_struct_destroyed = ics_wildfire_struct_destroyed,
 			irwin_id = ics_irwin_id
+		) %>%
+		filter( # get rid of hurricanes 
+			!str_detect(wildfire_name, "TROPICAL STORM"),
+			!str_detect(wildfire_name, "HURRICANE") & !str_detect(wildfire_name, "(HELENE|IRMA|MILTON|IAN|MICHAEL|JEANNE|FRANCES|SANDY|LAURA|MARIA)")
 		)
 }

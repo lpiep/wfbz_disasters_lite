@@ -25,7 +25,7 @@ unzip_url <- function(url, dst) {
 }
 
 # For spatial data frames, use TIGER data to identify county or counties. Will create a duplicate row for each overlapping county
-append_county <- function(dat_sf, refdate){
+append_county <- function(dat_sf, refdate, spatial_tiger_counties){
    stopifnot('sf' %in% class(dat_sf))
    
    # Split by decade & join in appropriate census
@@ -104,7 +104,7 @@ standardize_place_name <- function(place_name) {
    place_name <- str_remove_all(place_name, "\\#")
   
    # standardize anything else according to USPS pub 28 standard
-   pub28 <- c(`\bALLEY\b` = "ALY", `\bALLEE\b` = "ALY", `\bALLY\b` = "ALY", 
+   pub28 <- c(`\bALLEY\b` = "ALY", `\bALLEE\b` = "ALY", `\bALLY\b` = "ALY",  # should this go into a csv or source from usps? 
      `\bANEX\b` = "ANX", `\bANNEX\b` = "ANX", `\bANNX\b` = "ANX", 
      `\bARCADE\b` = "ARC", `\bAVENUE\b` = "AVE", `\bAV\b` = "AVE", 
      `\bAVEN\b` = "AVE", `\bAVENU\b` = "AVE", `\bAVN\b` = "AVE", `\bAVNUE\b` = "AVE", 

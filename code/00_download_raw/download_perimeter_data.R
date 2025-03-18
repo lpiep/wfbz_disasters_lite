@@ -11,10 +11,13 @@ download_spatial_mtbs_raw <- function(){
 }
 
 download_spatial_fired_raw <- function(){
-	unzip_url(
-		'https://scholar.colorado.edu/downloads/h702q749s',
-		dir_create('data/01_raw/spatial/fired')
-	)
+	if(!file.exists('data/01_raw/spatial/fired/fired_conus-ak_events_nov2001-march2021.gpkg')){
+		unzip_url(
+			'https://scholar.colorado.edu/downloads/h702q749s',
+			dir_create('data/01_raw/spatial/fired')
+		)
+	}
+	return('data/01_raw/spatial/fired')
 }
 
 download_spatial_nifc_raw <- function(){

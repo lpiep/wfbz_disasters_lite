@@ -8,4 +8,4 @@ The spatial raster dataset depicts the distribution of population, expressed as 
 
 We downloaded the 100m resolution datasets for years 2000, 2005, 2010, 2015, and 2020. 
 
-_Note:_ These files are very large (~ 4GB per file). 
+_Note:_ These files are very large (7-8GB per year). 
