@@ -236,6 +236,28 @@ harmonize_spatial <- function(
 		) %>%
 		select(-orig_rowid_nifc)
 	
+	# get rid of any already identified in t3a
+	ics_found <- c(t1$ics_id, t2$ics_id, t3a$ics_id) %>%
+		str_split(pattern = '\\|') %>% 
+		unlist() %>%
+		unique()
+	redbook_found <- c(t1$redbook_id, t2$redbook_id, t3a$redbook_id) %>%
+		str_split(pattern = '\\|') %>% 
+		unlist() %>%
+		unique()
+	fema_found <- c(t1$fema_id, t2$fema_id, t3a$fema_id) %>%
+		str_split(pattern = '\\|') %>% 
+		unlist() %>%
+		unique()
+	
+	t3b <- t3b %>% 
+		filter(
+			!unlist(map(str_split(ics_id, pattern = '\\|'), ~any(.x %in% ics_found))),
+			!unlist(map(str_split(redbook_id, pattern = '\\|'), ~any(.x %in% redbook_found))),
+			!unlist(map(str_split(fema_id, pattern = '\\|'), ~any(.x %in% fema_found)))
+		)
+			
+		
 	
 	## Tier 3C: FIRED join on Time/POO ##
 	
@@ -287,7 +309,7 @@ harmonize_spatial <- function(
 			wildfire_fema_dec_date        = suppressWarnings(min(wildfire_fema_dec_date, na.rm = TRUE)),
 			wildfire_poo_lat = first(wildfire_poo_lat, na_rm = TRUE),
 			wildfire_poo_lon = first(wildfire_poo_lon, na_rm = TRUE),
-			geometry_src = 'NIFC',
+			geometry_src = 'FIRED',
 			redbook_id =  paste(unique(redbook_id), collapse = '|') %>% na_if('NA'),
 			ics_id     =  paste(unique(ics_id), collapse = '|') %>% na_if('NA'),
 			fired_id   =  paste(unique(fired_id), collapse = '|') %>% na_if('NA'),
@@ -298,15 +320,55 @@ harmonize_spatial <- function(
 		) %>%
 		select(-orig_rowid_fired)
 	
+	
+	# get rid of any already identified in t3a or t3b
+	ics_found <- c(t1$ics_id, t2$ics_id, t3a$ics_id, t3b$ics_id) %>%
+		str_split(pattern = '\\|') %>% 
+		unlist() %>%
+		unique()
+	redbook_found <- c(t1$redbook_id, t2$redbook_id, t3a$redbook_id, t3b$redbook_id) %>%
+		str_split(pattern = '\\|') %>% 
+		unlist() %>%
+		unique()
+	fema_found <- c(t1$fema_id, t2$fema_id, t3a$fema_id, t3b$fema_id) %>%
+		str_split(pattern = '\\|') %>% 
+		unlist() %>%
+		unique()
+	
+	t3c <- t3c %>% 
+		filter(
+			!unlist(map(str_split(ics_id, pattern = '\\|'), ~any(.x %in% ics_found))),
+			!unlist(map(str_split(redbook_id, pattern = '\\|'), ~any(.x %in% redbook_found))),
+			!unlist(map(str_split(fema_id, pattern = '\\|'), ~any(.x %in% fema_found)))
+		)
+	
+	
 	### Tier 4: Approximate Burn Zone from ICS POO ###
 	
 	ics_found <- c(t1$ics_id, t2$ics_id, t3a$ics_id, t3b$ics_id, t3c$ics_id) %>%
 		str_split(pattern = '\\|') %>% 
 		unlist() %>%
 		unique()
-	
+	# get rid of any already identified in t3a or t3b
+	ics_found <- c(t1$ics_id, t2$ics_id, t3a$ics_id, t3b$ics_id, t3c$ics_id) %>%
+		str_split(pattern = '\\|') %>% 
+		unlist() %>%
+		unique()
+	redbook_found <- c(t1$redbook_id, t2$redbook_id, t3a$redbook_id, t3b$redbook_id, t3c$redbook_id) %>%
+		str_split(pattern = '\\|') %>% 
+		unlist() %>%
+		unique()
+	fema_found <- c(t1$fema_id, t2$fema_id, t3a$fema_id, t3b$fema_id, t3c$fema_id) %>%
+		str_split(pattern = '\\|') %>% 
+		unlist() %>%
+		unique()
+
 	t4 <- event %>% 
-		filter(!(ics_id %in% ics_found)) %>%
+		filter(
+			!unlist(map(str_split(ics_id, pattern = '\\|'), ~any(.x %in% ics_found))),
+			!unlist(map(str_split(redbook_id, pattern = '\\|'), ~any(.x %in% redbook_found))),
+			!unlist(map(str_split(fema_id, pattern = '\\|'), ~any(.x %in% fema_found)))
+		) %>% 
 		mutate(tier = 4) %>%
 		filter(!is.na(wildfire_poo_lat), !is.na(wildfire_poo_lon), !is.na(wildfire_area)) %>%
 		mutate(
