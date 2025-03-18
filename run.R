@@ -4,4 +4,4 @@
 
 message("Executing Pipeline")
 
-targets::tar_make_clustermq(workers = parallel::detectCores() - 1L)
+targets::tar_make()

@@ -1,0 +1,18 @@
+Bootstrap: docker
+From: ghcr.io/rocker-org/devcontainer/geospatial:4.2
+
+%environment
+
+%post
+    Rscript -e "install.packages('remotes', repos = 'https://cran.rstudio.com/')"
+    Rscript -e "remotes::install_version('targets', '1.10.1')"
+    Rscript -e "remotes::install_version('tarchetypes', '0.12.0')"
+    Rscript -e "remotes::install_cran(c('jsonlite', 'fs', 'clustermq'))"
+    Rscript -e "remotes::install_github('qsbase/qs2')"
+
+    # Create output directory
+    mkdir -p /app/output
+
+%files
+
+%runscript
