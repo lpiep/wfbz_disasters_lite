@@ -90,6 +90,12 @@ list(
   	format = 'file',
   	cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
   ),
+	tar_target(
+		name = spatial_ghs_pop_raw_2025,
+		download_spatial_ghs_pop(2025),	
+		format = 'file',
+		cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
+	),
 
   ### Census Files ###
   tar_target(
@@ -201,14 +207,16 @@ list(
   tar_target(
   	pop_density,
   	apply_pop_density(
-  		spatial,
-  		pop_density_py_script,
+  		spatial = spatial,
+  		pop_density_py_script = pop_density_py_script,
   		spatial_ghs_pop_raw_2000,
   		spatial_ghs_pop_raw_2005,
   		spatial_ghs_pop_raw_2010,
   		spatial_ghs_pop_raw_2015,
-  		spatial_ghs_pop_raw_2020
-  	)
+  		spatial_ghs_pop_raw_2020,
+  		spatial_ghs_pop_raw_2025
+  	),
+  	format = 'file'
   ),
   tar_render(
   	summary_report, 

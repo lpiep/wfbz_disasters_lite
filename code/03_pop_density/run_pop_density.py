@@ -60,7 +60,7 @@ def main(
     #-----------------
     # read in data
     # fires
-    df = gpd.read_file(data_dir / "02_processed/wflite.geojson")
+    df = gpd.read_file(data_dir / "02_processed/spatial.geojson")
 
     # utm map
     utm_map = pd.read_csv(data_dir / "utm_popden.csv")

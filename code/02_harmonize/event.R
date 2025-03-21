@@ -91,6 +91,7 @@ harmonize_event <- function(
 	event_merged %>% 
 		unite('wildfire_complex_names', c(wildfire_name_redbook, wildfire_name_ics209, wildfire_name_fema), sep = '|', na.rm = TRUE) %>% 
 		transmute(
+			event_id = row_number(),
 			wildfire_year = coalesce(wildfire_year_redbook, year(pmin(wildfire_ignition_date_fema, wildfire_ignition_date_ics209, wildfire_ignition_date_redbook, na.rm = TRUE))),
 			wildfire_states,
 			wildfire_counties,

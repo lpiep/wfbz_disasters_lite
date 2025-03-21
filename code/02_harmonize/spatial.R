@@ -34,14 +34,14 @@ harmonize_spatial <- function(
 		inner_join(filter(event, tier == 1), by = 'irwin_id', relationship = 'one-to-many', suffix = c('_mtbs', '_event')) %>%
 		group_by(irwin_id, wildfire_ignition_date_mtbs) %>%
 		summarize(
+			event_id = list(event_id),
 			wildfire_year = first(wildfire_year, na_rm = TRUE),
-			#wildfire_states = paste(na.omit(wildfire_states), collapse = '|'),
 			wildfire_area = max(wildfire_area_mtbs, na.rm = TRUE),
 			wildfire_complex = any(wildfire_complex_event | wildfire_complex_mtbs, na.rm = TRUE),
 			wildfire_complex_names = dedupe_pipe_delim(paste(c(wildfire_name, wildfire_complex_names), collapse = '|')),
-			wildfire_total_fatalities = suppressWarnings(max(wildfire_total_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
-			wildfire_civil_fatalities = suppressWarnings(max(wildfire_civil_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
-			wildfire_struct_destroyed = suppressWarnings(max(wildfire_struct_destroyed, na.rm = TRUE)) %>% na_if(-Inf),
+			wildfire_total_fatalities = suppressWarnings(max(wildfire_total_fatalities, na.rm = TRUE)) %>% na_if(Inf),
+			wildfire_civil_fatalities = suppressWarnings(max(wildfire_civil_fatalities, na.rm = TRUE)) %>% na_if(Inf),
+			wildfire_struct_destroyed = suppressWarnings(max(wildfire_struct_destroyed, na.rm = TRUE)) %>% na_if(Inf),
 			wildfire_fema_dec = any(wildfire_fema_dec, na.rm = TRUE),
 			wildfire_ignition_date        = suppressWarnings(min(wildfire_ignition_date_event, na.rm = TRUE)), # event only -- see below
 			wildfire_containment_date     = suppressWarnings(min(wildfire_containment_date, na.rm = TRUE)),
@@ -70,8 +70,8 @@ harmonize_spatial <- function(
 		inner_join(filter(event, tier == 2), by = 'irwin_id', relationship = 'one-to-many', suffix = c('_nifc', '_event')) %>%
 		group_by(irwin_id) %>%
 		summarize(
+			event_id = list(event_id),
 			wildfire_year = first(wildfire_year_nifc, na_rm = TRUE), # drop event year -- shouldn't be different
-			#wildfire_states = paste(na.omit(wildfire_states), collapse = '|'),
 			wildfire_area = max(wildfire_area_nifc, na.rm = TRUE),
 			wildfire_complex = any(wildfire_complex_event | wildfire_complex_nifc, na.rm = TRUE),
 			wildfire_complex_names = dedupe_pipe_delim(paste(c(wildfire_name, wildfire_complex_names), collapse = '|')),
@@ -143,8 +143,8 @@ harmonize_spatial <- function(
 		) %>% 
 		group_by(orig_rowid_mtbs) %>%
 		summarize(
+			event_id = list(event_id),
 			wildfire_year = first(wildfire_year, na_rm = TRUE),
-			#wildfire_states = paste(na.omit(wildfire_states), collapse = '|'),
 			wildfire_area = max(wildfire_area_mtbs, na.rm = TRUE),
 			wildfire_complex = any(wildfire_complex_event | wildfire_complex_mtbs, na.rm = TRUE),
 			wildfire_complex_names = dedupe_pipe_delim(paste(c(wildfire_name, wildfire_complex_names), collapse = '|')),
@@ -171,6 +171,9 @@ harmonize_spatial <- function(
 		select(-orig_rowid_mtbs)
 	
 	## Tier 3B: NIFC join on Date/Time/Name ## 
+	
+	event_t3_long <- event_t3_long %>% 
+		filter(!(event_id %in% unlist(t3a$event_id)))
 	
 	nifc_long <- spatial_nifc %>%  # expand by state/county and calculate dates for fuzzy match
 		mutate(
@@ -209,8 +212,8 @@ harmonize_spatial <- function(
 		) %>% 
 		group_by(orig_rowid_nifc) %>%
 		summarize(
+			event_id = list(event_id),
 			wildfire_year = first(wildfire_year_nifc, na_rm = TRUE), # drop event year -- shouldn't be different
-			#wildfire_states = paste(na.omit(wildfire_states), collapse = '|'),
 			wildfire_area = max(wildfire_area_nifc, na.rm = TRUE),
 			wildfire_complex = any(wildfire_complex_event | wildfire_complex_nifc, na.rm = TRUE),
 			wildfire_complex_names = dedupe_pipe_delim(paste(c(wildfire_name, wildfire_complex_names), collapse = '|')),
@@ -236,30 +239,11 @@ harmonize_spatial <- function(
 		) %>%
 		select(-orig_rowid_nifc)
 	
-	# get rid of any already identified in t3a
-	ics_found <- c(t1$ics_id, t2$ics_id, t3a$ics_id) %>%
-		str_split(pattern = '\\|') %>% 
-		unlist() %>%
-		unique()
-	redbook_found <- c(t1$redbook_id, t2$redbook_id, t3a$redbook_id) %>%
-		str_split(pattern = '\\|') %>% 
-		unlist() %>%
-		unique()
-	fema_found <- c(t1$fema_id, t2$fema_id, t3a$fema_id) %>%
-		str_split(pattern = '\\|') %>% 
-		unlist() %>%
-		unique()
-	
-	t3b <- t3b %>% 
-		filter(
-			!unlist(map(str_split(ics_id, pattern = '\\|'), ~any(.x %in% ics_found))),
-			!unlist(map(str_split(redbook_id, pattern = '\\|'), ~any(.x %in% redbook_found))),
-			!unlist(map(str_split(fema_id, pattern = '\\|'), ~any(.x %in% fema_found)))
-		)
-			
-		
-	
 	## Tier 3C: FIRED join on Time/POO ##
+	
+	event_t3_long <- event_t3_long %>% 
+		filter(!(event_id %in% unlist(t3b$event_id)))
+	
 	
 	fired_long <- spatial_fired %>%  # expand by state/county and calculate dates for fuzzy match
 		mutate(orig_rowid_fired = row_number()) %>% 
@@ -293,8 +277,8 @@ harmonize_spatial <- function(
 		) %>% 
 		group_by(orig_rowid_fired) %>%
 		summarize(
+			event_id = list(event_id),
 			wildfire_year = first(wildfire_year, na_rm = TRUE), 
-			#wildfire_states = paste(na.omit(wildfire_states), collapse = '|'),
 			wildfire_area = max(wildfire_area_fired),
 			wildfire_complex = any(wildfire_complex),
 			wildfire_complex_names = dedupe_pipe_delim(paste(wildfire_complex_names, collapse = '|')),
@@ -320,77 +304,43 @@ harmonize_spatial <- function(
 		) %>%
 		select(-orig_rowid_fired)
 	
-	
-	# get rid of any already identified in t3a or t3b
-	ics_found <- c(t1$ics_id, t2$ics_id, t3a$ics_id, t3b$ics_id) %>%
-		str_split(pattern = '\\|') %>% 
-		unlist() %>%
-		unique()
-	redbook_found <- c(t1$redbook_id, t2$redbook_id, t3a$redbook_id, t3b$redbook_id) %>%
-		str_split(pattern = '\\|') %>% 
-		unlist() %>%
-		unique()
-	fema_found <- c(t1$fema_id, t2$fema_id, t3a$fema_id, t3b$fema_id) %>%
-		str_split(pattern = '\\|') %>% 
-		unlist() %>%
-		unique()
-	
-	t3c <- t3c %>% 
-		filter(
-			!unlist(map(str_split(ics_id, pattern = '\\|'), ~any(.x %in% ics_found))),
-			!unlist(map(str_split(redbook_id, pattern = '\\|'), ~any(.x %in% redbook_found))),
-			!unlist(map(str_split(fema_id, pattern = '\\|'), ~any(.x %in% fema_found)))
-		)
-	
-	
 	### Tier 4: Approximate Burn Zone from ICS POO ###
 	
-	ics_found <- c(t1$ics_id, t2$ics_id, t3a$ics_id, t3b$ics_id, t3c$ics_id) %>%
-		str_split(pattern = '\\|') %>% 
-		unlist() %>%
-		unique()
-	# get rid of any already identified in t3a or t3b
-	ics_found <- c(t1$ics_id, t2$ics_id, t3a$ics_id, t3b$ics_id, t3c$ics_id) %>%
-		str_split(pattern = '\\|') %>% 
-		unlist() %>%
-		unique()
-	redbook_found <- c(t1$redbook_id, t2$redbook_id, t3a$redbook_id, t3b$redbook_id, t3c$redbook_id) %>%
-		str_split(pattern = '\\|') %>% 
-		unlist() %>%
-		unique()
-	fema_found <- c(t1$fema_id, t2$fema_id, t3a$fema_id, t3b$fema_id, t3c$fema_id) %>%
-		str_split(pattern = '\\|') %>% 
-		unlist() %>%
-		unique()
-
 	t4 <- event %>% 
 		filter(
-			!unlist(map(str_split(ics_id, pattern = '\\|'), ~any(.x %in% ics_found))),
-			!unlist(map(str_split(redbook_id, pattern = '\\|'), ~any(.x %in% redbook_found))),
-			!unlist(map(str_split(fema_id, pattern = '\\|'), ~any(.x %in% fema_found)))
-		) %>% 
-		mutate(tier = 4) %>%
+			!(event_id %in% c(unlist(t1$event_id), unlist(t2$event_id), unlist(t3a$event_id), unlist(t3b$event_id), unlist(t3b$event_id)))
+		) %>%
+		mutate(tier = 4, geometry_src = 'ICS209') %>%
 		filter(!is.na(wildfire_poo_lat), !is.na(wildfire_poo_lon), !is.na(wildfire_area)) %>%
 		mutate(
 			radius = sqrt(wildfire_area/pi)*1000
 		) %>%
 		st_as_sf(coords = c('wildfire_poo_lon', 'wildfire_poo_lat'), remove = FALSE, crs = 4269) %>% 
 		st_buffer(.$radius) %>%
-		select(-radius)
+		select(-radius, -wildfire_states)
 		
 	
-	### Add State/County from final geometry
-	
-	
 	### combine and shine
-	bind_rows(
-		t1,
-		t2,
-		t3a,
-		t3b,
-		t3c,
-		t4
-	)
+	all_tiers <- bind_rows(
+		`MTBS by ID` = t1 %>% select(-event_id),
+		`NIFC by ID` = t2 %>% select(-event_id),
+		`MTBS by Name/Place/Time` = t3a %>% select(-event_id),
+		`NIFC by Name/Place/Time` = t3b %>% select(-event_id),
+		`FIRED by Place/Time` = t3c %>% select(-event_id),
+		`ICS by Point of Origin, Size` = t4 %>% select(-event_id), 
+		.id = 'geometry_method'
+	) %>%
+		mutate(wildfire_id = row_number()) %>%
+		mutate(across(is.Date, ~if_else(is.infinite(.x), NA_Date_, .x)))
+	
+	### Add State/County from final geometry
 
+	wildfire_states <- all_tiers %>%
+		st_join(spatial_tiger_counties$`2020`) %>%
+		st_drop_geometry() %>% 
+		group_by(wildfire_id) %>% 
+		summarize(wildfire_states = paste(unique(STATE_ABB), collapse = '|')) 
+
+	left_join(all_tiers, wildfire_states, by = 'wildfire_id')
 }
 
