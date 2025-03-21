@@ -60,9 +60,7 @@ def main(
     #-----------------
     # read in data
     # fires
-    fires_hi = gpd.read_parquet(data_dir / "01_raw/all_disaster_perimeters_ics_and_news_buffers_hawaii_select_variables.parquet")
-    fires_ak = gpd.read_parquet(data_dir / "01_raw/all_disaster_perimeters_ics_and_news_buffers_alaska_select_variables.parquet")
-    fires_conus = gpd.read_parquet(data_dir / "01_raw/all_disaster_perimeters_ics_and_news_buffers_conus_select_variables.parquet")
+    df = gpd.read_file(data_dir / "02_processed/wflite.geojson")
 
     # utm map
     utm_map = pd.read_csv(data_dir / "utm_popden.csv")
@@ -74,107 +72,75 @@ def main(
     warnings.simplefilter("error", category=RuntimeWarning)
 
     #-----------------
-    # run loop
-    fire_dfs = []
+    # run pop density
     failed_ids = []
-    for df in [fires_conus, fires_ak, fires_hi]: 
-        keep_cols = ['disaster_id', 'year', 'states_aggregated_list', 'shape']
-        row_tuples = list(df[keep_cols].itertuples(index=False, name=None))
-        # row_tuples = row_tuples[-89:]
-        for disaster_id, old_year, state_list, fire_poly in tqdm.tqdm(row_tuples):
-            year = round(old_year / 5)*5
-            state = state_list[:2]
-            if fire_poly.is_empty:
-                failed_ids.append(
-                    (disaster_id, "empty_geometry")
-                )
-                continue
-            # if fire_poly.geom_type != "Polygon" and fire_poly.geom_type != "MultiPolygon":
-            #     print(
-            #         f"Invalid geometry type for disaster_id {disaster_id}: "
-            #         f"Expected Polygon or MultiPolygon, got {fire_poly.geom_type}"
-            #     )
-            #     failed_ids.append((disaster_id, f"invalid_geometry_type_{fire_poly.geom_type}"))
-            #     continue
-            fire_crs = utm_map[state]
-            fire_series = gpd.GeoSeries([fire_poly], crs=df.crs).to_crs(fire_crs)
-            if not fire_series.is_valid.iloc[0]:
-                print(disaster_id, 'is invalid')
-                failed_ids.append(
-                    (disaster_id, "invalid_geometry")
-                )
-                fire_series.iloc[0] = make_valid(fire_series.iloc[0])
+    keep_cols = ['wildfire_id', 'wildfire_year', 'wildfire_states', 'geometry']
 
-            buffer_dist = large_fire_buffer if fire_series.area.iloc[0] > area_thresh else small_fire_buffer 
-            buffered_fire_series = fire_series.buffer(buffer_dist) # buffer dist in meters
-            
-            bounding_box = buffered_fire_series.envelope.buffer(pop_average_radius*1.1).to_crs(mol_crs).iloc[0]
+    ## FOR TESTING
+    # df['wildfire_id'] = range(1, len(df) + 1)
+    # df['wildfire_states'] = "CA"
+    # df['wildfire_year'] = df['wildfire_year'].astype(int)
+    # df = df[df['wildfire_year']<2020]
+    ### 
 
-            if bounding_box.area/1000**2 > 100_000: # 100k sq kilometers
-                failed_ids.append(
-                    (disaster_id, "bounding_box_too_large")
-                )
-                continue
-
-            # II. load pop data 
-            try:
-                pop = rt.load_raster(data_dir / f"01_raw/pop_data/GHS_POP_E{year}_GLOBE_R2023A_54009_100_V1_0.tif", bounding_box).to_crs(fire_crs)
-            except:
-                import pdb; pdb.set_trace()
-            pop_density_per_sq_km = pop * (1000**2 / pop.x_resolution**2)
-
-            # III. build kernel and do convolution with kernel - for every pixel, sum all the people within a kilometer of that pixel,
-            # so kernel should be all 1's and should be 10 pixels wide and 10 pixels tall
-            # that convolution gives back a raster of pop density averaged to people per sq km
-            mean_pop_density = make_spatial_average(pop_density_per_sq_km, pop_average_radius)
-
-            # IV. determine if this fire meets density criteria by: 
-            # i. take buffered fire poly and mask everything outside of that (set everything outside buffered poly to 0 which you can do w/ raster.mask)
-            # ii. find max pixel val and if it exceeds your threshold then it overlaps with a communtiy that exceeds the threshold and is marked as TRUE in final csv. 
-            max_pop_density = np.max(mean_pop_density.mask(buffered_fire_series).to_numpy())
-            density_criteria_met = max_pop_density > pop_density_criteria
-
-            # V. add to results df 
-            df_fire = pd.DataFrame({
-                'disaster_id': [str(disaster_id)],
-                'density_criteria_met': [density_criteria_met],
-                'max_pop_density': [max_pop_density],
-                'state': [state],
-                'year': [year],
-                'buffer_distance': [buffer_dist],
-                'geometry': [fire_series.iloc[0]],
-                'crs': [fire_crs],
-            })
-            fire_dfs.append(df_fire)
-    # print("\n".join(failed_ids))
-
-    #-----------------
-    # write out data
-    df = pd.concat(fire_dfs, ignore_index = True)
-    df['geometry'] = df['geometry'].apply(lambda geom: geom.wkt)
-    df['area_thresh'] = area_thresh
-    df['large_fire_buffer'] = large_fire_buffer
-    df['small_fire_buffer'] = small_fire_buffer
-    df['pop_average_radius'] = pop_average_radius
-    df['pop_density_criteria'] = pop_density_criteria
-    df['disaster_id'] = df['disaster_id'].astype(str)
-
-    # write out data for plotting
-    df.to_parquet(data_dir / "02_processed/fire_pop_density_criteria.parquet")
-    # write out little csv 
-    df[["disaster_id", "density_criteria_met"]].to_csv(data_dir / "02_processed/fire_pop_density_criteria.csv")
-    # write out full dataset 
-    fires_conus = fires_conus.merge(df[["disaster_id", "density_criteria_met"]], on='disaster_id', how='left')
-    fires_ak = fires_ak.merge(df[["disaster_id", "density_criteria_met"]], on='disaster_id', how='left')
-    fires_hi = fires_hi.merge(df[["disaster_id", "density_criteria_met"]], on='disaster_id', how='left')
-    fires_conus.to_parquet(data_dir / "02_processed/fires_conus_pop_density.parquet", index=False)
-    fires_conus.to_file(data_dir / "02_processed/fires_conus_pop_density.geojson", driver="GeoJSON")
-    fires_ak.to_parquet(data_dir / "02_processed/fires_alaska_pop_density.parquet", index=False)
-    fires_ak.to_file(data_dir / "02_processed/fires_alaska_pop_density.geojson", driver="GeoJSON")
-    fires_hi.to_parquet(data_dir / "02_processed/fires_hawaii_pop_density.parquet", index=False)
-    fires_hi.to_file(data_dir / "02_processed/fires_hawaii_pop_density.geojson", driver="GeoJSON")
+    row_tuples = list(df[keep_cols].itertuples(index=False, name=None))
+    # row_tuples = row_tuples[-5:]
 
 
+    fire_dfs = []
+    for wildfire_id, wildfire_year, wildfire_state, fire_poly in tqdm.tqdm(row_tuples):
+        year = round(wildfire_year / 5)*5
+        state = wildfire_state[:2]
+        if fire_poly.is_empty:
+            failed_ids.append(
+                (wildfire_id, "empty_geometry")
+            )
+            continue
+        fire_crs = utm_map[state]
+        fire_series = gpd.GeoSeries([fire_poly], crs=df.crs).to_crs(fire_crs)
+        if not fire_series.is_valid.iloc[0]:
+            print(wildfire_id, 'is invalid')
+            failed_ids.append(
+                (wildfire_id, "invalid_geometry")
+            )
+            fire_series.iloc[0] = make_valid(fire_series.iloc[0])
+
+        buffer_dist = large_fire_buffer if fire_series.area.iloc[0] > area_thresh else small_fire_buffer 
+        buffered_fire_series = fire_series.buffer(buffer_dist) # buffer dist in meters
+        
+        bounding_box = buffered_fire_series.envelope.buffer(pop_average_radius*1.1).to_crs(mol_crs).iloc[0]
+
+        if bounding_box.area/1000**2 > 100_000: # 100k sq kilometers
+            failed_ids.append(
+                (wildfire_id, "bounding_box_too_large")
+            )
+            continue
+
+        # II. load pop data 
+        # try:
+        pop = rt.load_raster(data_dir / f"01_raw/pop_data/GHS_POP_E{year}_GLOBE_R2023A_54009_100_V1_0.tif", bounding_box).to_crs(fire_crs)
+        pop_density_per_sq_km = pop * (1000**2 / pop.x_resolution**2)
+
+        # III. build kernel and do convolution with kernel - for every pixel, sum all the people within a kilometer of that pixel,
+        # so kernel should be all 1's and should be 10 pixels wide and 10 pixels tall
+        # that convolution gives back a raster of pop density averaged to people per sq km
+        mean_pop_density = make_spatial_average(pop_density_per_sq_km, pop_average_radius)
+
+        # IV. determine if this fire meets density criteria by: 
+        # i. take buffered fire poly and mask everything outside of that (set everything outside buffered poly to 0 which you can do w/ raster.mask)
+        # ii. find max pixel val and if it exceeds your threshold then it overlaps with a communtiy that exceeds the threshold and is marked as TRUE in final csv. 
+        max_pop_density = np.max(mean_pop_density.mask(buffered_fire_series).to_numpy())
+        wildfire_community_intersect = max_pop_density > pop_density_criteria
+
+        # V. add to results df 
+        df_fire = pd.DataFrame({
+            'wildfire_id': [str(wildfire_id)],
+            'wildfire_community_intersect': [wildfire_community_intersect]
+        })
+        fire_dfs.append(df_fire)
+        df_out = pd.concat(fire_dfs, ignore_index = True)
+
+        df_out.to_csv(data_dir / "02_processed/fire_pop_density_criteria.csv")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Population density criteria evaluations.")
@@ -204,5 +170,3 @@ end_time = time.time()
 runtime = end_time - start_time
 
 print(f"Script runtime: {runtime:.2f} seconds")
-
-# python code/03_pop_density/run_pop_density.py -o data
