@@ -1,0 +1,27 @@
+incident_id,incident_name,start_year,date_start,date_cont,county_unit,structures_dest_or_dam,structures_dest,structures_dam,fatalities_fire,fatalities_civilian,acres_burned,origin_dpa,veg_type,cause,df_source
+NA,TESLA,2005,07/19/05,07/20/05,Santa Clara,NA,na,1,na,na,"6,744",CDF,G,Arson,pdf
+NA,CLOVER,2005,09/16/05,09/17/05,Sonoma-Lokc-Napa,NA,1,na,na,na,751,CDF,WB,Undet,pdf
+NA,RUMSEY SERIES #3,2005,10/11/05,10/12/05,Sonoma-Lake-Napa gascadearea,NA,na,na,na,na,451,CDF,GB,Undet,pdf
+NA,36-2,2005,08/10/05,08/11/05,Tehama-Glenn,NA,na,na,na,na,"2,700",CDF,W,Equip. Use,pdf
+NA,MANTON,2005,08/26/05,08/29/05,Tehama-Glenn,NA,29,1,na,na,"1,830",CDF,B,Vehicle,pdf
+NA,SOBOBA,2005,06/22/05,06/24/05,Riverside,NA,na,na,na,na,"2,000",CDF,GB,Equip. Use,pdf
+NA,STATE FIRE,2005,09/28/05,09/28/05,Riverside,NA,3,na,na,na,"1,100",CDF,B,Miso.,pdf
+NA,WOODHOUSE,2005,10/05/05,10/07/05,Riverside,NA,na,na,na,na,"6,500",CDF,B,Rail Road,pdf
+NA,PARADISE,2005,06/22/05,06/25/05,San Bernardino,NA,6,8,na,na,"3,082",CDF,B,Undet,pdf
+NA,PIONEER,2005,06/18/05,06/19/05,San Bernardino,NA,na,na,na,na,"1,876",OTHER,GB,Undet.,pdf
+NA,BORDER # 50,2005,10/05/05,10/08/05,San Diego,NA,na,na,na,na,"4,103",CDF,TB,Undet,pdf
+NA,VOLCAN,2005,09/06/05,09/11/05,San Diego SIERRA AREA,NA,30,na,na,na,685,CDF,T,Vehicle,pdf
+NA,FIVE,2005,06/04/05,06/05/05,Frcsno-Kings,NA,na,na,na,na,"5,514",CDF,G,Vehicle,pdf
+NA,COWPIE,2005,08/01/05,08/01/05,Madera-Mariposa,NA,na,na,na,na,"3,200",CDF,G,Miso.,pdf
+NA,QUARTZ,2005,07/25/05,07/27/05,Madera-Mariposa,NA,2,na,na,na,550,CDF,B,Equip. Use,pdf
+NA,CABEU003316,2005,09/04/05,09/05/05,San Benito-Monterey,NA,na,na,na,na,"1,393",OTHER,GB,Vehicle,pdf
+NA,MILLWOOD,2005,07/07/05,07/07/05,Tulare,NA,na,na,na,na,"2,600",CDF,W,Arson,pdf
+NA,PINE,2005,09/19/05,09/19/05,Tulare,NA,na,na,na,na,"1,600",CDF,W,Undet.,pdf
+NA,"74,004",2005,10304,788,Total,NA,6.620,348,"17,585","14,994","5,938","1,239",806,45,pdf
+NA,725,2005,W-io,L12,TOTALS,NA,■.. 8,E331-,NA,NA,"""K 249",14,0,50,pdf
+NA,112,2005,-gg-,50,SANTA BARBARA,NA,NA,NA,NA,NA,v,4,’ S,NA,pdf
+NA,"14,764",2005,•■-A,NA,RERN,NA,NA,NA,NA,NA,NA,"^'4- 14,784",NA,NA,pdf
+NA,IMS',2005,"■w.'.Ojj,,.-.",NA,ORANGE,NA,NA,NA,NA,NA,NA,NA,NA,NA,pdf
+NA,"20,233",2005,-0.,NA,VENTURA,NA,NA,NA,NA,NA,NA,' :O.,NA,NA,pdf
+NA,$1357372,2005,52300,$0,Mendocino,NA,so,51300,5386350,544400,"5430,001",$201,S100,so,pdf
+NA,"$3303,058",2005,38300,so,San Diego,NA,so,$100,S917352,$1483453,$210300,"$1,800",$2300,$0,pdf

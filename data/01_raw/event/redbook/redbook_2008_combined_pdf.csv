@@ -1,0 +1,170 @@
+incident_id,incident_name,start_year,date_start,date_cont,county_unit,structures_dest_or_dam,structures_dest,structures_dam,fatalities_fire,fatalities_civilian,acres_burned,origin_dpa,veg_type,cause,df_source
+NA,Bluff,2008,3/16/08,3/20/08,San Bernardino,0,NA,NA,0,0,NA,NA,"Brush, Grass",Campfire,pdf
+NA,Colyear,2008,5/6/08,5/9/08,Tehama-Glenn,0,NA,NA,0,0,NA,NA,Brush,Debris,pdf
+NA,Avocado,2008,5/20/08,5/21/08,Fresno-Kings,0,NA,NA,0,0,NA,NA,Grass,Equipment Use,pdf
+NA,Gatos,2008,5/22/08,5/22/08,Fresno-Kings,0,NA,NA,0,0,NA,NA,Grass,Miscellaneous,pdf
+NA,Summit,2008,5/22/08,6/15/08,Santa Clara,91,NA,NA,0,0,NA,NA,Timber,Unidentified,pdf
+NA,Johnson VMP,2008,5/28/08,5/29/08,Riverside,0,NA,NA,0,0,NA,NA,Grass,"Debris, veg burn",pdf
+NA,85,2008,6/5/08,6/5/08,Sonoma-Lake-Napa,0,NA,NA,0,0,NA,NA,Grass,Equipment Use,pdf
+NA,Pine,2008,6/10/08,10/14/08,Sonoma-Lake-Napa,0,NA,NA,0,0,NA,NA,"Brush, Grass",Unidentified,pdf
+NA,LaGrange,2008,6/10/08,6/12/08,T uolumne-Calaveras,2,NA,NA,0,0,NA,NA,Grass,Equipment Use,pdf
+NA,41,2008,6/10/08,6/11/08,Mardera-Mariposa,0,NA,NA,0,0,NA,NA,Grass,Equipment Use,pdf
+NA,Ophir,2008,6/10/08,6/11/08,Butte,41,NA,NA,0,0,NA,NA,Grass,Unidentified,pdf
+NA,Humboldt,2008,6/11/08,6/16/08,Butte,351,NA,NA,0,0,NA,NA,Grass,Arson,pdf
+NA,Martin Fire,2008,6/11/08,6/30/08,San Mateo-Santa Cruz,14,NA,NA,0,0,NA,NA,"Timber, Grass",Campfire,pdf
+NA,Trabing,2008,6/20/08,6/22/08,San Mateo-Santa Cruz,87,NA,NA,0,0,NA,NA,"Timber, Brush, Grass",Equipment Use,pdf
+NA,Albion River Lightning,2008,6/20/08,6/30/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Brown Complex,2008,6/21/08,6/25/08,San Benito-Monterey,0,NA,NA,0,0,NA,NA,Grass,Lightning,pdf
+NA,Mallo-B Lightning,2008,6/21/08,7/17/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Brushy 3 Lightning,2008,6/21/08,7/13/08,Mendocino,0,NA,NA,0,0,NA,NA,Grass,Lightning,pdf
+NA,Oso Lightning,2008,6/21/08,7/13/08,Mendocino,0,NA,NA,0,0,NA,NA,Brush,Lightning,pdf
+NA,Red Mtn 1 Lightning,2008,6/21/08,8/1/08,Mendocino,0,NA,NA,0,0,NA,NA,Unknown,Lightning,pdf
+NA,Wagers Lightning,2008,6/21/08,6/21/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Jack Smith Lightning,2008,6/21/08,7/13/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Wild,2008,6/21/08,6/26/08,Sonoma-Lake-Napa,1,NA,NA,0,0,NA,NA,Grass,Unidentified,pdf
+NA,STA 57 ONO CDF IGO 2,2008,6/21/08,7/24/08,Shasta-Trinity,9,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Whitmore Rd/Old Cow 02,2008,6/21/08,7/15/08,Shasta-Trinity,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Coleman Fish Hatchery,2008,6/21/08,7/2/08,Shasta-Trinity,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Donkey Mine Rd/Oak RU,2008,6/21/08,7/2/08,Shasta-Trinity,0,NA,NA,0,0,NA,NA,"Brush, Grass",Lightning,pdf
+NA,E02A,2008,6/21/08,7/6/08,Shasta-Trinity,0,NA,NA,0,0,NA,NA,Brush,Lightning,pdf
+NA,Stein,2008,6/21/08,7/7/08,Shasta-Trinity,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Moon,2008,6/21/08,8/9/08,Shasta-Trinity,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Daugherty Gate,2008,6/21/08,7/13/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,IGO 6,2008,6/21/08,7/24/08,Shasta-Trinity,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Plantina 4,2008,6/21/08,7/4/08,Shasta-Trinity,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Lewiston 8,2008,6/21/08,7/23/08,Shasta-Trinity,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,IGO 13,2008,6/21/08,7/24/08,Shasta-Trinity,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,IGO 15,2008,6/21/08,7/24/08,Shasta-Trinity,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,IGO 16,2008,6/21/08,7/24/08,Shasta-Trinity,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,IGO 17,2008,6/21/08,7/24/08,Shasta-Trinity,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,IGO 18,2008,6/21/08,7/24/08,Shasta-Trinity,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Lakehead,2008,6/21/08,8/23/08,Shasta-Trinity,12,NA,NA,0,0,NA,NA,Brush,Lightning,pdf
+NA,Breakneck,2008,6/21/08,7/9/08,Butte,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,West Branch,2008,6/21/08,6/21/08,Butte,0,NA,NA,0,0,NA,NA,Unknown,Lightning,pdf
+NA,Frey,2008,6/21/08,7/28/08,Butte,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Flea Valley,2008,6/21/08,6/21/08,Butte,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Lynch,2008,6/21/08,6/21/08,Butte,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Paradise,2008,6/21/08,8/1/08,Humboldt-Del Norte,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Brushy 1 Lightning,2008,6/21/08,6/26/08,Mendocino,0,NA,NA,0,0,NA,NA,Grass,Lightning,pdf
+NA,Squaw 1 Lightning 2,2008,6/21/08,7/13/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Humming Bird,2008,6/21/08,6/24/08,Santa Clara,0,NA,NA,0,0,NA,NA,Brush,Lightning,pdf
+NA,Venture,2008,6/22/08,7/4/08,Shasta-Trinity,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Quarry,2008,6/22/08,6/29/08,San Mateo-Santa Cruz,0,NA,NA,0,0,NA,NA,"Timber, Brush, Grass",Unidentified,pdf
+NA,Cliff Ridge B Lightning,2008,6/22/08,7/12/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Miscellaneous,pdf
+NA,5-8 Cliff Lightning,2008,6/22/08,7/13/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Walker,2008,6/22/08,6/29/08,Sonoma-Lake-Napa,0,NA,NA,0,0,NA,NA,Timber,Human,pdf
+NA,Shamrock East Lightning,2008,6/22/08,7/12/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Orr Incident,2008,6/22/08,7/10/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Popcorn,2008,6/22/08,7/8/08,Lassen-Modoc,0,NA,NA,0,0,NA,NA,"Timber, Woodland",Lightning,pdf
+NA,Oliver /MRP 588,2008,6/23/08,7/6/08,Madera-Mariposa-Merced,0,NA,NA,0,0,NA,NA,"Timber, Brush, Grass",Lightning,pdf
+NA,Corral,2008,6/23/08,7/7/08,Lassen-Modoc,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Mill Creek,2008,6/24/08,7/1/08,Tehama-Glenn,0,NA,NA,0,0,NA,NA,Grass,Lightning,pdf
+NA,Juan Creek Lightning,2008,6/27/08,7/15/08,Mendocino,0,NA,NA,0,0,NA,NA,"Brush, Grass",Unidentified,pdf
+NA,Hardy,2008,6/30/08,6/30/08,Mendocino,0,NA,NA,0,0,NA,NA,"Timber, Brush, Grass",Lightning,pdf
+NA,Wiggle,2008,7/1/08,7/2/08,Tulare,2,NA,NA,0,0,NA,NA,Unknown,Arson,pdf
+NA,Dixie,2008,7/2/08,7/4/08,Lassen-Modoc,0,NA,NA,0,0,NA,NA,"Timber, Brush, Grass",Lightning,pdf
+NA,Orr Springs Rd Orr 3,2008,7/3/08,7/3/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Travis 3 Lightning,2008,7/4/08,7/4/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Casoose Creek Lightning,2008,7/4/08,7/4/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Butch Lightning,2008,7/4/08,7/4/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Albion Lightning,2008,7/4/08,7/8/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Montgomery Flat Lightning,2008,7/4/08,7/15/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Burger Ck Lightning,2008,7/4/08,7/12/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Brushy Lightning,2008,7/4/08,7/15/08,Mendocino,0,NA,NA,0,0,NA,NA,Unknown,Lightning,pdf
+NA,Orr Series Lightning,2008,7/4/08,7/13/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Jameson Lightning,2008,7/4/08,7/13/08,Mendocino,0,NA,NA,0,0,NA,NA,Unknown,Lightning,pdf
+NA,Jack Smith Lightning,2008,7/4/08,7/15/08,Mendocino,0,NA,NA,0,0,NA,NA,"Brush, Grass",Unidentified,pdf
+NA,Low Gap 1 Lightning,2008,7/4/08,7/15/08,Mendocino,0,NA,NA,0,0,NA,NA,"Brush, Grass",Unidentified,pdf
+NA,Lost Pipe Lightning,2008,7/4/08,7/10/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Horse Lightning,2008,7/4/08,7/8/08,Mendocino,0,NA,NA,0,0,NA,NA,"Brush, Grass",Unidentified,pdf
+NA,Travis 1 Lightning,2008,7/5/08,7/5/08,Mendocino,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Alder Creek Beach Rd Man,2008,7/7/08,7/7/08,Mendocino,0,NA,NA,0,0,NA,NA,Unknown,Lightning,pdf
+NA,Dino IC,2008,7/10/08,7/11/08,Madera-Mariposa-Merced,0,NA,NA,0,0,NA,NA,Grass,Unidentified,pdf
+NA,Hwy 152,2008,7/21/08,7/21/08,Madera-Mariposa-Merced,0,NA,NA,0,0,NA,NA,Grass,Unidentified,pdf
+NA,Telegraph,2008,7/25/08,9/15/08,Madera-Mariposa-Merced,130,NA,NA,0,0,NA,NA,"Timber, Brush, Grass",Miscellaneous,pdf
+NA,Craig,2008,8/3/08,8/11/08,Butte,2,NA,NA,0,0,NA,NA,"Timber, Brush",Unidentified,pdf
+NA,Turkey,2008,8/7/08,8/7/08,San Benito-Monterey,0,NA,NA,0,0,NA,NA,Grass,Equipment Use,pdf
+NA,Smokey,2008,8/13/08,8/13/08,Butte,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Rim,2008,8/13/08,8/13/08,Butte,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Empire,2008,8/13/08,8/13/08,Butte,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Camp,2008,8/13/08,8/13/08,Butte,117,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Elk,2008,8/14/08,8/15/08,Tulare,0,NA,NA,0,0,NA,NA,Grass,Arson,pdf
+NA,Rodeo,2008,8/14/08,8/14/08,Tulare,0,NA,NA,0,0,NA,NA,Grass,Unidentified,pdf
+NA,Rodeo 2,2008,8/14/08,8/15/08,Tulare,0,NA,NA,0,0,NA,NA,Grass,Unidentified,pdf
+NA,Avenal,2008,8/19/08,8/20/08,Fresno-Kings,0,NA,NA,0,0,NA,NA,Grass,Unidentified,pdf
+NA,Gladding,2008,9/1/08,9/3/08,Nevada-Yuba-Placer,16,NA,NA,0,0,NA,NA,Grass,Structure,pdf
+NA,Deer Park,2008,10/10/08,10/14/08,Sonoma-Lake-Napa,2,NA,NA,0,0,NA,NA,"Timber, Brush",Equipment Use,pdf
+NA,Foxborough,2008,10/22/08,10/22/08,San Bernardino,0,NA,NA,0,0,NA,NA,"Brush, Grass",Incendiary,pdf
+NA,Lackerman,2008,10/23/08,10/23/08,Butte,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Long,2008,10/23/08,10/23/08,Butte,0,NA,NA,0,0,NA,NA,Timber,Lightning,pdf
+NA,Freeway,2008,11/15/08,11/22/08,Riverside,245,NA,NA,0,0,NA,NA,Grass,Structure,pdf
+LN U-1057,"CONTROL BURN, GEYSERS",2008,2/13/08,2/13/08,LAKE,NA,0,0,0,0,400,LOCAL,G,DEBRIS,pdf
+YNP-764,WAWONA NW,2008,4/9/08,4/19/08,MARIPOSA,NA,0,0,0,0,"1,130","NPS, USES",TB,HUMAN,pdf
+SMD-0822735,SANTA ANITA,2008,4/26/08,5/2/08,LOS ANGELES,NA,1,0,0,0,584,LOCAL/LAC,B,ARSON,pdf
+BDF-5147,APACHE,2008,4/29/08,5/4/08,RIVERSIDE,NA,0,0,0,0,769,USES,TBG,SMOKING,pdf
+INF-282,HONEY BEE,2008,5/6/08,5/23/08,TULARE,NA,0,0,0,0,"1,225",USES,TB,LIGHTNING,pdf
+ANF-1444,BIGHORN,2008,5/14/08,5/21/08,LOS ANGELES,NA,0,0,0,0,490,USES,B,MISC.,pdf
+SQF-967,CLOVER,2008,5/28/08,7/20/08,TULARE,NA,0,0,0,0,"15,300",USES,TB,LIGHTNING,pdf
+KRN-016886,GRAPEVINE,2008,6/6/08,6/8/08,KERN,NA,0,0,0,0,507,CC,G,UNDETERMINED,pdf
+CDD-6343,ACOMA,2008,6/7/08,6/10/08,SAN BERNARDINO,NA,0,1,0,0,356,BLM,G,UNDETERMINED,pdf
+SQF-1023,RICHBAR,2008,6/7/08,6/8/08,KERN,NA,0,0,0,0,312,USES,BG,ARSON,pdf
+LPF-1491,INDIANS,2008,6/8/08,7/10/08,MONTEREY,NA,15,1,0,0,"81,378",USES,TBG,CAMPFIRE,pdf
+AEU-10884,JACKSON,2008,6/10/08,6/12/08,SACRAMENTO,NA,0,0,0,0,"6,400",LOCAL,N/A,UNDETERMINED,pdf
+MNF-2009,WHISKEY,2008,6/12/08,6/22/08,TEHAMA,NA,0,0,0,0,"7,783",USES,BGW,MISC.,pdf
+SHF-1041,LIME COMPLEX,2008,6/20/08,8/15/08,TRINITY,NA,5,0,0,0,"98,715",USFS/BLM,T,LIGHTNING,pdf
+SRF-1036,SRF LIGHTNING COMPLEX,2008,6/20/08,n/a,HUMBOLDT/TRINITY/ SISKIYOU,NA,0,0,0,0,900,USES,T,LIGHTNING,pdf
+SRF-1120,MAD COMPLEX,2008,6/20/08,7/21/08,HUMBOLDT/TRINITY,NA,0,0,0,0,"3,705",USES,TBG,LIGHTNING,pdf
+SRF-1123,HELLS HALF COMPLEX,2008,6/20/08,7/28/08,HUMBOLDT-TRINITY,NA,1,0,0,0,"15,146",USES,TB,LIGHTNING,pdf
+SRF-1126,UKONOM-SOUTH COMPLEX,2008,6/20/08,9/15/08,HUMBOLDT,NA,0,0,0,0,"29,327",USES,T,LIGHTNING,pdf
+KNF-2975,SISKIYOU / BLUE 2 COMPLEX,2008,6/21/08,n/a,SISKIYOU,NA,0,0,1,0,"82,186",USES,T,LIGHTNING,pdf
+KNF-3393,BEAR WALLOW COMPLEX (KLAMATH THEATER),2008,6/22/08,9/30/08,SISKIYOU,NA,0,0,2,0,"192,038",USES,TB,LIGHTNING,pdf
+LNF-2713,CUB COMPLEX,2008,6/21/08,7/20/08,LASSEN,NA,0,0,0,0,"19,718",USES,T,LIGHTNING,pdf
+LNF-2782,PETERSON COMPLEX,2008,6/21/08,7/2/08,SHASTA/LASSEN,NA,0,0,0,0,"7,842",USES,TBG,LIGHTNING,pdf
+LPF-1649,BASIN COMPLEX,2008,6/21/08,7/27/08,MONTEREY,NA,58,9,0,0,"162,818",USES,TB,LIGHTNING,pdf
+MNF-579,(MERGED WITH YOLLA BOLLY COMPLEX),2008,6/21/08,6/29/08,"LAKE, MENDOCINO/ TEHAMA",NA,2,0,0,0,"3,000",USES,BGWT,LIGHTNING,pdf
+MNF-645,SODA COMPLEX,2008,6/21/08,7/26/08,LAKE,NA,4,0,0,0,"8,632",USES,TG,LIGHTNING,pdf
+PNF-0539,CANYON COMPLEX,2008,6/21/08,9/30/08,PLUMAS,NA,3,0,0,0,"47,680",USES,T,LIGHTNING,pdf
+SHF-1057,IRON COMPLEX & ALPS COMPLEX,2008,6/21/08,9/9/08,TRINITY,NA,2,1,9,0,"105,805",USES,TBG,LIGHTNING,pdf
+SNF-0718,SILVER KNOB,2008,6/21/08,7/2/08,MARIPOSA /MADERA,NA,0,0,0,0,"1,161",USES,T,LIGHTNING,pdf
+SNF-715,OLIVER COMPLEX (MERGED WITH OLIVER),2008,6/21/08,6/26/08,MADERA/MARIPOSA,NA,0,0,0,0,"1,000",USES,TB,LIGHTNING,pdf
+STF-1063,NORTH MOUNTAIN,2008,6/21/08,7/3/08,TUOLUMNE,NA,0,0,0,0,"2,889",USES,BT,LIGHTNING,pdf
+TNF-1011,AMERICAN RIVER COMPLEX,2008,6/21/08,7/30/08,PLACER,NA,2,0,0,0,"20,541",USES,TB,LIGHTNING,pdf
+TNF-1015,YUBA RIVER COMPLEX,2008,6/21/08,7/15/08,YUBA/ NEVADA/ SIERRA,NA,0,0,0,0,"4,254",USES,TB,LIGHTNING,pdf
+WNP-1095,WHISKEYTOWN COMPLEX,2008,6/21/08,7/19/08,SHASTA,NA,0,0,0,0,"6,420",NPS,TB,LIGHTNING,pdf
+LNF-2776,ANTELOPE,2008,6/22/08,6/26/08,TEHEMA,NA,0,0,0,0,600,USES,T,LIGHTNING,pdf
+LNF-2781,MILL COMPLEX,2008,6/22/08,6/29/08,TEHEMA,NA,0,0,0,0,"2,100",USES,TG,LIGHTNING,pdf
+SQF-1356,PIUTE,2008,6/28/08,7/25/08,KERN,NA,51,0,0,0,"37,026",USES,T,MISC.,pdf
+LPF-1778,GAP,2008,7/1/08,7/28/08,SANTA BARBARA,NA,4,0,0,0,"9,443",USES,T,MISC.,pdf
+KN P-0020,TEHIPITE,2008,7/19/08,11/11/08,FRESNO,NA,0,0,0,0,"11,596",NPS,T,LIGHTNING,pdf
+PNF-0784,RICH,2008,7/29/08,8/10/08,PLUMAS,NA,9,0,0,0,"6,112",USES,T,RAILROAD,pdf
+INF-0656,SHERWIN,2008,8/3/08,8/8/08,MONO,NA,0,0,0,0,347,USES,T,HUMAN,pdf
+BNP-437,JACK,2008,8/17/08,8/22/08,SISKIYOU,NA,0,0,0,0,"6,900",NPS,BG,LIGHTNING,pdf
+KNF-4096,SLINKARD,2008,8/17/08,8/21/08,SISKIYOU,NA,0,0,0,0,374,USES,T,LIGHTNING,pdf
+SHF-1944,GULCH,2008,9/7/08,9/11/08,SHASTA,NA,0,0,0,0,"2,847",USES,TB,EQUIPMENT USE,pdf
+SHF-1949,ELMORE,2008,9/7/08,9/9/08,SHASTA,NA,0,0,0,0,343,USES,TB,ARSON,pdf
+HIA-220,DEERHORN,2008,9/8/08,9/14/08,HUMBOLDT,NA,0,0,0,0,381,USES,TBG,UNDETERMINED,pdf
+KN P-0035,HIDDEN,2008,9/10/08,9/30/2008,TULARE,NA,0,0,0,0,"3,668",NP,T,LIGHTNING,pdf
+LPF-2754,CHALK,2008,09/25/08,10/29/2028,MONTEREY,NA,0,0,0,0,"16,269",USFS,T,MISC.,pdf
+MCP-08-2515,ROBLAR,2008,09/25/08,9/29/2008,SAN DIEGO,NA,0,0,0,0,400,MIL,B,MISC.,pdf
+SIP-2458,DOME ROCK,2008,9/30/08,11/15/2008,TUOLUMNE,NA,0,0,0,0,919,USFS,T,LIGHTNING,pdf
+MCP-2640,NOVEMBER,2008,10/08/08,10/9/2008,SAN DIEGO,NA,0,0,0,0,"1,400",MIL,GB,HUMAN,pdf
+ANF-3833,MAREK,2008,10/12/08,10/16/2008,LOS ANGELES,NA,65,9,0,0,"4,824",USFS,B,MISC.,pdf
+MRN-2428,ANGEL,2008,10/12/08,10/14/2008,MARIN,NA,1,0,0,0,303,CC,B,UNDETERMINED,pdf
+LAC-8231953,SESNON,2008,10/13/08,10/18/2008,LOS ANGELES,NA,78,15,0,0,"14,703",CC,BG,UNDETERMINED,pdf
+MCP-2699,JULIETT,2008,10/13/08,10/17/2008,SAN DIEGO,NA,0,0,0,0,"4,026",MIL,BG,UNDETERMINED,pdf
+YN P-764,WAWONA NW,2008,10/14/08,10/19/2008,MARIPOSA,NA,0,0,0,0,450,NP,T,HUMAN,pdf
+880-9981,TEA INCIDENT,2008,11/13/08,11/17/2008,SANTA BARBARA,NA,221,9,0,0,"1,940",CC,T,CAMPFIRE,pdf
+LFD-1460,SAYRE,2008,11/14/08,11/21/2008,LOS ANGELES,NA,604,147,0,0,"11,262",CC,TB,MISC.,pdf
+CONTRACT COUNTIES,LTNG.,2008,CAMP-FIRE,SMOKING,TOTAL,NA,UNDET.,MISC.,NA,NA,RAILROAC,DEBRIS BURNING,PLAY. W/FIRE,ELEC. POWER,pdf
+CONTRACT COUNTIES,LTNG.,2008,CAMP-FIRE,SMOKING,TOTAL,NA,UNDET.,MISC.,NA,NA,RAILROAD,DEBRIS BURNING,PLAY. W/FIRE,ELEC. POWER,pdf
+NA,A .25 acres or <,2008,B.26-9acres,C10-99acres,Total,NA,NA,NA,NA,NA,G 5000 acres >,D 100-299 acres,NA,NA,pdf
+NA,A .25 acres or <,2008,B.26-9acres,C10-99acres,Total,NA,NA,NA,NA,NA,G 5000 acres >,D 100-299 acres,NA,NA,pdf
+NA,A .25 acres or <,2008,B.26-9acres,C10-99acres,Total,NA,NA,NA,NA,NA,G 5000 acres >,D 100-299 acres,NA,NA,pdf
+NA,A .25 acres or <,2008,B.26-9acres,C10-99acres,Total,NA,NA,NA,NA,NA,G 5000 acres >,D 100-299 acres,NA,NA,pdf
+NA,A .25 acres or <,2008,B.26-9acres,C10-99acres,Total,NA,NA,NA,NA,NA,G 5000 acres >,D 100-299 acres,NA,NA,pdf
+NA,A .25 acres or <,2008,B.26-9acres,C10-99acres,Total,NA,NA,NA,NA,NA,G 5000 acres >,D ISO-299 acres,NA,NA,pdf
+NA,A .25 acres or <,2008,B.26-9acres,C10-99acres,Total,NA,NA,NA,NA,NA,G 5000 acres >,D 100-299 acres,NA,NA,pdf
+NA,A .25 acres or <,2008,B.26-9acres,C10-99acres,Total,NA,NA,NA,NA,NA,G 5000 acres >,D 100-299 acres,NA,NA,pdf
+NA,A .25 acres or <,2008,B.26-9acres,C10-99acres,Total,NA,NA,NA,NA,NA,G 5000 acres >,D 100-299 acres,NA,NA,pdf
+NA,A .25 acres or <,2008,B.26-9acres,C10-99acres,Total,NA,NA,NA,NA,NA,G 5000 acres >,D 100-299 acres,NA,NA,pdf
+NA,A .25 acres or <,2008,B.26-9acres,C10-99acres,Total,NA,NA,NA,NA,NA,G 5000 acres >,D 100-299 acres,NA,NA,pdf

@@ -1,0 +1,42 @@
+incident_id,incident_name,start_year,date_start,date_cont,county_unit,structures_dest_or_dam,structures_dest,structures_dam,fatalities_fire,fatalities_civilian,acres_burned,origin_dpa,veg_type,cause,df_source
+NA,CANOE,2003,09/03/03,09/25/03,Humboldt-Del Norte,NA,na,na,na,na,"11,036",CDF,T,Ltng.,pdf
+NA,LIGHTNING HONEYDEW,2003,09/03/03,09/03/03,Humboldt-Del Norte,NA,na,na,na,na,"13,846",CDF,W,Ltng.,pdf
+NA,DEL PUERTO CYN.,2003,05/29/03,05/29/03,Santa Clara,NA,na,na,na,na,597,CDF,B,Debris Burning,pdf
+NA,BIRD,2003,06/01/03,06/01/03,Santa Clara,NA,na,na,na,na,"6,804",CDF,GB,Equip. Use,pdf
+NA,DEL PUERTO,2003,07/20/03,07/25/03,Santa Clara,NA,na,na,na,na,"5,170",CDF,GB,Equip. Use,pdf
+NA,HOOVER,2003,08/04/03,08/04/03,Santa Clara,NA,na,na,na,na,"2,000",CDF,W,Undet.,pdf
+NA,SANTA CLARA COMPLEX,2003,08/25/03,09/02/03,Santa Clara,NA,na,na,na,na,"30,170",CDF,GWB,Ltng.,pdf
+NA,FOURTY,2003,07/01/03,07/01/03,Sonoma-Lake-Napa,NA,na,na,na,na,300,CDF,B,Equip. Use,pdf
+NA,40,2003,09/03/03,09/03/03,Sonoma-Lake-Napa,NA,na,na,na,na,"1,400",CDF,B,Arson,pdf
+NA,MNF 964 ASSIST,2003,09/03/03,09/10/03,Sonoma-Lake-Napa,NA,na,na,na,na,"3,500",OTHER,W,Ltng.,pdf
+NA,HWY 70,2003,06/24/03,06/24/03,Butte,NA,10,na,na,na,368,LOC,G,Vehicle,pdf
+NA,A3,2003,07/02/03,07/02/03,Lassen-Modoc,NA,12,na,na,na,"1,100",CDF,G,Equip. Use,pdf
+NA,WHITMORE,2003,10/27/03,10/30/03,Shasta-Trinity,NA,na,na,na,na,"1,200",OTHER,T,Campfire,pdf
+NA,LOCAL,2003,02/23/03,02/23/03,Riverside,NA,na,na,na,na,"12,000",LOC,A,Debris Burning,pdf
+NA,STAGE,2003,07/04/03,07/04/03,Riverside,NA,na,na,na,na,"1,700",CDF,B,Equip. Use,pdf
+NA,LOCAL,2003,07/22/03,07/22/03,Riverside,NA,na,na,na,na,"2,020",LOC,G,Undet,pdf
+NA,CANYON,2003,07/25/03,07/27/03,Riverside,NA,1,na,na,na,"4,336",OTHER,B,Arson,pdf
+NA,LOCUST,2003,08/18/03,08/20/03,Riverside,NA,1,2,na,na,"1,898",CDF,G,Equip. Use,pdf
+NA,PASS,2003,10/21/03,10/23/03,Riverside,NA,3,4,na,na,"2,397",CDF,B,Arson,pdf
+NA,MOUNTAIN,2003,10/26/03,10/29/03,Riverside,NA,44,na,na,na,"10,000",CDF,GB,Equip. Use,pdf
+NA,GRANDPRIX,2003,10/21/03,10/21/03,San Bernardino,NA,136,71,na,na,"12,289",OTHER,B,Equip. Use,pdf
+NA,COYOTE,2003,07/16/03,07/26/03,San Diego,NA,2,na,na,na,"18,705",CDF,GTWB,Ltng.,pdf
+NA,CEDAR,2003,10/25/03,11/04/03,San Diego,NA,"4,847",na,1,13,"143,734",CDF,GTWAB,Miso.,pdf
+NA,MINE,2003,10/26/03,10/28/03,San Diego,NA,na,na,na,na,"46,000",CDF,B,Undet.,pdf
+NA,PARADISE,2003,10/26/03,11/06/03,San Diego,NA,223,10,na,2,"56,700",BIA,B,Equip. Use,pdf
+NA,PARKHILL,2003,07/20/03,07/22/03,San Luis Obispo,NA,18,na,na,na,"1,200",CDF,GAB,Vehicle,pdf
+NA,CHIMNEY INCIDENT,2003,08/10/03,08/11/03,San Luis Obispo,NA,na,na,na,na,"1,500",OTHER,B,Equip. Use,pdf
+NA,F.K.U. 7076,2003,06/19/03,06/19/03,Fresno-Kings,NA,na,na,na,na,"15,000",LOC,A,Misc.,pdf
+NA,152,2003,06/15/03,06/16/03,Madera-Mariposa,NA,na,na,na,na,"1,558",CDF,G,Equip. Use,pdf
+NA,HUNTER #9,2003,07/03/03,07/04/03,Madera-Mariposa,NA,na,na,na,na,641,CDF,GB,Equip. Use,pdf
+NA,76,2003,-r,7,MARIN,NA,12,47,NA,NA,3,2,”7,“7,pdf
+NA,166,2003,g-,3,SANTA BARBARA,NA,b,87,NA,NA,47,7,7,' 7,pdf
+NA,"49,620",2003,—g-,5,NA,NA,0,"48,890",NA,NA,710,17,0,0,pdf
+NA,45,2003,---7,17,NA,NA,NA,NA,NA,NA,1,-yy,2,NA,pdf
+NA,45,2003,---47,0,NA,NA,NA,NA,NA,NA,2,—T,1,NA,pdf
+NA,NA,2003,-------g-----,"’3""",VENTURA,NA,NA,NA,NA,NA,NA,"102,621",NA,NA,pdf
+NA,Unit Total,2003,25482,11,NA,NA,NA,NA,NA,NA,0,99,0,"24,882",pdf
+NA,NA,2003,78450,328,Coast Area Total,NA,NA,NA,NA,NA,"1,687",783,"3,400","67,026",pdf
+NA,"25,282",2003,11353,"13,893",NA,NA,NA,NA,NA,NA,NA,9,NA,NA,pdf
+NA,"266,534",2003,11347,"16,499",NA,NA,NA,NA,NA,NA,NA,231346,NA,NA,pdf
+NA,"304,591",2003,11352,"16,643",NA,NA,NA,NA,NA,NA,NA,"260,419",NA,NA,pdf

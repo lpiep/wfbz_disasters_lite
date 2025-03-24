@@ -1,0 +1,39 @@
+incident_id,incident_name,start_year,date_start,date_cont,county_unit,structures_dest_or_dam,structures_dest,structures_dam,fatalities_fire,fatalities_civilian,acres_burned,origin_dpa,veg_type,cause,df_source
+NA,Noble,2006,09/24/06,09/30/06,Mendocino,NA,na,na,na,na,"44,944",BLM,T,Undet.,pdf
+NA,Canyon,2006,07/09/06,07/17/06,Santa Clara,NA,11,1,na,na,"34,000",CDF,GWB,Equip. Use,pdf
+NA,Del Puerto,2006,06/30/06,07/03/06,Santa Clara,NA,na,na,na,na,"2,593",CDF,GWB,Debris Burning,pdf
+NA,Midway,2006,07/11/06,01/01/00,Santa Clara,NA,na,3,na,na,"6,400",CDF,A,Equip. Use,pdf
+NA,29,2006,07/17/06,07/21/06,Sonoma-Lake-Napa,NA,3,na,na,na,550,CDF,TWB,Vehicle,pdf
+NA,Napa,2006,09/22/06,09/24/06,Sonoma-Lake-Napa,NA,na,na,na,na,387,CDF,GTWB,Equip. Use,pdf
+NA,Cheney,2006,06/26/06,06/27/06,Lassen-Modoc,NA,1,na,na,na,600,CDF,GTWAB,Equip. Use,pdf
+NA,Creek,2006,07/18/06,07/21/06,Lassen-Modoc,NA,na,na,na,na,"1,234",CDF,T,Undet.,pdf
+NA,Lgt. #53,2006,06/27/06,06/27/06,Lassen-Modoc,NA,na,na,na,na,450,CDF,T,Lightning,pdf
+NA,Lgt. #11,2006,06/26/06,06/26/06,Lassen-Modoc,NA,na,na,na,na,647,CDF,T,Lightning,pdf
+NA,Lgt. #17,2006,06/26/06,06/27/06,Lassen-Modoc,NA,na,na,na,na,500,CDF,T,Lightning,pdf
+NA,Lgt. #26,2006,06/27/06,07/01/06,Lassen-Modoc,NA,na,na,na,na,300,USFS,T,Lightning,pdf
+NA,Marysville,2006,08/16/06,08/17/06,Nevada-Yuba-Placer,NA,1,na,na,na,388,CDF,TB,Equip. Use,pdf
+NA,Junction,2006,07/29/06,07/29/06,Shasta-Trinity,NA,1,na,na,na,"3,126",CDF,W,Misc.,pdf
+NA,Hotlum,2006,02/25/06,02/27/06,Siskiyou,NA,4,na,na,na,"1,521",CDF,B,Misc.,pdf
+NA,KNF Assist #11 (Uncles Complex),2006,07/24/06,07/24/06,Siskiyou,NA,1,na,na,na,"9,785",Other,T,Lightning,pdf
+NA,KNF Assist #12 (Happy Camp),2006,07/25/06,07/25/06,Siskiyou,NA,na,na,2,na,"3,318",Other,NA,NA,pdf
+NA,Cort,2006,06/03/06,06/04/06,Riverside,NA,na,na,na,na,362,Other,B,Equip. Use,pdf
+NA,Coyote Fire,2006,07/23/06,07/26/06,Riverside,NA,na,na,na,na,467,CDF,B,Lightning,pdf
+NA,Esperanza - State,2006,10/26/06,10/31/06,Riverside,NA,54,na,5,na,"40,200",CDF,GWB,Arson,pdf
+NA,Orchard,2006,09/16/06,09/16/06,Riverside,NA,na,na,na,na,"1,580",CDF,G,Undetermined,pdf
+NA,Ranch,2006,09/17/06,09/17/06,Riverside,NA,3,5,na,na,"1,200",CDF,GB,Misc.,pdf
+NA,Sunrise,2006,10/13/06,10/14/06,Riverside,NA,na,2,na,na,497,CDF,B,Vehicle,pdf
+NA,Aberdeen,2006,06/07/06,06/07/06,San Bernardino,NA,na,na,na,na,357,Other,B,Lightning,pdf
+NA,Goodale,2006,06/26/06,06/29/06,San Bernardino,NA,na,na,na,na,"3,750",Other,B,Other,pdf
+NA,Sawtooth,2006,07/09/06,07/20/06,San Bernardino,NA,273,14,na,1,"62,000",Other,G,Other,pdf
+NA,Whispering Pines,2006,07/22/06,07/26/06,San Bernardino,NA,na,na,na,na,993,Other,B,Other,pdf
+NA,Border Fire #16,2006,07/20/06,07/20/06,San Diego,NA,na,na,na,na,315,CDF,B,Undetermined,pdf
+NA,Shekel!,2006,12/03/06,12/05/06,Ventura,NA,7,11,0,0,"13,600",CDF,G,Undetermined,pdf
+NA,Westside,2006,12/07/06,12/09/06,Kem,NA,na,na,na,na,"4,025",CDF,I 6,Undetermined,pdf
+NA,Almazan,2006,05/13/06,05/14/06,Fresno-Kings,NA,na,na,na,na,"1,964",CDF,G,Equip. Use,pdf
+NA,BLM-2,2006,07/22/06,07/22/06,Fresno-Kings,NA,na,na,na,na,"8,400",Other,G,Lightning,pdf
+NA,Phelps,2006,10/25/06,10/25/06,Fresno-Kings,NA,na,na,na,na,"1,600",Local,6,Equip. Use,pdf
+NA,Olive,2006,07/21/06,07/21/06,Madera-Mariposa,NA,na,na,na,na,"25,000",Local,A,Misc.,pdf
+NA,CABEU002665,2006,07/22/06,07/27/06,San Benito-Monterey,NA,na,na,na,na,"14,506",CDF,WB,Equip. Use,pdf
+NA,Alpaugh,2006,05/27/06,05/27/07,Tulare,NA,na,na,na,na,"1,700",Local,6,Equip. Use,pdf
+NA,Kern 19 Cottonwood,2006,08/06/06,08/06/06/,Tulare,NA,na,1,na,na,"2,500",Other,G,Undet.,pdf
+NA,Pedro,2006,07/03/06,07/05/06,T uolumne-Calaveras,NA,na,na,na,na,"2,000",CDF,GB,Misc.,pdf

@@ -1,0 +1,35 @@
+incident_id,incident_name,start_year,date_start,date_cont,county_unit,structures_dest_or_dam,structures_dest,structures_dam,fatalities_fire,fatalities_civilian,acres_burned,origin_dpa,veg_type,cause,df_source
+NA,CREEK,2004,08/08/04,08/11/04,Mendocino,NA,ns,na,na,na,328,CDF,GTB,Equip. Use,pdf
+NA,KINCAID,2004,08/08/04,08/10/04,Santa Clara,NA,na,na,na,na,"1,246",CDF,W,Equip. Use,pdf
+NA,GEYSERS,2004,09/03/04,09/08/04,Sonoma-Lake-Napa,NA,7,na,na,na,"12,525",CDF,TWB,Equip. Use,pdf
+NA,RUMSEY,2004,10/10/04,10/16/04,Sonoma-Lakc-Napa CASCADE AREA,NA,6,1,na,na,"39,138",CDF,B,Undet,pdf
+NA,OREGON,2004,08/11/04,08/13/04,Butte,NA,5,na,na,na,"2,030",OTHER,GWB,Equip. Use,pdf
+NA,STRAY LOR,2004,07/22/04,07/29/04,Lassen-Modoc,NA,na,na,na,na,"3,422",CDF,T,Equip. Use,pdf
+NA,NODBBT4,2004,08/13/04,08/16/04,Lassen-Modoc,NA,na,na,na,na,500,OTHER,B,Ling.,pdf
+NA,STEVENS,2004,08/08/04,08/12/04,Nevada-Yuba-Placer,NA,2,na,na,na,934,CDF,B,Equip. Use,pdf
+NA,BEAR,2004,08/11/04,08/16/04,Shasta-Trinity,NA,86,28,na,na,"10,848",CDF,TW,Equip. Use,pdf
+NA,FRENCH,2004,08/14/04,08/20/04,Shasta-Trinity,NA,30,15,na,na,"13,005",CDF,TB,Undet,pdf
+NA,1RONGATE,2004,07/24/04,07/26/04,Siskiyou SOUTH AREA,NA,na,na,na,na,"2,400",-CDF,W,Ltng.___________________,pdf
+NA,PLEASURE FIRE,2004,04/25/04,04/26/04,Riverside,NA,9,na,na,na,"2,464",OTHER,B,Vehicle,pdf
+NA,EAGLE,2004,05/02/04,05/07/04,Riverside,NA,41,na,na,na,"8,831",CDF,B,Equip. Use,pdf
+NA,GAFFORD,2004,05/02/04,05/03/04,Riverside,NA,na,na,na,na,450,CDF,B,Misc.,pdf
+NA,CERRITO FIRE 681,2004,05/03/04,05/07/04,Riverside,NA,28,na,na,na,"16,460",CDF,B,Equip. Use,pdf
+NA,COTTONWOOD,2004,05/12/04,05/15/04,Riverside,NA,na,na,na,na,"1,845",BLM,GTB,Equip. Use,pdf
+NA,VERBENIA,2004,07/11/04,07/16/04,Riverside,NA,na,na,na,na,"3,833",CDF,GTB,Equip. Use,pdf
+NA,LAKEVIEW,2004,07/13/04,07/13/04,Riverside,NA,2,na,na,na,350,CDF,B,Misc.,pdf
+NA,MELTON,2004,07/17/04,07/20/04,Riverside,NA,20,na,na,na,"3,667",OTHER,B,Misc.,pdf
+NA,WARNER,2004,07/01/04,07/01/04,San Diego,NA,na,na,na,na,600,CDF,B,Undet,pdf
+NA,MATAGUAY,2004,07/13/04,07/15/04,San Diego,NA,3,na,na,na,"8,649",CDF,GB,Arson,pdf
+NA,BORDER tt 16,2004,09/13/04,09/13/04,San Diego SFERRA AREA,NA,1,na,na,na,965,CDF,B,Undet,pdf
+NA,FKU7654,2004,06/26/04,06/26/04,Fresno-Kings,NA,na,na,na,na,"5,000",LOC,A,Debris Burning,pdf
+NA,GATOS,2004,07/11/04,07/13/04,Fresno-Kings,NA,8,1,na,na,"1,307",CDF,GB,Equip. Use,pdf
+NA,BEAR,2004,09/02/04,09/04/04,Madera-Mariposa,NA,5,10,na,na,400,CDF,B,Undct,pdf
+NA,OLD HIGHWAY,2004,09/12/04,09/15/04,Madera-Mariposa,NA,na,na,na,na,1347,CDF,B,Arson,pdf
+NA,ARMSTRONG #2,2004,08/06/04,08/14/04,Tuolumne-Calaveras,NA,2,na,na,na,879,CDF,B,Arson,pdf
+NA,HWY 4 #2,2004,08/06/04,08/09/04,Tuolumne-Calaveras,NA,na,na,na,na,"3,443",CDF,GWB,Uridet,pdf
+NA,HUNT,2004,08/10/04,08/12/04,Tuolumne-Calaveras,NA,1,na,na,na,600,CDF,B,Equip. Use,pdf
+NA,PATTISON,2004,09/03/04,09/05/04,Tuolumne-Calaveras,NA,62,4,na,na,"2,476",CDF,GB,Vehicle,pdf
+NA,1.S84,2004,<-,5,kkkN,NA,", ■ d","TH""",NA,NA,1.114,23,0,19,pdf
+NA,"22,667",2004,"y*.-,o:.•»«.",’J-.-.,LOS ANGELES,NA,NA,NA,NA,NA,NA,"22,664",NA,NA,pdf
+NA,"7,925",2004,'10-E,.0,SANTA BARBARA,NA,NA,NA,NA,NA,NA,"7,925",NA,NA,pdf
+NA,NA,2004,"DEPARTMENTOFFORESTRYandFIREPROTECTION-EMERGENCYACTIVITYREPORTATT.STATEZONE-CDFDPA,1.0-1.9PROTECTIONRESPONSIBILITYNUMBEROFFIRESBYCAUSEBYUNIT,COUNTYfor01/01/2004-12/31/2004SIERRAAREA",NA,\c L,NA,NA,NA,Date: 02/15/2005 Page 6 of 7,NA,NA,NA,NA,NA,pdf

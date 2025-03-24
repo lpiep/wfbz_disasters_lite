@@ -1,0 +1,27 @@
+incident_id,incident_name,start_year,date_start,date_cont,county_unit,structures_dest_or_dam,structures_dest,structures_dam,fatalities_fire,fatalities_civilian,acres_burned,origin_dpa,veg_type,cause,df_source
+CND-1112,COTTON,2010,5/15/10,5/17/10,San Luis Obispo,NA,0,0,0,0,"2,044",USFS,G,Undetermined,pdf
+MCP-2054,ALISO,2010,7/13/10,7/15/10,San Diego,NA,0,0,0,0,"3,225",MIL / USFS,BG,Miscellaneous,pdf
+CND-2466,BODFISH,2010,7/15/10,7/18/10,Kern,NA,0,0,0,0,552,USFS,BG,Lightning,pdf
+CDD-11051,SAND 2,2010,7/16/10,7/22/10,Kern,NA,0,0,0,0,"1,254",USFS,B,Lightning,pdf
+KNP-0039,SHEEP,2010,7/16/10,10/25/10,Fresno,NA,0,0,0,0,"9,020",NPS,T,Lightning,pdf
+CDD-11175,INDIAN,2010,7/18/10,7/24/10,Kern,NA,0,0,0,0,"1,822",USFS,G,Lightning,pdf
+OVD-903,PATATO,2010,7/24/10,7/27/10,Mono,NA,0,0,0,0,686,USFS,B,Lightning,pdf
+YNP-2777,SLOPE,2010,7/25/10,1/23/10,Tuolumne,NA,0,0,0,0,"1,711",NPS,T,Lightning,pdf
+INF-934,MONO,2010,7/26/10,7/29/10,Mono,NA,0,0,0,0,"1,205",USFS,B,Lightning,pdf
+SQF-2701,BULL,2010,7/26/10,8/10/10,Kern,NA,14,0,0,0,"16,442",USFS,B,Miscellaneous,pdf
+NOD-3688,MCDONALD,2010,7/27/10,8/10/10,Lassen,NA,0,0,0,0,"9,408",USFS,BG,Lightning,pdf
+ANF-3201,BRIGGS,2010,7/29/10,7/30/10,Los Angeles,NA,0,0,0,0,510,USFS,B,Undetermined,pdf
+KNF-5561,DUTCH,2010,7/31/10,8/04/10,Siskiyou,NA,0,0,0,0,371,USFS,TG,Undetermined,pdf
+PNF-0700,BAR,2010,7/31/10,8/10/10,Plumas,NA,0,0,0,0,"1,040",USFS,T,Undetermined,pdf
+SNF-1497,BUCKHORN,2010,8/07/10,10/30/10,Madera,NA,0,0,0,0,466,USFS,T,Lightning,pdf
+YMP-3213,VERNON,2010,8/08/10,10/31/10,Tuolumne,NA,0,0,0,0,909,NPS,T,Lightning,pdf
+STF-2269,PINECREST,2010,8/09/10,10/15/10,Tuolumne,NA,0,0,0,0,799,USFS,T,Lightning,pdf
+TNF-1579,BULLARD,2010,8/27/10,8/31/10,Yuba,NA,0,0,0,0,"1,307",USFS,T,Human,pdf
+STF-35641,CANYON,2010,9/12/10,9/19/10,Kern,NA,1,0,0,0,"9,820",CC,GB,Undetermined,pdf
+AFV-3344,BEAR CREEK,2010,10/28/10,10/30/10,Santa Barbara,NA,0,0,0,0,"1,253",MIL,T,Powerline,pdf
+NORTHERN REGION,.25 acres or <,2010,.26-9.99acres,10-99acres,Total,NA,NA,NA,NA,NA,300-999 acres,100-299 acres,1000-4999 acres,5000 acres >,pdf
+NORTHERN REGION,.25 acres or <,2010,.26-9.99acres,10-99acres,Total,NA,NA,NA,NA,NA,300-999 acres,100-299 acres,1000-4999 acres,5000 acres >,pdf
+SOUTHERN REGION,.25 acres or <,2010,.26-9.99acres,10-99acres,Total,NA,NA,NA,NA,NA,300-999 acres,100-299 acres,1000-4999 acres,5000 acres >,pdf
+NORTHERN REGION,.25 acres or <,2010,.26-9.99acres,10-99acres,Total,NA,NA,NA,NA,NA,300-999 acres,100-299 acres,1000-4999 acres,5000 acres >,pdf
+NORTHERN REGION,.25 acres or <,2010,.26-9.99acres,10-99acres,Total,NA,NA,NA,NA,NA,300-999 acres,100-299 acres,1000-4999 acres,5000 acres >,pdf
+SOUTHERN REGION,.25 acres or <,2010,.26-9.99acres,10-99acres,Total,NA,NA,NA,NA,NA,300-999 acres,100-299 acres,1000-4999 acres,5000 acres >,pdf

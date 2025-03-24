@@ -1,0 +1,31 @@
+incident_id,incident_name,start_year,date_start,date_cont,county_unit,structures_dest_or_dam,structures_dest,structures_dam,fatalities_fire,fatalities_civilian,acres_burned,origin_dpa,veg_type,cause,df_source
+NA,Town,2000,03/31/00,04/05/00,Mendocino NF,NA,na,na,na,na,"1,500",USFS,na,Escape Control,pdf
+NA,Berryessa,2000,06/13/00,06/16/00,Napa,NA,15,5,0,0,"5,731",CDF,WB,Equip. Use,pdf
+NA,Morgan,2000,07/26/00,07/27/00,Lake-Napa,NA,2,0,0,0,"3,283",CDF,W,Undetermined,pdf
+NA,Hidden,2000,10/21/00,10/27/00,Lake,NA,12,1,0,0,"4,500",CDF,GWB,Equip. Use,pdf
+NA,Goat,2000,07/17/00,07/20/00,Lassen,NA,0,0,0,0,"1,084",CDF,T,Campfire,pdf
+NA,Bark KNF Assist #12,2000,07/21/00,07/26/00,Siskiyou,NA,na,na,na,na,"1,715",USFS,na,Under Invest.,pdf
+NA,Arrowcreek,2000,08/01/00,08/01/00,Nevada (State),NA,na,na,na,na,"2,900",NEVADA,na,na,pdf
+NA,Union,2000,08/14/01,08/15/01,Shasta-Trinity,NA,4,0,0,0,350,CDF,GWB,Equip. Use,pdf
+NA,Storrie,2000,08/17/00,09/09/00,Plumas,NA,na,na,na,na,"55,261",USFS,na,Railroad,pdf
+NA,Concow,2000,09/19/00,09/22/00,Butte,NA,16,2,0,1,"1,835",CDF,TB,Equip. Use,pdf
+NA,Weinstein,2000,09/29/00,10/02/00,Tehama,NA,3,0,0,0,"8,284",CDF,B,Escape Control,pdf
+NA,Barrett,2000,06/29/00,06/30/00,San Diego,NA,2,0,0,0,"2,000",CDF,B,Campfire,pdf
+NA,Shell,2000,07/22/00,07/23/01,San Luis Obispo,NA,na,na,na,na,"6,300",USFS,na,Under Invest.,pdf
+NA,Happy Camp,2000,07/23/00,07/28/00,Inyo fire #168,NA,3,na,na,na,"5,500",BLM,na,Under Invest.,pdf
+NA,State (Pachenga),2000,07/29/00,08/09/00,Riverside,NA,1,0,0,0,"11,900",CDF,B,Under Invest.,pdf
+NA,Golden Fire,2000,08/01/01,08/08/01,San Bernardino,NA,na,na,na,na,"2,150",USFS,na,na,pdf
+NA,Black Ranch,2000,09/09/00,09/11/00,Riverside,NA,3,2,0,0,475,CDF,GB,Shooting,pdf
+NA,Granite,2000,07/02/00,07/04/00,Mariposa,NA,0,0,0,0,"2,000",CDF,WB,Shooter,pdf
+NA,Manter,2000,07/24/00,08/09/00,Tulare,NA,15,1,0,0,"74,439",USFS,na,Under Invest.,pdf
+NA,King,2000,08/02/00,08/09/00,Tulare (Kern Co),NA,1,na,na,na,"3,243",CC,GB,Lightning,pdf
+NA,Northfork,2000,08/03/00,08/07/00,San Benito,NA,0,0,0,0,"1,773",CDF,GB,Equip. Use,pdf
+NA,Parrotts,2000,08/05/00,08/06/00,Calaveras,NA,0,0,0,0,700,CDF,GB,Undetermined,pdf
+NA,Highway,2000,08/13/00,08/17/00,Fresno,NA,0,0,0,0,700,CDF,GB,Arson,pdf
+NA,Hunter,2000,08/27/00,09/04/00,Mariposa,NA,6,0,0,0,"8,084",CDF,GB,Equip. Use,pdf
+NA,Harris,2000,09/13/00,09/18/00,Santa Barbara,NA,na,na,na,na,"9,700",CC,B,Under Invest.,pdf
+NA,Latrobe,2000,10/21/00,10/21/00,El Dorado,NA,0,0,0,0,750,CDF,G,Elec. Power,pdf
+NA,139,2000,gg-,46,NA,NA,NA,NA,NA,NA,s,4,0,NA,pdf
+NA,A - .25 ACRE OR LESS B - .26 ACRES THROUGH 9 ACRES C -10 ACRES THROUGH 99 ACRES D -100 ACRES THROUGH 299 ACRES,2000,E-300ACRESTHROUGH999ACRESF-1000ACRESTHROUGH4999ACRESG-5000ACRESANDOVER,NA,SIZE CLASS DEFINITIONS,NA,NA,NA,NA,NA,NA,NA,NA,NA,pdf
+NA,TOTAL,2000,---------------------------FTOE3IZE-------------------------------------,NA,UNIT COUNTY,NA,NA,NA,NA,NA,NA,NA,NA,NA,pdf
+NA,"$7,128,724 $29,876,853",2000,"-15,749,649$21,042,944""","$597,825$1,882,998*1",NA,NA,NA,NA,NA,NA,"$39,000 $3,389,2501","$436,320 $1,670,136*1","$136,250 $1,101,750*1",NA,pdf
