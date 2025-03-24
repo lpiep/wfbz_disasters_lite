@@ -25,7 +25,7 @@ With Docker:
 $ git clone https://github.com/lpiep/wildfire_disasters_lite.git
 $ cd wildfire_disasters_lite
 $ docker build -t wflite .
-$ docker run --rm -v "output:/app/output" wflite
+$ docker run --rm -v ".:/app" wflite Rscript -e "targets::tar_make()"
 ```
 
 With Apptainer/Singularity:

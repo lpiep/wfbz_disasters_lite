@@ -1,7 +1,6 @@
 # Load packages required to define the pipeline:
-if(!require(pacman)){install.packages("pacman");require(pacman)}
-pkgs <- c("targets", "tarchetypes", "sf", "tidyverse", "httr", "snakecase", "fs", "jsonlite", "qs2", "readxl", "glue", "arrow", "stringdist", "clustermq")
-p_load(char = pkgs)
+pkgs <- c("targets", "tarchetypes", "sf", "tidyverse", "httr", "fs", "jsonlite", "qs", "qs2", "readxl", "glue", "arrow", "stringdist", "clustermq")
+lapply(pkgs, library, character.only = TRUE)
 
 options(timeout = max(30*60, getOption("timeout"))) # 30 minute timeout on downloads (or larger if env var "timeout" is set to larger number)
 options(scipen = 999999)
@@ -12,7 +11,7 @@ options(wilfire_disasters_lite.cue_downloads = 'never') # Make 'always' for prod
 tar_option_set(
   packages = pkgs, # packages that your targets need to run
   format = "qs", # default storage format
-  error = "trim" # still finish healthy branches on error 
+  error = "abridge" # still finish healthy branches on error 
 )
 
 # tar_make_clustermq() configuration (okay to leave alone):
