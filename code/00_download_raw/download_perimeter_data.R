@@ -12,10 +12,18 @@ download_spatial_mtbs_raw <- function(){
 
 download_spatial_fired_raw <- function(){
 	if(!file.exists('data/01_raw/spatial/fired/fired_conus-ak_events_nov2001-march2021.gpkg')){
-		unzip_url(
-			'https://scholar.colorado.edu/downloads/h702q749s',
-			dir_create('data/01_raw/spatial/fired')
-		)
+		url <-'https://scholar.colorado.edu/downloads/h702q749s'
+		t <- 'data/01_raw/spatial/fired/fired.zip'
+		dst <- dirname(t)
+		if(!dir_exists(dst)) dir_create(dst)
+		request('http://scholar.colorado.edu/downloads/h702q749s') %>% 
+    		req_user_agent("Mozilla/99.999 (Not really but you reject other agents)") %>%  # spoof firefox 
+    		req_perform(path = t) 
+
+		unzip(t, overwrite = TRUE, exdir = dst)
+  		unlink(t, recursive = TRUE)
+  		dst
+
 	}
 	return('data/01_raw/spatial/fired')
 }
