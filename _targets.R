@@ -6,6 +6,7 @@ options(timeout = max(30*60, getOption("timeout"))) # 30 minute timeout on downl
 options(scipen = 999999)
 options(readr.show_col_types = FALSE)
 options(wilfire_disasters_lite.cue_downloads = 'never') # Make 'always' for production
+conda = '/opt/conda/bin/conda'
 
 # Set target options:
 tar_option_set(
