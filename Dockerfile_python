@@ -1,8 +1,8 @@
 # A convoluted dockerfile to install everything in a way that works for rasterio
-ARG GDAL=ubuntu-full-3.6.4
+ARG GDAL=ubuntu-small-3.6.4
 FROM ghcr.io/osgeo/gdal:${GDAL} AS gdal
 ARG PYTHON_VERSION=3.12
-ARG R_VERSION=4.4.3
+
 ENV LANG="C.UTF-8" LC_ALL="C.UTF-8"
 RUN apt-get update && apt-get install -y software-properties-common
 RUN add-apt-repository -y ppa:deadsnakes/ppa
@@ -38,23 +38,3 @@ RUN conda config --add channels conda-forge \
 RUN conda update -n base conda \
     && conda env create -f /wf.yml \
     && echo "conda activate wf" >> ~/.bashrc
-
-# Install R (into conda base env)
-#pkgs <- c("targets", "tarchetypes", "sf", "tidyverse", "httr", "fs", "jsonlite", "qs", "qs2", "readxl", "glue", "arrow", "stringdist", "clustermq")
-
-RUN conda install -n base r-base \
-    && conda install -n base r-targets \
-    && conda install -n base r-tarchetypes \
-    && conda install -n base r-sf \
-    && conda install -n base r-tidyverse \
-    && conda install -n base r-httr \
-    && conda install -n base r-fs \
-    && conda install -n base r-jsonlite \
-    && conda install -n base r-qs \
-    && conda install -n base r-readxl \
-    && conda install -n base r-glue \
-    && conda install -n base r-arrow \
-    && conda install -n base r-stringdist \
-    && conda install -n base r-clustermq
-
-CMD ["/bin/bash"]

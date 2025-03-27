@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  r-preprocessing:
+    build: 
+      context: ./r-service
+      dockerfile: Dockerfile_r
+    volumes:
+      - ./:/app/
+    command: Rscript -e "tar_make()"
+    working_dir: /app
+
+  python-processing:
+    build:
+      context: ./python-service
+      dockerfile: Dockerfile_python
+    volumes:
+      - ./data:/app/data
+      - ./python-scripts:/app/scripts
+    command: python code/03_pop_density/run_pop_density.py
+    working_dir: /app
+    depends_on:
+      - r-preprocessing
+
+  r-postprocessing:
+    build: 
+      context: ./r-service
+      dockerfile: Dockerfile_r
+    volumes:
+      - ./:/app/
+    command: Rscript -e "rmarkdown::render('summary_report.Rmd')"
+    depends_on:
+      - python-processing

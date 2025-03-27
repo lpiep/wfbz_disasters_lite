@@ -1,8 +1,8 @@
 # Load packages required to define the pipeline:
-pkgs <- c("targets", "tarchetypes", "sf", "tidyverse", "httr", "fs", "jsonlite", "qs", "qs2", "readxl", "glue", "arrow", "stringdist", "clustermq")
+pkgs <- c("targets", "tarchetypes", "sf", "tidyverse", "httr", "fs", "jsonlite", "qs", "qs2", "httr2", "readxl", "glue", "arrow", "stringdist", "clustermq")
 lapply(pkgs, library, character.only = TRUE)
 
-options(timeout = max(30*60, getOption("timeout"))) # 30 minute timeout on downloads (or larger if env var "timeout" is set to larger number)
+options(timeout = max(90*60, getOption("timeout"))) # 30 minute timeout on downloads (or larger if env var "timeout" is set to larger number)
 options(scipen = 999999)
 options(readr.show_col_types = FALSE)
 options(wilfire_disasters_lite.cue_downloads = 'never') # Make 'always' for production
@@ -224,7 +224,12 @@ list(
   ),
   tar_target(
   	output_file, 
-  	command = {file_delete('wflite.geojson'); write_sf(pop_density, 'wflite.geojson'); 'wflite.geojson'},
+  	command = {
+  		if(file_exists('wflite.geojson')){file_delete('wflite.geojson')}
+  		out <- left_join(spatial, read_csv(pop_density), by = 'wildfire_id')
+  		write_sf(out, 'wflite.geojson')
+  		'wflite.geojson'
+  	},
   	format = 'file'
   )
 )

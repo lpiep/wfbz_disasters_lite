@@ -7,11 +7,11 @@ clean_ics209 <- function(event_ics209_raw){
 			ics_county = standardize_county_name(ics_county),
 			ics_name = standardize_place_name(ics_name)
 		) %>%
-		select(
+		transmute(
 			ics_id,
 			wildfire_name = ics_name,
 			wildfire_poo_lat = ics_wildfire_poo_lat,
-			wildfire_poo_lon = ics_wildfire_poo_lon,
+			wildfire_poo_lon = if_else(wildfire_poo_lat > 14, -abs(ics_wildfire_poo_lon), ics_wildfire_poo_lon), # assume positive numbers are shorthand (unless it's way far south like guam, then leave it alone)
 			wildfire_counties = ics_county,
 			wildfire_states = ics_state,
 			wildfire_ignition_date = ics_wildfire_ignition_date,

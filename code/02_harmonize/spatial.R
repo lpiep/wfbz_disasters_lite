@@ -338,9 +338,10 @@ harmonize_spatial <- function(
 	wildfire_states <- all_tiers %>%
 		st_join(spatial_tiger_counties$`2020`) %>%
 		st_drop_geometry() %>% 
+		filter(STATE_ABB %in% unique(readRDS("data/reference/fips_codes.rds")$STATE_NAME)) %>%
 		group_by(wildfire_id) %>% 
 		summarize(wildfire_states = paste(unique(STATE_ABB), collapse = '|')) 
 
-	left_join(all_tiers, wildfire_states, by = 'wildfire_id')
+	inner_join(all_tiers, wildfire_states, by = 'wildfire_id') 
 }
 
