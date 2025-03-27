@@ -39,9 +39,9 @@ harmonize_spatial <- function(
 			wildfire_area = max(wildfire_area_mtbs, na.rm = TRUE),
 			wildfire_complex = any(wildfire_complex_event | wildfire_complex_mtbs, na.rm = TRUE),
 			wildfire_complex_names = dedupe_pipe_delim(paste(c(wildfire_name, wildfire_complex_names), collapse = '|')),
-			wildfire_total_fatalities = suppressWarnings(max(wildfire_total_fatalities, na.rm = TRUE)) %>% na_if(Inf),
-			wildfire_civil_fatalities = suppressWarnings(max(wildfire_civil_fatalities, na.rm = TRUE)) %>% na_if(Inf),
-			wildfire_struct_destroyed = suppressWarnings(max(wildfire_struct_destroyed, na.rm = TRUE)) %>% na_if(Inf),
+			wildfire_total_fatalities = suppressWarnings(max(wildfire_total_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
+			wildfire_civil_fatalities = suppressWarnings(max(wildfire_civil_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
+			wildfire_struct_destroyed = suppressWarnings(max(wildfire_struct_destroyed, na.rm = TRUE)) %>% na_if(-Inf),
 			wildfire_fema_dec = any(wildfire_fema_dec, na.rm = TRUE),
 			wildfire_ignition_date        = suppressWarnings(min(wildfire_ignition_date_event, na.rm = TRUE)), # event only -- see below
 			wildfire_containment_date     = suppressWarnings(min(wildfire_containment_date, na.rm = TRUE)),
@@ -342,6 +342,21 @@ harmonize_spatial <- function(
 		group_by(wildfire_id) %>% 
 		summarize(wildfire_states = paste(unique(STATE_ABB), collapse = '|')) 
 
-	inner_join(all_tiers, wildfire_states, by = 'wildfire_id') 
+	inner_join(all_tiers, wildfire_states, by = 'wildfire_id') %>%
+		mutate(
+			civ_crit    = if_else(
+				coalesce(wildfire_max_civil_fatalities, wildfire_civil_fatalities, 0) > 0 | (is.na(wildfire_max_civil_fatalities) & (coalesce(wildfire_total_fatalities, 0) > 0)), 
+				'civilian_death', 
+				NA_character_
+			),
+			struct_crit = if_else(
+				coalesce(wildfire_struct_destroyed, 0) > 0, 
+				'structures_destroyed', 
+				NA_character_
+			),
+			fema_crit   = if_else(wildfire_fema_dec, 'fema_fmag_declaration', NA_character_)
+		) %>%
+		unite(wildfire_disaster_criteria_met, c(civ_crit, struct_crit, fema_crit), sep = '|', na.rm = TRUE) %>%
+		filter(wildfire_disaster_criteria_met != '') # when fatalities are the only passing criteria and we know that there were deaths, but no civ deaths
 }
 

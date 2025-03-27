@@ -226,7 +226,36 @@ list(
   	output_file, 
   	command = {
   		if(file_exists('wflite.geojson')){file_delete('wflite.geojson')}
-  		out <- left_join(spatial, read_csv(pop_density), by = 'wildfire_id')
+  		out <- left_join(spatial, read.csv(pop_density), by = 'wildfire_id')
+  		out <- out %>%
+  			select(
+  				wildfire_id,
+  				wildfire_year,
+  				wildfire_states,
+  				wildfire_area,
+  				wildfire_complex,
+  				wildfire_complex_names,
+  				wildfire_total_fatalities,
+  				wildfire_max_civil_fatalities, 
+  				wildfire_civil_fatalities,
+  				wildfire_struct_destroyed,
+  				wildfire_community_intersect,
+  				wildfire_fema_dec,
+  				wildfire_disaster_criteria_met,
+  				wildfire_ignition_date,
+  				wildfire_containment_date,
+  				wildfire_ignition_date_max,
+  				wildfire_containment_date_max,
+  				wildfire_fema_dec_date,
+  				wildfire_poo_lat,
+  				wildfire_poo_lon,
+  				geometry_src,
+  				redbook_id,
+  				ics_id,
+  				fired_id,
+  				mtbs_id,
+  				fema_id
+  			)
   		write_sf(out, 'wflite.geojson')
   		'wflite.geojson'
   	},
