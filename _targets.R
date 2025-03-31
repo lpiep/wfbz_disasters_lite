@@ -5,7 +5,7 @@ lapply(pkgs, library, character.only = TRUE)
 options(timeout = max(90*60, getOption("timeout"))) # 30 minute timeout on downloads (or larger if env var "timeout" is set to larger number)
 options(scipen = 999999)
 options(readr.show_col_types = FALSE)
-options(wilfire_disasters_lite.cue_downloads = 'never') # Make 'always' for production
+options(wildfire_disasters_lite.cue_downloads = 'always') # Make 'always' for production
 conda = '/opt/conda/bin/conda'
 
 # Set target options:
@@ -27,7 +27,7 @@ list(
     name = event_fema_raw, # see https://www.fema.gov/api/open/v1/OpenFemaDataSetFields?$filter=openFemaDataSet%20eq%20%27FemaWebDisasterSummaries%27%20and%20datasetVersion%20eq%201 for metadata
     download_event_fema_raw(),
     format = 'file',
-    cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
+    cue = tar_cue(mode = getOption('wildfire_disasters_lite.cue_downloads'))
   ),
   tar_target(
   	name = event_redbook_raw,
@@ -38,63 +38,63 @@ list(
   	name = event_ics209_raw,
   	download_event_ics209_raw(),	
   	format = 'file',
-  	cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
+  	cue = tar_cue(mode = getOption('wildfire_disasters_lite.cue_downloads'))
   ),
   ### Spatial Source Files ###
   tar_target(
   	name = spatial_mtbs_raw,
   	download_spatial_mtbs_raw(),	
   	format = 'file',
-  	cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
+  	cue = tar_cue(mode = getOption('wildfire_disasters_lite.cue_downloads'))
   ),
   tar_target(
   	name = spatial_fired_raw,
   	download_spatial_fired_raw(),	
   	format = 'file',
-  	cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
+  	cue = tar_cue(mode = getOption('wildfire_disasters_lite.cue_downloads'))
   ),
   tar_target(
   	name = spatial_nifc_raw,
   	download_spatial_nifc_raw(),	
   	format = 'file',
-  	cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
+  	cue = tar_cue(mode = getOption('wildfire_disasters_lite.cue_downloads'))
   ),
   ### Population Density Files ###
   tar_target(
   	name = spatial_ghs_pop_raw_2000,
   	download_spatial_ghs_pop(2000),	
   	format = 'file',
-  	cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
+  	cue = tar_cue(mode = getOption('wildfire_disasters_lite.cue_downloads'))
   ),
   tar_target(
   	name = spatial_ghs_pop_raw_2005,
   	download_spatial_ghs_pop(2005),	
   	format = 'file',
-  	cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
+  	cue = tar_cue(mode = getOption('wildfire_disasters_lite.cue_downloads'))
   ),
   tar_target(
   	name = spatial_ghs_pop_raw_2010,
   	download_spatial_ghs_pop(2010),	
   	format = 'file',
-  	cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
+  	cue = tar_cue(mode = getOption('wildfire_disasters_lite.cue_downloads'))
   ),
   tar_target(
   	name = spatial_ghs_pop_raw_2015,
   	download_spatial_ghs_pop(2015),	
   	format = 'file',
-  	cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
+  	cue = tar_cue(mode = getOption('wildfire_disasters_lite.cue_downloads'))
   ),
   tar_target(
   	name = spatial_ghs_pop_raw_2020,
   	download_spatial_ghs_pop(2020),	
   	format = 'file',
-  	cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
+  	cue = tar_cue(mode = getOption('wildfire_disasters_lite.cue_downloads'))
   ),
 	tar_target(
 		name = spatial_ghs_pop_raw_2025,
 		download_spatial_ghs_pop(2025),	
 		format = 'file',
-		cue = tar_cue(mode = getOption('wilfire_disasters_lite.cue_downloads'))
+		cue = tar_cue(mode = getOption('wildfire_disasters_lite.cue_downloads'))
 	),
 
   ### Census Files ###
