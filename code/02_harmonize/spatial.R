@@ -317,7 +317,8 @@ harmonize_spatial <- function(
 		) %>%
 		st_as_sf(coords = c('wildfire_poo_lon', 'wildfire_poo_lat'), remove = FALSE, crs = 4269) %>% 
 		st_buffer(.$radius) %>%
-		select(-radius, -wildfire_states)
+		select(-radius, -wildfire_states) %>%
+		filter(wildfire_area <= (5284*2))  # cutoff for believability of resulting geometry (twice the largest reported fire in this period (Alaska's Taylor Fire))
 		
 	
 	### combine and shine
