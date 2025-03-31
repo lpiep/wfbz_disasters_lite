@@ -2,7 +2,7 @@
 
 clean_redbook <- function(event_redbook_raw){
 	
-	fs::dir_ls(event_redbook_raw, recurse = TRUE, glob = '*.csv') %>%
+	fs::dir_ls(event_redbook_raw, recurse = TRUE, glob = '*_csv.csv') %>%
 		map(read_csv, show_col_types = FALSE, col_types = cols(.default = 'c'), na = c('', 'NA', 'na')) %>%
 		bind_rows(.id = 'src') %>%
 		transmute(
