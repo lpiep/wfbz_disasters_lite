@@ -11,21 +11,34 @@ download_spatial_mtbs_raw <- function(){
 }
 
 download_spatial_fired_raw <- function(){
-	if(!file.exists('data/01_raw/spatial/fired/fired_conus-ak_events_nov2001-march2021.gpkg')){
-		url <-'https://scholar.colorado.edu/downloads/h702q749s'
-		t <- 'data/01_raw/spatial/fired/fired.zip'
-		dst <- dirname(t)
-		if(!dir_exists(dst)) dir_create(dst)
-		request('http://scholar.colorado.edu/downloads/h702q749s') %>% 
-    		req_user_agent("Mozilla/99.999 (Not really but you reject other agents)") %>%  # spoof firefox 
-    		req_perform(path = t) 
-
-		unzip(t, overwrite = TRUE, exdir = dst)
-  		unlink(t, recursive = TRUE)
-  		dst
-
+	fired_dir <- 'data/01_raw/spatial/fired'
+	if(dir_exists(fired_dir)){ 
+		dir_delete(fired_dir)
 	}
-	return('data/01_raw/spatial/fired')
+	dir_create(fired_dir)
+	
+	# Hawaii
+	url <-'https://scholar.colorado.edu/downloads/9g54xj85m'
+	
+	t <- file.path(fired_dir, 'hi_fired.zip')
+	request(url) %>% 
+  		req_user_agent("Mozilla/99.999 (Not really but you reject other agents)") %>%  # spoof firefox 
+  		req_perform(path = t) 
+	unzip(t, overwrite = TRUE, exdir = fired_dir)
+	unlink(t, recursive = TRUE)
+	
+	# CONUS/AK
+	url <-'https://scholar.colorado.edu/downloads/8623j034w'
+	t <- file.path(fired_dir, 'conus_ak_fired.tar')
+	request(url) %>% 
+		req_user_agent("Mozilla/99.999 (Not really but you reject other agents)") %>%  # spoof firefox 
+		req_perform(path = t) 
+	untar(t, exdir = fired_dir) #this time it's a tar!
+	ex <- dir_ls(file.path(fired_dir, 'conus_ak/'))
+	file_move(path = ex, new_path = file.path(fired_dir, basename(ex)))
+	unlink(t, recursive = TRUE)
+		
+	return(fired_dir)
 }
 
 download_spatial_nifc_raw <- function(){

@@ -13,12 +13,15 @@
 
 clean_fired <- function(spatial_fired_raw){
 	
-	fired <- st_read(fs::dir_ls(spatial_fired_raw, regexp = 'event.*gpkg$')) %>%
+	fired <- fs::dir_ls(spatial_fired_raw, regexp = 'event.*gpkg$') %>%
+		map(read_sf) %>%
+		map(select, -ig_day) %>% # drop problematic column
+		bind_rows() %>% 
 		st_set_geometry("geometry") %>% 
 		st_transform(4269) %>% 
 		st_make_valid() %>% 
 		rename_at(vars(!matches('geometry')), ~ paste0("fired_", .)) %>% 
-		mutate(across(matches('date'), ymd)) %>% 
+		mutate(across(matches('date'), ~ymd(substr(.x, 1, 10)))) %>% 
 		filter(fired_ig_year >= 2000) %>%
 		transmute(
 			fired_id, 
