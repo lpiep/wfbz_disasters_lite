@@ -41,6 +41,7 @@ harmonize_spatial <- function(
 			wildfire_complex_names = dedupe_pipe_delim(paste(c(wildfire_name, wildfire_complex_names), collapse = '|')),
 			wildfire_total_fatalities = suppressWarnings(max(wildfire_total_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
 			wildfire_civil_fatalities = suppressWarnings(max(wildfire_civil_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
+			wildfire_max_civil_fatalities = suppressWarnings(max(wildfire_max_civil_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
 			wildfire_struct_destroyed = suppressWarnings(max(wildfire_struct_destroyed, na.rm = TRUE)) %>% na_if(-Inf),
 			wildfire_fema_dec = any(wildfire_fema_dec, na.rm = TRUE),
 			wildfire_ignition_date        = suppressWarnings(min(wildfire_ignition_date_event, na.rm = TRUE)), # event only -- see below
@@ -77,6 +78,7 @@ harmonize_spatial <- function(
 			wildfire_complex_names = dedupe_pipe_delim(paste(c(wildfire_name, wildfire_complex_names), collapse = '|')),
 			wildfire_total_fatalities = suppressWarnings(max(wildfire_total_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
 			wildfire_civil_fatalities = suppressWarnings(max(wildfire_civil_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
+			wildfire_max_civil_fatalities = suppressWarnings(max(wildfire_max_civil_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
 			wildfire_struct_destroyed = suppressWarnings(max(wildfire_struct_destroyed, na.rm = TRUE)) %>% na_if(-Inf),
 			wildfire_fema_dec = any(wildfire_fema_dec, na.rm = TRUE),
 			wildfire_ignition_date        = suppressWarnings(min(wildfire_ignition_date, na.rm = TRUE)), # event only -- see below
@@ -150,6 +152,7 @@ harmonize_spatial <- function(
 			wildfire_complex_names = dedupe_pipe_delim(paste(c(wildfire_name, wildfire_complex_names), collapse = '|')),
 			wildfire_total_fatalities = suppressWarnings(max(wildfire_total_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
 			wildfire_civil_fatalities = suppressWarnings(max(wildfire_civil_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
+			wildfire_max_civil_fatalities = suppressWarnings(max(wildfire_max_civil_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
 			wildfire_struct_destroyed = suppressWarnings(max(wildfire_struct_destroyed, na.rm = TRUE)) %>% na_if(-Inf),
 			wildfire_fema_dec = any(wildfire_fema_dec, na.rm = TRUE),
 			wildfire_ignition_date        = suppressWarnings(min(wildfire_ignition_date_event, na.rm = TRUE)), # event only -- see below
@@ -219,6 +222,7 @@ harmonize_spatial <- function(
 			wildfire_complex_names = dedupe_pipe_delim(paste(c(wildfire_name, wildfire_complex_names), collapse = '|')),
 			wildfire_total_fatalities = suppressWarnings(max(wildfire_total_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
 			wildfire_civil_fatalities = suppressWarnings(max(wildfire_civil_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
+			wildfire_max_civil_fatalities = suppressWarnings(max(wildfire_max_civil_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
 			wildfire_struct_destroyed = suppressWarnings(max(wildfire_struct_destroyed, na.rm = TRUE)) %>% na_if(-Inf),
 			wildfire_fema_dec = any(wildfire_fema_dec, na.rm = TRUE),
 			wildfire_ignition_date        = suppressWarnings(min(wildfire_ignition_date, na.rm = TRUE)), 
@@ -284,6 +288,7 @@ harmonize_spatial <- function(
 			wildfire_complex_names = dedupe_pipe_delim(paste(wildfire_complex_names, collapse = '|')),
 			wildfire_total_fatalities = suppressWarnings(max(wildfire_total_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
 			wildfire_civil_fatalities = suppressWarnings(max(wildfire_civil_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
+			wildfire_max_civil_fatalities = suppressWarnings(max(wildfire_max_civil_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
 			wildfire_struct_destroyed = suppressWarnings(max(wildfire_struct_destroyed, na.rm = TRUE)) %>% na_if(-Inf),
 			wildfire_fema_dec = any(wildfire_fema_dec, na.rm = TRUE),
 			wildfire_ignition_date        = suppressWarnings(min(wildfire_ignition_date_event, na.rm = TRUE)), # event only -- see below
