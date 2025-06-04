@@ -3,10 +3,10 @@ pkgs <- c("targets", "tarchetypes", "sf", "tidyverse", "httr", "fs", "jsonlite",
 lapply(pkgs, library, character.only = TRUE)
 
 options(timeout = max(90*60, getOption("timeout"))) # 30 minute timeout on downloads (or larger if env var "timeout" is set to larger number)
-options(scipen = 999999)
+options(scipen = 9999)
 options(readr.show_col_types = FALSE)
 options(wildfire_disasters_lite.cue_downloads = 'always') # Make 'always' for production
-conda = '/opt/conda/bin/conda'
+conda = system('which conda', intern = TRUE)
 
 # Set target options:
 tar_option_set(

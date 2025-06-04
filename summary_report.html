@@ -361,12 +361,12 @@ output_file &lt;- tar_read(output_file)
 data &lt;- tar_read(pop_density)
 head(data)</code></pre>
 <pre><code>## [1] &quot;data/02_processed/fire_pop_density_criteria.csv&quot;</code></pre>
-<p><em>Last run: 2025-06-03</em></p>
+<p><em>Last run: 2025-06-04</em></p>
 <p>Output File Details:</p>
 <p>wflite.geojson</p>
 <ul>
-<li>File Size: 253M</li>
-<li>File Checksum (md5): 254eede45a856a4ecc166ef58922a044</li>
+<li>File Size: 252M</li>
+<li>File Checksum (md5): 1022cd90bfb8f10fe4164c04d4ea3b42</li>
 </ul>
 <pre class="r"><code>row_counts &lt;- tribble(
     ~data_set, ~nobs_wflite, ~nobs_wfheavy,
@@ -391,7 +391,8 @@ row_counts</code></pre>
 ## 5 spatial_fired      219383        98723
 ## 6 spatial_mtbs        14321        20644
 ## 7 spatial_nifc        61165        54158
-## 8 spatial              6769         5461</code></pre>
+## 8 spatial              6756         5461</code></pre>
+
 <p>Burn Perimeter Join Types</p>
 <pre class="r"><code>tar_read(spatial) %&gt;%
     st_drop_geometry() %&gt;% 
@@ -400,12 +401,12 @@ row_counts</code></pre>
 <pre><code>## # A tibble: 6 × 2
 ##   geometry_method              n_wflite
 ##   &lt;chr&gt;                           &lt;int&gt;
-## 1 FIRED by Place/Time              1198
+## 1 FIRED by Place/Time              1195
 ## 2 ICS by Point of Origin, Size     3973
 ## 3 MTBS by ID                         69
-## 4 MTBS by Name/Place/Time          1031
+## 4 MTBS by Name/Place/Time          1026
 ## 5 NIFC by ID                         17
-## 6 NIFC by Name/Place/Time           481</code></pre>
+## 6 NIFC by Name/Place/Time           476</code></pre>
 <div id="documentation" class="section level2">
 <h2>Documentation</h2>
 <p>See detailed documentation for the input and output data sets here:
