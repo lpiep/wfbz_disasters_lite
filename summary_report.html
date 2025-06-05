@@ -361,12 +361,12 @@ output_file &lt;- tar_read(output_file)
 data &lt;- tar_read(pop_density)
 head(data)</code></pre>
 <pre><code>## [1] &quot;data/02_processed/fire_pop_density_criteria.csv&quot;</code></pre>
-<p><em>Last run: 2025-06-04</em></p>
+<p><em>Last run: 2025-06-05</em></p>
 <p>Output File Details:</p>
 <p>wflite.geojson</p>
 <ul>
-<li>File Size: 252M</li>
-<li>File Checksum (md5): 1022cd90bfb8f10fe4164c04d4ea3b42</li>
+<li>File Size: 310M</li>
+<li>File Checksum (md5): 58e47ae50cea9c5766c259d7730f490a</li>
 </ul>
 <pre class="r"><code>row_counts &lt;- tribble(
     ~data_set, ~nobs_wflite, ~nobs_wfheavy,
@@ -386,13 +386,12 @@ row_counts</code></pre>
 ##   &lt;chr&gt;               &lt;int&gt;        &lt;dbl&gt;
 ## 1 event_fema           1701         1339
 ## 2 event_ics209        35423        32425
-## 3 event_redbook        1126         1126
-## 4 event                5647        32512
+## 3 event_redbook        1375         1126
+## 4 event                6979        32512
 ## 5 spatial_fired      219383        98723
 ## 6 spatial_mtbs        14321        20644
 ## 7 spatial_nifc        61165        54158
-## 8 spatial              6756         5461</code></pre>
-
+## 8 spatial              7395         5461</code></pre>
 <p>Burn Perimeter Join Types</p>
 <pre class="r"><code>tar_read(spatial) %&gt;%
     st_drop_geometry() %&gt;% 
@@ -401,12 +400,12 @@ row_counts</code></pre>
 <pre><code>## # A tibble: 6 × 2
 ##   geometry_method              n_wflite
 ##   &lt;chr&gt;                           &lt;int&gt;
-## 1 FIRED by Place/Time              1195
-## 2 ICS by Point of Origin, Size     3973
-## 3 MTBS by ID                         69
-## 4 MTBS by Name/Place/Time          1026
-## 5 NIFC by ID                         17
-## 6 NIFC by Name/Place/Time           476</code></pre>
+## 1 FIRED by Place/Time              1224
+## 2 ICS by Point of Origin, Size     3984
+## 3 MTBS by ID                         72
+## 4 MTBS by Name/Place/Time          1439
+## 5 NIFC by ID                         19
+## 6 NIFC by Name/Place/Time           657</code></pre>
 <div id="documentation" class="section level2">
 <h2>Documentation</h2>
 <p>See detailed documentation for the input and output data sets here:
