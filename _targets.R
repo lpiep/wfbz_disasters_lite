@@ -6,7 +6,7 @@ options(timeout = max(90*60, getOption("timeout"))) # 30 minute timeout on downl
 options(scipen = 9999)
 options(readr.show_col_types = FALSE)
 options(wildfire_disasters_lite.cue_downloads = 'always') # Make 'always' for production
-conda = system('which conda', intern = TRUE)
+conda = '/Users/loganap/miniconda3/bin/conda' #YOUR CONDA HERE!!!
 
 # Set target options:
 tar_option_set(
@@ -226,7 +226,7 @@ list(
   	output_file, 
   	command = {
   		if(file_exists('wflite.geojson')){file_delete('wflite.geojson')}
-  		out <- left_join(spatial, read.csv(pop_density), by = 'wildfire_id')
+  		out <- left_join(spatial, read_csv(pop_density), by = 'wildfire_id')
   		out <- out %>%
   			select(
   				wildfire_id,
@@ -240,8 +240,8 @@ list(
   				wildfire_civil_fatalities,
   				wildfire_struct_destroyed,
   				wildfire_community_intersect,
-				wildfire_max_pop_den,
-				wildfire_buffered_avg_pop_den,
+					wildfire_max_pop_den,
+					wildfire_buffered_avg_pop_den,
   				wildfire_fema_dec,
   				wildfire_disaster_criteria_met,
   				wildfire_ignition_date,
