@@ -5,7 +5,7 @@ lapply(pkgs, library, character.only = TRUE)
 options(timeout = max(90*60, getOption("timeout"))) # 30 minute timeout on downloads (or larger if env var "timeout" is set to larger number)
 options(scipen = 9999)
 options(readr.show_col_types = FALSE)
-options(wildfire_disasters_lite.cue_downloads = 'always') # Make 'always' for production
+#options(wildfire_disasters_lite.cue_downloads = 'always') # Make 'always' for production
 conda = '/Users/loganap/miniconda3/bin/conda' #YOUR CONDA HERE!!!
 
 # Set target options:
@@ -58,6 +58,15 @@ list(
   	download_spatial_nifc_raw(),	
   	format = 'file',
   	cue = tar_cue(mode = getOption('wildfire_disasters_lite.cue_downloads'))
+  ),
+  tar_target(
+	  name = spatial_wui_raw,
+	  unzip_url(
+	  	'https://usfs-public.box.com/shared/static/bjupat9dkwln7yanslfls0zb4n949qv2.zip',
+	  	dir_create('data/spatial/wui')
+	  ),	
+	  format = 'file',
+	  cue = tar_cue(mode = getOption('wildfire_disasters_lite.cue_downloads'))
   ),
   ### Population Density Files ###
   tar_target(
