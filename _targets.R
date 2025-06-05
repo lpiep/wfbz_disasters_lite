@@ -240,6 +240,8 @@ list(
   				wildfire_civil_fatalities,
   				wildfire_struct_destroyed,
   				wildfire_community_intersect,
+				wildfire_max_pop_den,
+				wildfire_buffered_avg_pop_den,
   				wildfire_fema_dec,
   				wildfire_disaster_criteria_met,
   				wildfire_ignition_date,
