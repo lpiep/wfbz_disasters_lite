@@ -16,8 +16,8 @@
 `wildfire_evac` | `integer` | Number of people evacuated | 
 `wildfire_cost` | `integer` | Cost of wildfire in dollars |
 `wildfire_threatened_structures` | `integer` | Number of structures potentially threatened by the incident within the next 72 hours | 
-`wildfire_buffered_avg_pop_den` | `float` | Average population density in the buffered wildfire area | 
-`wildfire_max_pop_den` | `float` | Maximum population density in the wildfire area | 
+`wildfire_buffered_avg_pop_den` | `float` | Average population density in the buffered wildfire area (people per square meter) | 
+`wildfire_max_pop_den` | `float` | Maximum population density in the wildfire area (people per square meter) | 
 `wildfire_injuries` | `integer` | Number of people who were injured | 
 
 ### Criteria 
