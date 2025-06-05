@@ -132,12 +132,18 @@ def main(
         max_pop_density = np.max(mean_pop_density.mask(buffered_fire_series).to_numpy())
         wildfire_community_intersect = max_pop_density > pop_density_criteria
 
-        # for the final data, we want: 
-        # i. max pop density within the fire polygon
-        # ii. avg pop density within the buffered fire polygon
-        max_pop_density_keep = np.max(mean_pop_density.mask(fire_series).to_numpy())
-        avg_pop_density_keep = np.mean(mean_pop_density.mask(buffered_fire_series).to_numpy())
-
+        # Calculate final metrics - handle no-data values properly
+        fire_masked = mean_pop_density.mask(fire_series).to_numpy()
+        buffered_masked = mean_pop_density.mask(buffered_fire_series).to_numpy()
+        
+        # Remove no-data values and negative values before calculating stats
+        fire_valid = fire_masked[~np.isnan(fire_masked) & (fire_masked >= 0)]
+        buffered_valid = buffered_masked[~np.isnan(buffered_masked) & (buffered_masked >= 0)]
+        
+        # Calculate final metrics
+        max_pop_density_keep = np.max(fire_valid) if len(fire_valid) > 0 else 0
+        avg_pop_density_keep = np.mean(buffered_valid) if len(buffered_valid) > 0 else 0
+        
         # V. add to results df 
         df_fire = pd.DataFrame({
             'wildfire_id': [str(wildfire_id)],
@@ -145,7 +151,7 @@ def main(
             'wildfire_max_pop_den': [max_pop_density_keep],
             'wildfire_buffered_avg_pop_den': [avg_pop_density_keep]
         })
-        
+
         fire_dfs.append(df_fire)
         df_out = pd.concat(fire_dfs, ignore_index = True)
 
