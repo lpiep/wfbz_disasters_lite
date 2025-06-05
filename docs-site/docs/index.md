@@ -27,8 +27,8 @@
 `wildfire_struct_destroyed` | `integer` | Wildfire criteria was met for number of structures destroyed. |
 `wildfire_threatened_structures` | `???` | ??? | 
 `wildfire_community_intersect` | `boolean` | Wildfire criteria was met for community intersection based on population density of 96 people per square kilometer. |
-`wildfire_buffered_avg_pop_den` | `integer` | Average population density in the buffered wildfire area. | 
-`wildfire_max_pop_den` | `integer` | Maximum population density in the wildfire area. | 
+`wildfire_buffered_avg_pop_den` | `float` | Average population density in the buffered wildfire area. | 
+`wildfire_max_pop_den` | `float` | Maximum population density in the wildfire area. | 
 `wildfire_fema_dec` | `boolean` | | FEMA disaster declaration | 
 `wildfire_disaster_criteria_met` | `integer` | Wildfire disaster criteria met, including civilian fatalities, structures burned, or an FMAG declaration, or a combination of these variables. |
 
