@@ -56,7 +56,20 @@ harmonize_event <- function(
 			stringdist(wildfire_name_ics209, wildfire_name_fema, method = 'jw', p = .1) <= .25 |
 			stringdist(wildfire_name_redbook, wildfire_name_fema, method = 'jw', p = .1) <= .25 # threshold chosen by inspection
 		)
-
+	
+	# Some fires will have dropped out because they *did* fall in the same date range / location as other fires
+	#.  but did not match any of those by name. We will add those back in here.
+	nomatch_ics209 <- anti_join(event_ics209_long, event_merged, by = 'ics_id')
+	nomatch_redbook <- anti_join(event_redbook_long, event_merged, by = 'redbook_id')
+	nomatch_fema <- anti_join(event_fema_long, event_merged, by = 'fema_id')
+	
+	event_merged <- bind_rows(
+		event_merged,
+		nomatch_ics209,
+		nomatch_redbook,
+		nomatch_fema
+	)
+	
 	# re-collapse state/county
 	event_merged <- event_merged %>%
 		group_by(ics_id, redbook_id, fema_id) %>% 
@@ -71,14 +84,24 @@ harmonize_event <- function(
 	# create disaster criteria and filter
 	event_merged <- event_merged %>% # still contains dupes (in a complex way)
 		 mutate(
+		 	wildfire_year = coalesce(wildfire_year_redbook, year(pmin(wildfire_ignition_date_fema, wildfire_ignition_date_ics209, wildfire_ignition_date_redbook, na.rm = TRUE))),
 		 	wildfire_fema_dec = !is.na(wildfire_fema_dec_date_fema),
 		 	wildfire_struct_destroyed = pmax(wildfire_struct_destroyed_ics209, wildfire_struct_destroyed_redbook, na.rm = TRUE),
 		 	wildfire_civil_fatalities = pmax(wildfire_civil_fatalities_ics209, wildfire_civil_fatalities_redbook, na.rm = TRUE),
 		 	wildfire_total_fatalities = pmax(wildfire_total_fatalities_ics209, wildfire_total_fatalities_redbook, na.rm = TRUE),
 		 	wildfire_max_civil_fatalities = case_when(
-		 		wildfire_year_redbook < 2014 & !is.na(wildfire_civil_fatalities_redbook) ~ wildfire_civil_fatalities_redbook,
-		 		TRUE ~ wildfire_civil_fatalities
-		 	)
+		 		str_detect(wildfire_states, 'CA') & wildfire_year < 2014 ~ wildfire_civil_fatalities_redbook,
+		 		str_detect(wildfire_states, 'CA') & wildfire_year >= 2014 ~ pmax(wildfire_civil_fatalities_ics209, wildfire_civil_fatalities_redbook, na.rm = TRUE),
+		 		!str_detect(wildfire_states, 'CA') & wildfire_year < 2014 ~ wildfire_total_fatalities_ics209,
+		 		!str_detect(wildfire_states, 'CA') & wildfire_year >=2014 ~ wildfire_civil_fatalities_ics209
+		 	) # hopefully do the below:
+		 	#Best estimate of civilian fatalities from 2000-2019. From 2000-2013, only California RedBooks reported civilian 
+		 	#fatalities alone. Therefore, from 2000-2013, this variable reports the maximum total fatalities for wildfires 
+		 	#outside California but civilian specific fatalities from California. From 2014-2019, this variable reports 
+		 	#the maximum civilian fatalities from each fire. 	Best estimate of civilian fatalities from 2000-2019. From 2000-2013, 
+		 	#only California RedBooks reported civilian fatalities alone. Therefore, from 2000-2013, this variable reports the maximum 
+		 	#total fatalities for wildfires outside California but civilian specific fatalities from California. From 2014-2019, 
+		 	#this variable reports the maximum civilian fatalities from each fire.
 		 ) %>%
 		filter(
 			wildfire_fema_dec | 
@@ -90,9 +113,9 @@ harmonize_event <- function(
 	# take records from sources in order of precedence (redbook > ics209 > fema) or by min/maxing
 	event_merged %>% 
 		unite('wildfire_complex_names', c(wildfire_name_redbook, wildfire_name_ics209, wildfire_name_fema), sep = '|', na.rm = TRUE) %>% 
-		transmute(
+		mutate(
 			event_id = row_number(),
-			wildfire_year = coalesce(wildfire_year_redbook, year(pmin(wildfire_ignition_date_fema, wildfire_ignition_date_ics209, wildfire_ignition_date_redbook, na.rm = TRUE))),
+			wildfire_year,
 			wildfire_states,
 			wildfire_counties,
 			wildfire_area = coalesce(wildfire_area_redbook, wildfire_area_ics209) ,
