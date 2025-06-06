@@ -14,10 +14,10 @@
 `wildfire_complex` | `boolean` | Fire is a complex of multiple member fires |
 `wildfire_complex_names` | `character` | List of wildfires in the wildfire complex |
 `wildfire_evac` | `integer` | Number of people evacuated | 
-`wildfire_cost` | `integer` | Cost of wildfire in dollars |
+`wildfire_cost` | `integer` | Cost of wildfire response in dollars (does not include damages) |
 `wildfire_threatened_structures` | `integer` | Number of structures potentially threatened by the incident within the next 72 hours | 
-`wildfire_buffered_avg_pop_den` | `float` | Average population density in the buffered wildfire area (people per square meter) | 
-`wildfire_max_pop_den` | `float` | Maximum population density in the wildfire area (people per square meter) | 
+`wildfire_buffered_avg_pop_den` | `float` | Average population density in the buffered wildfire burn zone (people per square meter) | 
+`wildfire_max_pop_den` | `float` | Maximum population density in the wildfire burn zone (people per square meter) | 
 `wildfire_injuries` | `integer` | Number of people who were injured | 
 
 ### Criteria 
