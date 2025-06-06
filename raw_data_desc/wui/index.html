@@ -9,8 +9,10 @@
       
       
       
-        <link rel="prev" href="../redbook/">
+        <link rel="prev" href="../ics209/">
       
+      
+        <link rel="next" href="../redbook/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -18,7 +20,7 @@
     
     
       
-        <title>GHS Population - Wildfire Disaster Dataset Harmonization</title>
+        <title>WUI - Wildfire Disaster Dataset Harmonization</title>
       
     
     
@@ -60,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#global-human-settlement-population-data" class="md-skip">
+        <a href="#wildland-urban-interface-delineation" class="md-skip">
           Skip to content
         </a>
       
@@ -96,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              GHS Population
+              WUI
             
           </span>
         </div>
@@ -388,10 +390,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../wui/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    WUI
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -402,6 +426,44 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fields
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -434,32 +496,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    GHS Population
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../ghs/" class="md-nav__link">
         
   
   
@@ -470,35 +510,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Summary
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -546,6 +557,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fields
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -562,12 +582,77 @@
 
 
 
-<h1 id="global-human-settlement-population-data">Global Human Settlement Population Data</h1>
-<p>Source: https://data.jrc.ec.europa.eu/dataset/2ff68a52-5b5b-4a22-8f40-c41da8332cfe</p>
+<h1 id="wildland-urban-interface-delineation">Wildland-Urban Interface Delineation</h1>
+<p>Source: https://www.fs.usda.gov/rds/archive/catalog/RDS-2015-0012-4</p>
 <h2 id="summary">Summary</h2>
-<p>The spatial raster dataset depicts the distribution of population, expressed as the number of people per cell. Residential population estimates between 1975 and 2020 in 5 years intervals and projections to 2025 and 2030 derived from CIESIN GPWv4.11 were disaggregated from census or administrative units to grid cells, informed by the distribution, density, and classification of built-up as mapped in the Global Human Settlement Layer (GHSL) global layer per corresponding epoch.</p>
-<p>We downloaded the 100m resolution datasets for years 2000, 2005, 2010, 2015, and 2020. </p>
-<p><em>Note:</em> These files are very large (7-8GB per year). </p>
+<blockquote>
+<p>The Wildland-Urban Interface (WUI) is the area where houses meet or intermingle with undeveloped 
+wildland vegetation. This makes the WUI a focal area for human-environment conflicts such as 
+wildland fires, habitat fragmentation, invasive species, and biodiversity decline. 
+Using geographic information systems (GIS), we integrated U.S. Census and USGS National 
+Land Cover Data, to map the Federal Register definition of WUI (Federal Register 66:751, 2001) 
+for the conterminous United States from 1990-2020. These data are useful within a GIS for 
+mapping and analysis at national, state, and local levels. Data are available as a geodatabase 
+and include information such as housing densities for 1990, 2000, 2010, and 2020; wildland 
+vegetation percentages for 1992, 2001, 2011, and 2019; as well as WUI classes in 1990, 2000, 
+2010, and 2020.This WUI feature class is separate from the WUI datasets maintained by 
+individual forest unites, and it is not the authoritative source data of WUI for forest units. 
+This dataset shows change over time in the WUI data up to 2020.</p>
+</blockquote>
+<h2 id="fields">Fields</h2>
+<ul>
+<li><code>OBJECTID</code> - Internal feature number.</li>
+<li><code>Shape</code> -  Feature geometry.</li>
+<li><code>BLK20</code> - A unique number assigned to Census Blocks concatenated from State, County, Tract, and Block, and Water fields from US Census TIGER. The Census Bureau defines a block as the smallest geographic area for which the Bureau of the Census collects and tabulates decennial census data, [and] are formed by streets, roads, railroads, streams and other bodies of water, other visible and cultural features, and the legal boundaries shown on Census Bureau maps (U.S. Census Bureau).</li>
+<li><code>WATER20</code> -         Flag if polygon is a water body using 2020 TIGER water bodies (1=water)</li>
+<li><code>AWATER20PC</code> -      % of block area that is water</li>
+<li><code>POP2020</code> -      2020 population</li>
+<li><code>HU2020</code> -        2020 total housing units</li>
+<li><code>OCCHU2020</code> -         2020 occupied housing units</li>
+<li><code>VACHU2020</code> - 2020 vacant housing units</li>
+<li><code>POPDEN2020</code> -        2020 population density (persons / square km)</li>
+<li><code>HUDEN2020</code> -         2020 total housing density (units / square km)</li>
+<li><code>OCCHUDEN2020</code> -        2020 occupied housing density (units / square km)</li>
+<li><code>VACHUDEN2020</code> -       2020 vacant housing density (units / square km)</li>
+<li><code>PUBFLAG</code> -         Flag if polygon is a protected area (1=public land)</li>
+<li><code>STATE</code> -        2 letter state abbreviation</li>
+<li><code>HU1990</code> -        1990 total housing units (allocated)</li>
+<li><code>HUDEN1990</code> -   1990 housing density (units / square km)</li>
+<li><code>HU2000</code> -       2000 total housing units (allocated)</li>
+<li><code>HUDEN2000</code> -         2000 total housing density (units / square km)</li>
+<li><code>HU2010</code> -         2010 total housing units (allocated)</li>
+<li><code>HUDEN2010</code> -         2010 housing density (units / square km)</li>
+<li><code>VEG1992PC</code> -         Wildland Vegetation % in 1992 where wildland vegetation = (forests + grasslands + wetlands)</li>
+<li><code>VEG2001PC</code> -         Wildland Vegetation % in 2001 where wildland vegetation = (forests + grasslands + wetlands)</li>
+<li><code>VEG2011PC</code> -         Wildland Vegetation % in 2011 where wildland vegetation = (forests + grasslands + wetlands)</li>
+<li><code>VEG2019PC</code> -         Wildland Vegetation % in 2019 where wildland vegetation = (forests + grasslands + wetlands)</li>
+<li><code>WUIFLAG1990</code> -        Flag designating WUI (1=intermix; 2=interface) vs. non-WUI (0) areas in 1990</li>
+<li><code>WUICLASS1990</code> -        1990 WUI class (see enumerated domains for WUICLASS2020)</li>
+<li><code>WUIFLAG2000</code> -         Flag designating WUI (1=intermix; 2=interface) vs. non-WUI (0) areas in 2000</li>
+<li><code>WUICLASS2000</code> -         2000 WUI class (see enumerated domains for WUICLASS2020)</li>
+<li><code>WUIFLAG2010</code> -         Flag designating WUI (1=intermix; 2=interface) vs. non-WUI (0) areas in 2010</li>
+<li><code>WUICLASS2010</code> -        2010 WUI class (see enumerated domains for WUICLASS2020)</li>
+<li><code>WUIFLAG2020</code> -         Flag designating WUI (1=intermix; 2=interface) vs. non-WUI (0) areas in 2020</li>
+<li><code>WUICLASS2020</code> -        2020 WUI class<ul>
+<li>Water - open water</li>
+<li>Med_Dens_Interface - housing density between 49.42108 and 741.3162 and wildland vegetation &lt;= 50% and within 2.414 km of area with &gt;= 75% wildland vegetation</li>
+<li>High_Dens_Intermix - housing density &gt;= 741.3162 and wildland vegetation &gt; 50%</li>
+<li>Low_Dens_Interface -     housing density between 6.177635 and 49.42108 and wildland vegetation &lt;= 50% and within 2.414 km of area with &gt;= 75% wildland vegetation</li>
+<li>Med_Dens_Intermix -     housing density between 49.42108 and 741.3162 and wildland vegetation &gt; 50%</li>
+<li>Low_Dens_NoVeg -     housing density between 6.177635 and 49.42108 and wildland vegetation &lt;= 50%</li>
+<li>Med_Dens_NoVeg -     housing density between 49.42108 and 741.3162 and wildland vegetation &lt;= 50%</li>
+<li>Uninhabited_NoVeg -     housing density = 0 and wildland vegetation &lt;= 50%</li>
+<li>Low_Dens_Intermix -     housing density between 6.177635 and 49.42108 and wildland vegetation &gt; 50%</li>
+<li>High_Dens_Interface -     housing density &gt;= 741.3162 and wildland vegetation &lt;= 50% and within 2.414 km of area with &gt;= 75% wildland vegetation</li>
+<li>Very_Low_Dens_Veg -     housing density &lt; 6.177635 and wildland vegetation &gt; 50%</li>
+<li>Uninhabited_Veg -     housing density = 0 and wildland vegetation &gt; 50%</li>
+<li>Very_Low_Dens_NoVeg -     housing density &lt; 6.177635 and wildland vegetation &lt;= 50%</li>
+<li>High_Dens_NoVeg -     housing density &gt;= 741.3162 and wildland vegetation &lt;= 50%</li>
+</ul>
+</li>
+<li><code>BUFVEG</code> - flag (1=inside, 0=outside) for polygons within potential interface buffers (2.14 km around dense vegetation areas &gt;= 75% wildland vegetation and &gt; 500 hectares in 2020)</li>
+<li><code>FIPS</code> -         U.S. County Federal Information Processing Standards (FIPS) code.</li>
+</ul>
 
 
 
