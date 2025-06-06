@@ -8,13 +8,13 @@
 | Variable      | Data Type     | Description|
 | ------------- | ------------- | ---------- | 
 `wildfire_id` | `character` | Wildfire ID generated as row number of output dataset | 
-`wildfire_year` | `date` | Wildfire Year [YYYY] of Fire |
+`wildfire_year` | `date` | Wildfire year [YYYY] of fire |
 `wildfire_states` | `character` | Wildfire US State(s) in which fire occurred (comma-delimited if more than one) |
 `wildfire_area` | `decimal` | Wildfire burned area in square kilometers |
 `wildfire_complex` | `boolean` | Fire is a complex of multiple member fires |
 `wildfire_complex_names` | `character` | List of wildfires in the wildfire complex |
 `wildfire_evac` | `integer` | Number of people evacuated | 
-`wildfire_cost` | `integer` | Cost of wildfire response in dollars (does not include damages) |
+`wildfire_cost` | `integer` | Cost of wildfire response in USD (does not include damages) |
 `wildfire_threatened_structures` | `integer` | Number of structures potentially threatened by the incident within the next 72 hours | 
 `wildfire_buffered_avg_pop_den` | `float` | Average population density in the buffered wildfire burn zone (people per square meter) | 
 `wildfire_max_pop_den` | `float` | Maximum population density in the wildfire burn zone (people per square meter) | 
@@ -24,13 +24,13 @@
 
 | Variable      | Data Type     | Description|
 | ------------- | ------------- | ---------- | 
-`wildfire_total_fatalities` | `integer` | Total wildfire fatalities, firefighter and civilian combined. |
+`wildfire_total_fatalities` | `integer` | Total wildfire fatalities, firefighter and civilian combined |
 `wildfire_max_civil_fatalities` | `integer` | Best estimate of civilian fatalities from 2000-2019. From 2000-2013, only California RedBooks reported civilian fatalities alone. Therefore, from 2000-2013, this variable reports the maximum total fatalities for wildfires outside California but civilian specific fatalities from California. From 2014-2019, this variable reports the maximum civilian fatalities from each fire. |
 `wildfire_civil_fatalities` | `integer` | Total wildfire civilian fatalities (before 2014, these data are only available from CalFire. all other states are missing information on civilian only fatalities prior to 2014). |
-`wildfire_struct_destroyed` | `integer` | Wildfire criteria was met for number of structures destroyed. |
-`wildfire_community_intersect` | `boolean` | Wildfire criteria was met for community intersection based on population density of 96 people per square kilometer. |
+`wildfire_struct_destroyed` | `integer` | Wildfire criteria was met for number of structures destroyed |
+`wildfire_community_intersect` | `boolean` | Wildfire criteria was met for community intersection based on population density of 96 people per square kilometer |
 `wildfire_fema_dec` | `boolean` | | FEMA disaster declaration | 
-`wildfire_disaster_criteria_met` | `integer` | Wildfire disaster criteria met, including civilian fatalities, structures burned, or an FMAG declaration, or a combination of these variables. |
+`wildfire_disaster_criteria_met` | `integer` | Wildfire disaster criteria met, including civilian fatalities, structures burned, or an FMAG declaration, or a combination of these variables |
 
 ### Dates
 
