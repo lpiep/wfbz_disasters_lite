@@ -29,7 +29,7 @@
 `wildfire_civil_fatalities` | `integer` | Total wildfire civilian fatalities (before 2014, these data are only available from CalFire. all other states are missing information on civilian only fatalities prior to 2014). |
 `wildfire_struct_destroyed` | `integer` | Wildfire criteria was met for number of structures destroyed |
 `wildfire_community_intersect` | `boolean` | Wildfire criteria was met for community intersection based on population density of 96 people per square kilometer |
-`wildfire_fema_dec` | `boolean` | | FEMA disaster declaration | 
+`wildfire_fema_dec` | `boolean` | FEMA disaster declaration | 
 `wildfire_disaster_criteria_met` | `integer` | Wildfire disaster criteria met, including civilian fatalities, structures burned, or an FMAG declaration, or a combination of these variables |
 
 ### Dates
