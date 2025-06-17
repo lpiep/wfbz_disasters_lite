@@ -11,9 +11,14 @@ jobs:
     steps:
       - name: Checkout main
         uses: actions/checkout@v2
-
-      - name: Setup Git LFS
-        uses: git-lfs/git-lfs-action@v1.0.1      
+      
+      - name: Install Git LFS
+        run: |
+          LFS_VERSION="3.6.1"
+          wget "https://github.com/git-lfs/git-lfs/releases/download/v${LFS_VERSION}/git-lfs-linux-amd64-v${LFS_VERSION}.tar.gz"
+          tar -xzf "git-lfs-linux-amd64-v${LFS_VERSION}.tar.gz"
+          sudo cp git-lfs /usr/bin/
+          git lfs install 
 
       - name: Deploy docs
         uses: ironbar/mkdocs-deploy-gh-pages-lfs@master # updated to this fork to use lfs 
