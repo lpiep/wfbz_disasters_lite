@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Deploy docs
-        uses: mhausenblas/mkdocs-deploy-gh-pages@master
+        uses: ironbar/mkdocs-deploy-gh-pages-lfs@master # updated to this fork to use lfs 
         # Or use mhausenblas/mkdocs-deploy-gh-pages@nomaterial to build without the mkdocs-material theme
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
