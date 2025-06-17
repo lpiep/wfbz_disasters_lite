@@ -12,6 +12,12 @@ jobs:
       - name: Checkout main
         uses: actions/checkout@v2
 
+      - name: Install Git LFS
+        run: |
+          sudo apt-get update
+          sudo apt-get install git-lfs
+          git lfs install        
+
       - name: Deploy docs
         uses: ironbar/mkdocs-deploy-gh-pages-lfs@master # updated to this fork to use lfs 
         # Or use mhausenblas/mkdocs-deploy-gh-pages@nomaterial to build without the mkdocs-material theme
