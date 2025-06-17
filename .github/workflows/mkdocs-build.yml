@@ -12,11 +12,8 @@ jobs:
       - name: Checkout main
         uses: actions/checkout@v2
 
-      - name: Install Git LFS
-        run: |
-          sudo apt-get update
-          sudo apt-get install git-lfs
-          git lfs install        
+      - name: Setup Git LFS
+        uses: git-lfs/git-lfs-action@v1.0.1      
 
       - name: Deploy docs
         uses: ironbar/mkdocs-deploy-gh-pages-lfs@master # updated to this fork to use lfs 
