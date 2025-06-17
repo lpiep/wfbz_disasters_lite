@@ -11,22 +11,14 @@ jobs:
     steps:
       - name: Checkout main
         uses: actions/checkout@v2
-      
-      - name: Install Git LFS
-        run: |
-          LFS_VERSION="3.6.1"
-          wget "https://github.com/git-lfs/git-lfs/releases/download/v${LFS_VERSION}/git-lfs-linux-amd64-v${LFS_VERSION}.tar.gz"
-          tar -xzf "git-lfs-linux-amd64-v${LFS_VERSION}.tar.gz"
-          sudo cp git-lfs /usr/bin/
-          git lfs install 
 
       - name: Deploy docs
-        uses: ironbar/mkdocs-deploy-gh-pages-lfs@master # updated to this fork to use lfs 
+        uses: mhausenblas/mkdocs-deploy-gh-pages@master
         # Or use mhausenblas/mkdocs-deploy-gh-pages@nomaterial to build without the mkdocs-material theme
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # CUSTOM_DOMAIN: optionaldomain.com
           CONFIG_FILE: docs-site/mkdocs.yml
-          EXTRA_PACKAGES: build-base
+          EXTRA_PACKAGES: git-lfs
           # GITHUB_DOMAIN: github.myenterprise.com
           # REQUIREMENTS: folder/requirements.txt
