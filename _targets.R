@@ -5,7 +5,7 @@ lapply(pkgs, library, character.only = TRUE)
 options(timeout = max(90*60, getOption("timeout"))) # 30 minute timeout on downloads (or larger if env var "timeout" is set to larger number)
 options(scipen = 9999)
 options(readr.show_col_types = FALSE)
-options(wildfire_disasters_lite.cue_downloads = 'always') # Make 'always' for production
+#options(wildfire_disasters_lite.cue_downloads = 'always') # Make 'always' for production
 conda = '/Users/loganap/miniconda3/bin/conda' #YOUR CONDA HERE!!!
 
 # Set target options:
@@ -20,6 +20,21 @@ options(clustermq.scheduler = "multicore")
 
 # Run the R scripts in the R/ folder with your custom functions:
 tar_source(files = 'code/')
+
+proj_crs <- 'PROJCS["USA_Contiguous_Lambert_Conformal_Conic",
+    GEOGCS["GCS_North_American_1983",
+        DATUM["D_North_American_1983",
+        SPHEROID["GRS_1980",6378137.0,298.257222101]],
+        PRIMEM["Greenwich",0.0],
+        UNIT["Degree",0.0174532925199433]],
+    PROJECTION["Lambert_Conformal_Conic"],
+    PARAMETER["False_Easting",0.0],
+    PARAMETER["False_Northing",0.0],
+    PARAMETER["Central_Meridian",-96.0],
+    PARAMETER["Standard_Parallel_1",33.0],
+    PARAMETER["Standard_Parallel_2",45.0],
+    PARAMETER["Latitude_Of_Origin",39.0],
+    UNIT["Meter",1.0]]'
 
 list(
 	### Non Spatial Source Files ###
@@ -58,6 +73,18 @@ list(
   	download_spatial_nifc_raw(),	
   	format = 'file',
   	cue = tar_cue(mode = getOption('wildfire_disasters_lite.cue_downloads'))
+  ),
+  tar_target(
+	  name = spatial_wui_raw,
+	  {
+		  unzip_url(
+		  	'https://usfs-public.box.com/shared/static/bjupat9dkwln7yanslfls0zb4n949qv2.zip',
+		  	dir_create('data/01_raw/spatial/wui')
+		  )
+	  	fs::dir_ls('data/01_raw/spatial/wui', recurse = TRUE, regexp = '\\.gdb$')
+	  },	
+	  format = 'file',
+	  cue = tar_cue(mode = getOption('wildfire_disasters_lite.cue_downloads'))
   ),
   ### Population Density Files ###
   tar_target(
@@ -149,6 +176,30 @@ list(
   	name = spatial_nifc,
   	clean_nifc(spatial_nifc_raw)
   ),
+	tar_target(
+		name = spatial_wui,
+		st_read(
+			spatial_wui_raw, 
+			query = '
+				select FIPS, WUICLASS2000, WUICLASS2010, WUICLASS2020, Shape
+				from CONUS_WUI_block_1990_2020_change_v4
+				where (WUIFLAG2020 = 1 or WUIFLAG2010 = 1 or WUIFLAG2000 = 1)'
+		) %>% 
+			pivot_longer(-c(FIPS, Shape), names_to = 'year', values_to = 'wuiclass') %>% 
+			mutate(
+				county = substr(FIPS, 1, 5),
+				year = as.numeric(str_sub(year, 9, 12)), 
+				wuiclass = str_extract(wuiclass, '(Intermix|Interface)')
+			) %>% 
+			filter(!is.na(wuiclass)) %>% 
+			st_set_geometry('geometry') %>%
+			group_by(county, year, wuiclass) %>% 
+			summarize(
+				geometry = st_simplify(st_union(geometry), dTolerance = 10),
+				.groups = 'drop'
+			) %>%
+			st_make_valid() 
+	),
   tar_target(
   	name = event_fema,
   	clean_fema(event_fema_raw)
@@ -200,6 +251,24 @@ list(
   	)
   ),
   tar_target(
+  	wui,
+  	{
+  		wui <- st_join(
+	  		st_transform(spatial, proj_crs),
+  			st_transform(
+	  			spatial_wui,
+	  			proj_crs
+	  		),
+	  		left = TRUE
+  		) %>% 
+  			st_drop_geometry() %>% 
+  			group_by(wildfire_id) %>%
+  			summarize(wildfire_wui = paste(unique(sort(wuiclass)), collapse = '|'), .groups = 'drop') %>%
+  			mutate(wildfire_wui = na_if(wildfire_wui, ''))
+  		left_join(spatial, wui, by = 'wildfire_id', unmatched = 'error')
+  	}
+  ),
+  tar_target(
   	pop_density_py_script,
   	'code/03_pop_density/run_pop_density.py',
   	format = 'file'
@@ -207,7 +276,7 @@ list(
   tar_target(
   	pop_density,
   	apply_pop_density(
-  		spatial = spatial,
+  		data = wui,
   		pop_density_py_script = pop_density_py_script,
   		spatial_ghs_pop_raw_2000,
   		spatial_ghs_pop_raw_2005,
@@ -226,7 +295,7 @@ list(
   	output_file, 
   	command = {
   		if(file_exists('wflite.geojson')){file_delete('wflite.geojson')}
-  		out <- left_join(spatial, read_csv(pop_density), by = 'wildfire_id')
+  		out <- left_join(wui, read_csv(pop_density), by = 'wildfire_id')
   		out <- out %>%
   			select(
   				wildfire_id,
@@ -242,6 +311,7 @@ list(
   				wildfire_community_intersect,
 					wildfire_max_pop_den,
 					wildfire_buffered_avg_pop_den,
+					wildfire_wui,
   				wildfire_fema_dec,
   				wildfire_disaster_criteria_met,
   				wildfire_ignition_date,
