@@ -1,6 +1,7 @@
 ---
 title: "WFBZ Summaries"
 format: html
+toc: true
 ---
 
 ---
@@ -20,26 +21,43 @@ library(gt)
 library(glue)
 library(khroma)
 library(tigris)
+library(patchwork)
 source("../code/helpers.R")
+options(scipen = 999)
 ```
 
 
-```{r data}
+```{r data, cache = TRUE}
 wfbz <- read_sf("../wflite.geojson") 
 
+states_sf <- tigris::states(progress_bar = FALSE)
 regions <- read_sf(unzip_url("https://data.fs.usda.gov/geodata/edw/edw_resources/shp/S_USA.AdministrativeRegion.zip", dst = tempfile(fileext = ".shp"))) %>%
   select(usfs_region = REGIONNAME) %>%
   mutate(usfs_region = str_replace(usfs_region, " Region", ""))
+
+regions <- bind_rows(
+	regions,
+	st_filter(regions %>% filter(usfs_region == 'Pacific Southwest') %>% st_cast("POLYGON"), states_sf %>% filter(STUSPS == 'HI')) %>% 
+		group_by(usfs_region) %>% 
+		summarize(geometry = st_combine(geometry)) %>%
+		mutate(usfs_region = 'Hawaii'),
+	st_filter(regions %>% filter(usfs_region == 'Pacific Southwest') %>% st_cast("POLYGON"), states_sf %>% filter(STUSPS == 'CA')) %>% 
+		group_by(usfs_region) %>% 
+		summarize(geometry = st_combine(geometry)) %>%
+		mutate(usfs_region = 'California')
+) %>%
+	filter(usfs_region != 'Pacific Southwest') %>%
+	mutate(usfs_region= if_else(usfs_region == 'Northern', 'Northern Rockies', usfs_region)) %>% 
+	mutate(usfs_region= if_else(usfs_region == 'Rocky Mountain', 'Southern Rockies', usfs_region))
 ```
 
 
-```{r}
+```{r, cache = TRUE}
 # Find Nearest Region
 wfbz_region <- regions$usfs_region[st_nearest_feature(wfbz, regions, pairwise = TRUE)]
 
 wfbz_crit <- wfbz %>%
   st_drop_geometry() %>%
-  select(all_of(c("wildfire_year", "wildfire_states", "wildfire_max_civil_fatalities", "wildfire_struct_destroyed", "wildfire_fema_dec", "wildfire_community_intersect", "wildfire_disaster_criteria_met"))) %>%
   mutate(usfs_region = wfbz_region) %>%
   filter(wildfire_community_intersect) %>%
   group_by(usfs_region, wildfire_year) %>%
@@ -47,28 +65,39 @@ wfbz_crit <- wfbz %>%
   	`Events` = n(),
   	`Fatalities` = sum(wildfire_max_civil_fatalities, na.rm = TRUE),
   	`Structures Destroyed` = sum(wildfire_struct_destroyed, na.rm = TRUE),
-  	`FEMA Declaration` = sum(wildfire_fema_dec, na.rm = TRUE)
-  )
+  	`FEMA Declaration` = sum(wildfire_fema_dec, na.rm = TRUE),
+   	`Burned Area` = sum(wildfire_area, na.rm = TRUE),
+  	`WUI-Intermix` = sum(str_detect(wildfire_wui, 'Intermix'), na.rm = TRUE),
+  	`WUI-Interface` = sum(str_detect(wildfire_wui, 'Interface'), na.rm = TRUE),
+  	`WUI-Intermix Percent` = 100 * sum(str_detect(wildfire_wui, 'Intermix'), na.rm = TRUE) / n(),
+  	`WUI-Interface Percent` = 100 * sum(str_detect(wildfire_wui, 'Interface'), na.rm = TRUE) / n(),
+  	.groups = 'drop'
+  ) 
 
 wfbz_crit_all <- wfbz %>%
   st_drop_geometry() %>%
-  select(all_of(c("wildfire_year", "wildfire_states", "wildfire_max_civil_fatalities", "wildfire_struct_destroyed", "wildfire_fema_dec", "wildfire_community_intersect", "wildfire_disaster_criteria_met"))) %>%
   mutate(usfs_region = wfbz_region) %>%
   group_by(usfs_region, wildfire_year) %>%
   summarize(
   	`Events` = n(),
   	`Fatalities` = sum(wildfire_max_civil_fatalities, na.rm = TRUE),
   	`Structures Destroyed` = sum(wildfire_struct_destroyed, na.rm = TRUE),
-  	`FEMA Declaration` = sum(wildfire_fema_dec, na.rm = TRUE)
+  	`FEMA Declaration` = sum(wildfire_fema_dec, na.rm = TRUE),
+  	`Burned Area` = sum(wildfire_area, na.rm = TRUE),
+  	`WUI-Intermix` = sum(str_detect(wildfire_wui, 'Intermix'), na.rm = TRUE),
+  	`WUI-Interface` = sum(str_detect(wildfire_wui, 'Interface'), na.rm = TRUE),
+  	`WUI-Intermix Percent` = 100 * sum(str_detect(wildfire_wui, 'Intermix'), na.rm = TRUE) / n(),
+  	`WUI-Interface Percent` = 100 * sum(str_detect(wildfire_wui, 'Interface'), na.rm = TRUE) / n(),
+  	.groups = 'drop'
   )
 
 
 ```
 
 
-```{r, fig.height = 5, fig.width = 12}
-
-plotme <- function(dat, var, rel = FALSE){
+```{r}
+# Plot Main Figures Showing Variables over Time
+plotme <- function(dat, var, rel = FALSE, unit = NA, stack = TRUE, conus = FALSE){
 	# Determine order to plot in
 	region_summary <- dat %>%
     ungroup() %>% 
@@ -80,20 +109,55 @@ plotme <- function(dat, var, rel = FALSE){
 	region_order <- as.character(region_summary$usfs_region)
 	
 	# Add details to labels
-	if(rel){
+	if(!stack){
+		region_label <- region_summary$usfs_region
+	}else	if(rel){
 		region_label <- paste0(as.character(region_summary$usfs_region), ' (', format(100*region_summary$pcttot, digits = 1), '%)')
 	}else{
-		region_label <- paste0(as.character(region_summary$usfs_region), ' (', str_replace(format(region_summary$tot, big.mark = ','), '\\s+', ''), ')')
+		region_label <- paste0(as.character(region_summary$usfs_region), ' (', str_replace(format(round(region_summary$tot), big.mark = ','), '\\s+', ''), ')')
 	}
 	
 	# Assign colors to regions consistently
-	region_colors <- khroma::color('light', reverse = TRUE)(9)
+	region_colors <- c(khroma::color('light', reverse = FALSE)(9), '#ac87cc')
+	attr(region_colors, "missing") <- NA
 	names(region_colors) <- sort(region_label)
 	
-	dat$usfs_region <- factor(dat$usfs_region, levels = region_order, labels = region_label)
+  if(conus){ dat <- dat %>% filter(!(usfs_region %in% c('Alaska','Hawaii'))) }
 
+	dat$usfs_region <- factor(dat$usfs_region, levels = region_order, labels = region_label)
+	
+	if(conus){ dat <- droplevels(dat) }
 	# Summarize and Plot
-	if(rel){
+	if(!stack){
+		dat %>% 
+			ggplot() +
+		  geom_col(
+		    aes(x = wildfire_year, y = get(var), fill = usfs_region),
+		    color = "grey25",
+		    size = .1,
+		    width = 1
+		  ) +
+		  scale_fill_manual(
+		  	values = region_colors,
+		  	guide = 'none'
+		  ) +
+			facet_wrap(~usfs_region, ncol = 1, drop = TRUE, scales = 'free') + 
+		  scale_x_continuous(expand = expansion(mult = c(0, 0)), limits = c(1999.5, 2024.5), breaks = seq(2000, 2024, by = 2), minor_breaks = 1999.5:2024.5) +
+		  scale_y_continuous(expand = expansion(mult = c(0, 0)), limits = c(0, 100), labels = ~paste0(.x, '%')) +
+		  xlab("Year") +
+		  ylab(glue("{var}{if_else(is.na(unit), '', paste0(' (', unit, ')'))}")) +
+			#ggtitle(var) + 
+		  gguw::theme_uw() +
+		  theme(
+		  	panel.border = element_rect(color = "grey25", fill = NA, size = .25),
+		  	plot.title = element_text(size = 14),
+		  	axis.text.x = element_text(angle = 90, vjust = +.5),
+		  	axis.ticks = element_line(),
+		  	plot.margin = unit(c(0,0,0,0), "pt"), 
+		  	panel.grid.minor.x = element_line(color = "grey25", size = .1),
+		  	panel.background = element_rect(fill = "grey95") 
+		  )
+	} else if(rel){
 		dat %>% 
 			ggplot() +
 		  geom_col(
@@ -104,7 +168,7 @@ plotme <- function(dat, var, rel = FALSE){
 		    position = position_fill()
 		  ) +
 		  scale_fill_manual(
-		  	name = "USFS Region (Overall Share)",
+		  	name = "Region (Overall Share)",
 		  	values = region_colors
 		  ) +
 		  scale_x_continuous(expand = expansion(mult = c(0, 0)), limits = c(1999.5, 2024.5), breaks = seq(2000, 2024, by = 2)) +
@@ -116,8 +180,9 @@ plotme <- function(dat, var, rel = FALSE){
 		  theme(
 		  	panel.border = element_rect(color = "grey25", fill = NA, size = .25),
 		  	plot.title = element_text(size = 14),
-				axis.text.x = element_text(angle = 90, vjust = +.25),
-		  	axis.ticks = element_line()		  
+				axis.text.x = element_text(angle = 90, vjust = +.5),
+		  	axis.ticks = element_line(),
+				plot.margin = unit(c(0,0,0,0), "pt")
 			)
 	}else{
 		dat %>% 
@@ -129,135 +194,268 @@ plotme <- function(dat, var, rel = FALSE){
 		    width = 1
 		  ) +
 		  scale_fill_manual(
-		  	name = "USFS Region (Overall Total)",
+		  	name = "Region (Overall Total)",
 		  	values = region_colors
 		  ) +
 		  scale_x_continuous(expand = expansion(mult = c(0, 0)), limits = c(1999.5, 2024.5), breaks = seq(2000, 2024, by = 2)) +
 		  scale_y_continuous(expand = expansion(mult = c(0, 0))) +
 		  xlab("Year") +
-		  ylab(glue("{var}")) +
+		  ylab(glue("{var}{if_else(is.na(unit), '', paste0(' (', unit, ')'))}")) +
 			#ggtitle(var) + 
 		  gguw::theme_uw() +
 		  theme(
 		  	panel.border = element_rect(color = "grey25", fill = NA, size = .25),
 		  	plot.title = element_text(size = 14),
-		  	axis.text.x = element_text(angle = 90, vjust = +.25),
-		  	axis.ticks = element_line()
+		  	axis.text.x = element_text(angle = 90, vjust = +.5),
+		  	axis.ticks = element_line(),
+		  	plot.margin = unit(c(0,0,0,0), "pt")
 		  )
 	}
 }
 ```
 
-### Number of Fire Disasters per USFS Region over Time
+## Variables over Time
 
-#### Community-Intersecting
+### Number of Fire Disasters per Region over Time
 
-```{r, fig.height = 4, fig.width = 8}
-plotme(wfbz_crit, 'Events', rel = FALSE)
-plotme(wfbz_crit, 'Events', rel = FALSE)
+```{r, fig.height = 8, fig.width = 12}
+plotme(wfbz_crit, 'Events', rel = FALSE) + ggtitle('Community-Impacting\nDisasters') + 
+	plotme(wfbz_crit_all, 'Events', rel = FALSE) + ggtitle('All Disasters') + 
+	plot_spacer() + plot_spacer() +
+	plotme(wfbz_crit, 'Events', rel = TRUE) +
+	plotme(wfbz_crit_all, 'Events', rel = TRUE) +
+	plot_layout(ncol = 2, heights = c(5,1,5)) 
 ```
 
-#### All
 
-```{r, fig.height = 4, fig.width = 8}
-plotme(wfbz_crit_all, 'Events', rel = FALSE)
-plotme(wfbz_crit_all, 'Events', rel = TRUE)
-```
-
-### Number of Fatalities per USFS Region over Time
+### Number of Fatalities per Region over Time
 
 The five deadliest fires in our data set are labeled. 
 
 
-#### Community-Intersecting
-
-```{r, fig.height = 4, fig.width = 8}
-plotme(wfbz_crit, 'Fatalities', rel = FALSE)  + 
+```{r, fig.height = 8, fig.width = 12}
+( plotme(wfbz_crit, 'Fatalities', rel = FALSE)  + 
 	annotate("text", x = 2023, y = 50, size = 2, angle = -45, hjust = 'right', label = "Lahaina Fire (HI) ———") + 
 	annotate("text", x = 2018, y = 85, size = 2, angle = -45, hjust = 'right', label = "Camp Fire (CA) ———") +
 	annotate("text", x = 2017, y = 50, size = 2, angle = -45, hjust = 'right', label = "Tubbs Fire (CA) ———") +
 	annotate("text", x = 2013, y = 19, size = 2, angle = -45, hjust = 'right', label = "Yarnell Hill Fire (AZ) ———") + 
-	annotate("text", x = 2020, y = 20, size = 2, angle = -45, hjust = 'right', label = "North Complex Fire (CA) ———")
-plotme(wfbz_crit, 'Fatalities', rel = TRUE)
-```
-
-#### All 
-
-```{r, fig.height = 4, fig.width = 8}
-plotme(wfbz_crit_all, 'Fatalities', rel = FALSE) + 
-	annotate("text", x = 2023, y = 50, size = 2, angle = -45, hjust = 'right', label = "Lahaina Fire (HI) ———") + 
-	annotate("text", x = 2018, y = 85, size = 2, angle = -45, hjust = 'right', label = "Camp Fire (CA) ———") +
-	annotate("text", x = 2017, y = 50, size = 2, angle = -45, hjust = 'right', label = "Tubbs Fire (CA) ———") +
-	annotate("text", x = 2013, y = 19, size = 2, angle = -45, hjust = 'right', label = "Yarnell Hill Fire (AZ) ———") + 
-	annotate("text", x = 2020, y = 20, size = 2, angle = -45, hjust = 'right', label = "North Complex Fire (CA) ———")
-plotme(wfbz_crit_all, 'Fatalities', rel = TRUE)
+	annotate("text", x = 2020, y = 20, size = 2, angle = -45, hjust = 'right', label = "North Complex Fire (CA) ———") +
+	ggtitle('Community-Impacting\nDisasters')) + 
+	(plotme(wfbz_crit_all, 'Fatalities', rel = FALSE) + ggtitle('All Disasters')) + 
+	plot_spacer() + plot_spacer() +
+	plotme(wfbz_crit, 'Fatalities', rel = TRUE) +
+	plotme(wfbz_crit_all, 'Fatalities', rel = TRUE) +
+	plot_layout(ncol = 2, heights = c(5,1,5)) 
 ```
 
 
-### Number of Structures Destroyed per USFS Region over Time
+### Number of Structures Destroyed per Region over Time
 
 The five fires in our data set with the most destroyed structures are labeled. 
 
-Note that the 
-
-#### Community-Intersecting 
-
-```{r, fig.height = 4, fig.width = 8}
-plotme(wfbz_crit, 'Structures Destroyed', rel = FALSE) + 
+```{r, fig.height = 8, fig.width = 12}
+( plotme(wfbz_crit, 'Structures Destroyed', rel = FALSE) + 
 	annotate("text", x = 2018, y =150*100, size = 2, angle = -45, hjust = 'right', label = "Camp Fire (CA) ———") + 
 	annotate("text", x = 2017, y = 85*100, size = 2, angle = -45, hjust = 'right', label = "Tubbs Fire (CA) ———") +
 	annotate("text", x = 2023, y = 35*100, size = 2, angle = -45, hjust = 'right', label = "Lahaina Fire (HI) ———") +
 	annotate("text", x = 2015, y = 45*100, size = 2, angle = -45, hjust = 'right', label = "Valley Fire (CA) ———") + 
-	annotate("text", x = 2018, y =140*100, size = 2, angle = -45, hjust = 'right', label = "Woolsey (CA) ———")
-plotme(wfbz_crit, 'Structures Destroyed', rel = TRUE)
+	annotate("text", x = 2018, y =140*100, size = 2, angle = -45, hjust = 'right', label = "Woolsey (CA) ———") + 	  
+	ggtitle('Community-Impacting\nDisasters') ) + 
+	(plotme(wfbz_crit_all, 'Structures Destroyed', rel = FALSE) + ggtitle('All Disasters')) + 
+	plot_spacer() + plot_spacer() +
+	plotme(wfbz_crit, 'Structures Destroyed', rel = TRUE) +
+	plotme(wfbz_crit_all, 'Structures Destroyed', rel = TRUE) +
+	plot_layout(ncol = 2, heights = c(5,1,5))
 ```
 
 
-#### All 
+### Number of FEMA Declarations per Region over Time
 
-```{r, fig.height = 4, fig.width = 8}
-plotme(wfbz_crit_all, 'Structures Destroyed', rel = FALSE) + 
-	annotate("text", x = 2018, y =150*100, size = 2, angle = -45, hjust = 'right', label = "Camp Fire (CA) ———") + 
-	annotate("text", x = 2017, y = 85*100, size = 2, angle = -45, hjust = 'right', label = "Tubbs Fire (CA) ———") +
-	annotate("text", x = 2023, y = 35*100, size = 2, angle = -45, hjust = 'right', label = "Lahaina Fire (HI) ———") +
-	annotate("text", x = 2015, y = 45*100, size = 2, angle = -45, hjust = 'right', label = "Valley Fire (CA) ———") + 
-	annotate("text", x = 2018, y =140*100, size = 2, angle = -45, hjust = 'right', label = "Woolsey (CA) ———")
-plotme(wfbz_crit_all, 'Structures Destroyed', rel = TRUE)
+```{r, fig.height = 8, fig.width = 12}
+plotme(wfbz_crit, 'FEMA Declaration', rel = FALSE) + ggtitle('Community-Impacting\nDisasters') + 
+	plotme(wfbz_crit_all, 'FEMA Declaration', rel = FALSE) + ggtitle('All Disasters') + 
+	plot_spacer() + plot_spacer() +
+	plotme(wfbz_crit, 'FEMA Declaration', rel = TRUE) +
+	plotme(wfbz_crit_all, 'FEMA Declaration', rel = TRUE) +
+	plot_layout(ncol = 2, heights = c(5,1,5)) 
+```
+
+### Burned Area over Time
+
+```{r, fig.height = 8, fig.width = 12}
+	( 
+		plotme(wfbz_crit, 'Burned Area', rel = FALSE, unit = 'sq. km') + 
+		scale_y_continuous(expand = expansion(mult = c(0, 0)), labels = scales::scientific) +
+		ggtitle('Community-Impacting\nDisasters')
+	) + 
+	(
+		plotme(wfbz_crit_all, 'Burned Area', rel = FALSE, unit = 'sq. km') + 
+		#scale_y_continuous(expand = expansion(mult = c(0, 0)), labels = scales::scientific) + 
+		ggtitle('All Disasters') 
+	)+ 
+	plot_spacer() + plot_spacer() +
+		plotme(wfbz_crit, 'Burned Area', rel = TRUE) +
+	plotme(wfbz_crit_all, 'Burned Area', rel = TRUE) +
+	plot_layout(ncol = 2, heights = c(5,1,5))
+```
+
+### Number of Fires in Wildland-Urban Interface over Time
+
+_Note: Hawaii and Alaska are not included._ 
+
+```{r, fig.height = 8, fig.width = 12}
+plotme(wfbz_crit, 'WUI-Interface', rel = FALSE, conus = TRUE) + ggtitle('Community-Impacting\nDisasters') + 
+	plotme(wfbz_crit_all, 'WUI-Interface', rel = FALSE, conus = TRUE) + ggtitle('All Disasters') + 
+	plot_spacer() + plot_spacer() +
+	plotme(wfbz_crit, 'WUI-Interface', rel = TRUE, conus = TRUE) +
+	plotme(wfbz_crit_all, 'WUI-Interface', rel = TRUE, conus = TRUE) +
+	plot_layout(ncol = 2, heights = c(5,1,5)) 
+```
+
+### Number of Fires in Wildland-Urban Intermix over Time
+
+_Note: Hawaii and Alaska are not included._ 
+
+```{r, fig.height = 8, fig.width = 12}
+plotme(wfbz_crit, 'WUI-Intermix', rel = FALSE, conus = TRUE) + ggtitle('Community-Impacting\nDisasters') + 
+	plotme(wfbz_crit_all, 'WUI-Intermix', rel = FALSE, conus = TRUE) + ggtitle('All Disasters') + 
+	plot_spacer() + plot_spacer() +
+	plotme(wfbz_crit, 'WUI-Intermix', rel = TRUE, conus = TRUE) +
+	plotme(wfbz_crit_all, 'WUI-Intermix', rel = TRUE, conus = TRUE) +
+	plot_layout(ncol = 2, heights = c(5,1,5)) 
 ```
 
 
-### Number of FEMA Declarations per USFS Region over Time
+## Share of WUI Fires over Time
 
-#### Community-Intersecting 
+### Share of Fires in Wildland-Urban Interface over Time
 
-```{r, fig.height = 4, fig.width = 8}
-plotme(wfbz_crit, 'FEMA Declaration', rel = FALSE)
-plotme(wfbz_crit, 'FEMA Declaration', rel = TRUE)
+_Note: Hawaii and Alaska are not included._ 
+
+```{r, fig.height = 16, fig.width = 12}
+plot_spacer() +
+	(plotme(wfbz_crit, 'WUI-Interface Percent', stack = FALSE, conus = TRUE) + ggtitle('Community-Impacting\nDisasters')) + 
+	(plotme(wfbz_crit_all, 'WUI-Interface Percent', stack = FALSE, conus = TRUE) + ggtitle('All Disasters') + ylab('')) +
+	plot_layout(ncol = 4) +
+	plot_spacer()
 ```
 
-#### All
+### Share of Fires in Wildland-Urban Intermix over Time
 
-```{r, fig.height = 4, fig.width = 8}
-plotme(wfbz_crit_all, 'FEMA Declaration', rel = FALSE)
-plotme(wfbz_crit_all, 'FEMA Declaration', rel = TRUE)
+_Note: Hawaii and Alaska are not included._ 
+
+```{r, fig.height = 16, fig.width = 12}
+plot_spacer() +
+	(plotme(wfbz_crit, 'WUI-Intermix Percent', stack = FALSE, conus = TRUE) + ggtitle('Community-Impacting\nDisasters')) + 
+	(plotme(wfbz_crit_all, 'WUI-Intermix Percent', stack = FALSE, conus = TRUE) + ggtitle('All Disasters') + ylab('')) +
+	plot_spacer() +
+	plot_layout(ncol = 4) 
 ```
 
+## Correlations
 
-### USFS Regions Mapped
+```{r}
+library('ggh4x')
+wfbz_lab <- wfbz %>% 
+	st_drop_geometry() %>% 
+	filter(wildfire_community_intersect) %>% 
+	transmute(
+		wildfire_id, 
+		`Area (sq. km)` = wildfire_area, 
+		`Fatalities` = wildfire_max_civil_fatalities, 
+	  `Structures Destroyed` = wildfire_struct_destroyed,
+		`WUI` = if_else(is.na(wildfire_wui), 'None', str_replace(wildfire_wui, '\\|', ' & ')),
+		`FEMA Declaration` = as.character(wildfire_fema_dec),
+		`Population Density (unitless)` = wildfire_max_pop_den
+	) 
+```
 
-```{r, fig.height = 4, fig.width = 8}
+### Numeric Values Compared
+
+```{r, fig.height = 12, fig.width = 12}
+xwfbz_num <- wfbz_lab %>%
+	select(where(is.numeric)) %>%
+	pivot_longer(-wildfire_id)
+xwfbz_num <- inner_join(xwfbz_num, xwfbz_num,
+		by = 'wildfire_id',
+		relationship = 'many-to-many'
+	) 
+ggplot(xwfbz_num) +
+	geom_point(aes(x = value.x, y = value.y), alpha = .1) + 
+	facet_grid2(name.x ~ name.y, scales = 'free', independent = 'all') +
+	scale_x_continuous(trans = 'log', labels = ~format(.x, digits = 3, scientific = 0)) + 
+	scale_y_continuous(trans = 'log', labels = ~format(.x, digits = 3, scientific = 0)) + 
+	gguw::theme_uw() + 
+	theme(
+  	panel.border = element_rect(color = "grey25", fill = NA, size = .25),
+  	plot.title = element_text(size = 14),
+  	axis.text.x = element_text(angle = 90, vjust = +.5),
+  	axis.ticks = element_line(),
+  	plot.margin = unit(c(0,0,0,0), "pt"), 
+	) +
+	xlab('') + ylab('') + ggtitle("Numeric Variables Compared (log-scale)")
+```
+
+### Numeric & Categorical Values Compared
+
+
+```{r, fig.height = 8, fig.width = 12}
+xwfbz_numcat <- wfbz_lab %>%
+	pivot_longer(cols = c(where(is.numeric), -wildfire_id), names_to = 'name_num', values_to = 'val_num') %>% 
+	pivot_longer(cols = c(WUI, `FEMA Declaration`), names_to = 'name_cat', values_to = 'val_cat')
+
+ggplot(xwfbz_numcat) +
+	geom_boxplot(aes(x = val_cat, y = val_num)) + 
+	facet_grid2(name_cat ~ name_num, scales = 'free', independent = 'all') +
+	scale_y_continuous(trans = 'log', labels = ~format(.x, digits = 3, scientific = 0)) + 
+	gguw::theme_uw() + 
+	theme(
+  	panel.border = element_rect(color = "grey25", fill = NA, size = .25),
+  	plot.title = element_text(size = 14),
+  	axis.text.x = element_text(angle = 90, vjust = +.5, hjust = 1),
+  	axis.ticks = element_line(),
+  	plot.margin = unit(c(0,0,0,0), "pt"), 
+	) +
+	xlab('') + ylab('') + ggtitle("Numeric & Categorical Variables Compared (log-scale)")
+```
+
+### Categorical Values Compared
+
+```{r, fig.height = 4, fig.width = 4}
+
+wfbz_lab %>% select(WUI, `FEMA Declaration`) %>% table(useNA = 'ifany') %>% as_tibble() %>%
+	ggplot() +
+	geom_tile(aes(x = WUI, y = `FEMA Declaration`, fill = n)) +
+	geom_text(aes(x = WUI, y = `FEMA Declaration`, label = n, color = n)) +
+	scale_fill_lapaz(name = '# Wildfire\nDisasters') + 
+	scale_color_lapaz(reverse = TRUE, guide = 'none') + 
+	gguw::theme_uw() + 
+	theme(
+  	plot.title = element_text(size = 14),
+  	axis.text.x = element_text(angle = 90, vjust = +.5, hjust = 1),
+  	axis.ticks = element_line(),
+  	plot.margin = unit(c(0,0,0,0), "pt")
+	)
+
+```
+## Reference
+
+### Regions Mapped
+
+```{r, fig.height = 6, fig.width = 8}
 regions_cart <- regions %>%
 	st_cast('POLYGON') %>%
 	tigris::shift_geometry()
 
-region_colors <- khroma::color('light', reverse = TRUE)(9)
+region_colors <- c(khroma::color('light', reverse = FALSE)(9), '#ac87cc')
+attr(region_colors, "missing") <- NA
 names(region_colors) <- sort(unique(regions$usfs_region))
 
 ggplot(regions_cart) + 
-	geom_sf(aes(fill = usfs_region), color = NA) +  
+	geom_sf(aes(fill = usfs_region), color = "grey25", size = .05) +  
 	geom_sf(data = tigris::shift_geometry(tigris::states(cb = TRUE, progress_bar = FALSE)), color = 'black', fill = NA, size = .1) +
 	scale_fill_manual(
-  	name = "USFS Region",
+  	name = "Region",
   	values = region_colors
 	) +
 	scale_x_continuous(limits = c(-3115585, 2263736)) + 
@@ -267,4 +465,28 @@ ggplot(regions_cart) +
 		axis.text = element_blank()
 	)
 ```
+
+### To Do
+
+Not Done:
+
+* remove larimer from data set *done in plots, not in data set**
+* Why is 2024 missing for fatalities?
+* DURATION
+   * Forest plot or similar chart Y axis is calendar months, x axis is year, faceted by region or state. Showing first and last states or actually density plot?
+* Spaghetti plot by state with percentage of residents affected by fires (Lauren to provide)
+* WUI Figures:
+  * Map of distance from wuis for whole US (Binned)
+  * plots showing how many fires fall in each bin over time
+* Add USFS region to data set (Separate out Hawaii from California. Rename Northern -> Northern Rockies) **done in plots, not in data set**
+
+Done: 
+
+* Correlation plot of each of these variables (by region???) for ONLY community affected area
+* Add acreage, WUI, as plots
+* Show plots WITH non-community intersecting fires DONE
+* Label major fires in fatalities plot, structures plot DONE
+* Put community intersect side by side with overall
+* Align axis ticks with years better
+* Add share of total events that affect WUI
 
