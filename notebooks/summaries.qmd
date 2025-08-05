@@ -2,11 +2,6 @@
 title: "WFBZ Summaries"
 format: html
 toc: true
----
-
----
-title: "WFBZ Summaries"
-format: html
 execute:
   echo: false
   warning: false
@@ -236,12 +231,17 @@ The five deadliest fires in our data set are labeled.
 ```{r, fig.height = 8, fig.width = 12}
 ( plotme(wfbz_crit, 'Fatalities', rel = FALSE)  + 
 	annotate("text", x = 2023, y = 50, size = 2, angle = -45, hjust = 'right', label = "Lahaina Fire (HI) ———") + 
-	annotate("text", x = 2018, y = 85, size = 2, angle = -45, hjust = 'right', label = "Camp Fire (CA) ———") +
+	annotate("text", x = 2018, y = 80, size = 2, angle = -45, hjust = 'right', label = "Camp Fire (CA) ———") +
 	annotate("text", x = 2017, y = 50, size = 2, angle = -45, hjust = 'right', label = "Tubbs Fire (CA) ———") +
 	annotate("text", x = 2013, y = 19, size = 2, angle = -45, hjust = 'right', label = "Yarnell Hill Fire (AZ) ———") + 
 	annotate("text", x = 2020, y = 20, size = 2, angle = -45, hjust = 'right', label = "North Complex Fire (CA) ———") +
 	ggtitle('Community-Impacting\nDisasters')) + 
-	(plotme(wfbz_crit_all, 'Fatalities', rel = FALSE) + ggtitle('All Disasters')) + 
+	(plotme(wfbz_crit_all, 'Fatalities', rel = FALSE) + ggtitle('All Disasters') +
+	 	annotate("text", x = 2023, y = 50, size = 2, angle = -45, hjust = 'right', label = "Lahaina Fire (HI) ———") + 
+		annotate("text", x = 2018, y = 80, size = 2, angle = -45, hjust = 'right', label = "Camp Fire (CA) ———") +
+		annotate("text", x = 2017, y = 50, size = 2, angle = -45, hjust = 'right', label = "Tubbs Fire (CA) ———") +
+		annotate("text", x = 2013, y = 19, size = 2, angle = -45, hjust = 'right', label = "Yarnell Hill Fire (AZ) ———") + 
+		annotate("text", x = 2020, y = 20, size = 2, angle = -45, hjust = 'right', label = "North Complex Fire (CA) ———")) + 
 	plot_spacer() + plot_spacer() +
 	plotme(wfbz_crit, 'Fatalities', rel = TRUE) +
 	plotme(wfbz_crit_all, 'Fatalities', rel = TRUE) +
@@ -261,7 +261,12 @@ The five fires in our data set with the most destroyed structures are labeled.
 	annotate("text", x = 2015, y = 45*100, size = 2, angle = -45, hjust = 'right', label = "Valley Fire (CA) ———") + 
 	annotate("text", x = 2018, y =140*100, size = 2, angle = -45, hjust = 'right', label = "Woolsey (CA) ———") + 	  
 	ggtitle('Community-Impacting\nDisasters') ) + 
-	(plotme(wfbz_crit_all, 'Structures Destroyed', rel = FALSE) + ggtitle('All Disasters')) + 
+	(plotme(wfbz_crit_all, 'Structures Destroyed', rel = FALSE) + ggtitle('All Disasters') +
+	 	annotate("text", x = 2018, y =150*100, size = 2, angle = -45, hjust = 'right', label = "Camp Fire (CA) ———") + 
+	annotate("text", x = 2017, y = 85*100, size = 2, angle = -45, hjust = 'right', label = "Tubbs Fire (CA) ———") +
+	annotate("text", x = 2023, y = 35*100, size = 2, angle = -45, hjust = 'right', label = "Lahaina Fire (HI) ———") +
+	annotate("text", x = 2015, y = 45*100, size = 2, angle = -45, hjust = 'right', label = "Valley Fire (CA) ———") + 
+	annotate("text", x = 2018, y =140*100, size = 2, angle = -45, hjust = 'right', label = "Woolsey (CA) ———")) + 
 	plot_spacer() + plot_spacer() +
 	plotme(wfbz_crit, 'Structures Destroyed', rel = TRUE) +
 	plotme(wfbz_crit_all, 'Structures Destroyed', rel = TRUE) +
@@ -438,6 +443,62 @@ wfbz_lab %>% select(WUI, `FEMA Declaration`) %>% table(useNA = 'ifany') %>% as_t
 	)
 
 ```
+
+## Fire Season Timing
+
+```{r, fig.height = 18, fig.width = 6}
+region_colors <- c(khroma::color('light', reverse = FALSE)(9), '#ac87cc')
+attr(region_colors, "missing") <- NA
+names(region_colors) <- sort(unique(regions$usfs_region))
+
+wfbz %>%  
+	mutate(usfs_region = wfbz_region) %>%
+	st_drop_geometry() %>%
+	filter(wildfire_community_intersect) %>%
+	filter(between(wildfire_year, 2000, 2024)) %>% 
+	mutate(wildfire_states = str_split(wildfire_states, '\\|')) %>%
+	unnest(wildfire_states) %>% # pull out multiple rows from fires that cross state lines
+	transmute(
+		usfs_region,
+		wildfire_state = wildfire_states,
+		wildfire_year, 
+		wildfire_containment_date,
+		wildfire_ignition_date_max,
+		wildfire_fema_dec_date
+	) %>%
+	ggplot() +
+		geom_boxplot(
+			aes(x =  as.Date('2099-01-01') + yday(wildfire_ignition_date_max), group = wildfire_year, y = wildfire_year, fill = usfs_region), 
+			orientation = 'y',
+			outliers = FALSE
+		) + 
+		geom_smooth(
+			aes(x = as.Date('2099-01-01') + yday(wildfire_ignition_date_max), y = wildfire_year), 
+			orientation = 'y', 
+			method = 'lm', 
+			linetype = 'longdash',
+			color = 'grey15',
+			fill = 'grey90',linewidth = .5
+		) + 
+		facet_wrap(~usfs_region, ncol = 1, scales = 'free_x') +
+		scale_fill_manual(
+	  	values = region_colors,
+	  	guide = 'none'
+	  ) +
+	  #scale_x_continuous(expand = expansion(mult = c(0, 0)), limits = c(0, 366)) +
+	  scale_x_date(date_breaks = "1 month", date_labels = "%b", limits = as.Date(c('2099-01-01', '2099-12-31')), expand = c(0,0)) +
+	  scale_y_continuous(transform = 'reverse') +
+	  ylab("Year") +
+	  xlab("Day of Year") +
+		ggtitle("Ignition Dates of Disaster Fires by Year") + 
+	  gguw::theme_uw() +
+	  theme(
+	  	panel.border = element_rect(color = "grey25", fill = NA, size = .25),
+	  	plot.title = element_text(size = 14),
+			axis.text.x = element_text(angle = 90, vjust = +.5),
+	  	axis.ticks = element_line()
+		) 
+``` 
 ## Reference
 
 ### Regions Mapped
