@@ -276,7 +276,7 @@ list(
   			mutate(
   				intermix  = sapply(extracted_values, function(x) any(x %in% c(1, 3))),
   				interface = sapply(extracted_values, function(x) any(x %in% c(2, 4))),
-  				wuildfire_wui = case_when(
+  				wildfire_wui = case_when(
   					intermix & interface ~ 'interface|intermix',
   					intermix ~ 'intermix',
   					interface ~ 'interface',
