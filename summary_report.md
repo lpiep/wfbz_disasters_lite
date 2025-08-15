@@ -5,16 +5,6 @@ Wildfire Disasters Lite Summary Report
 library(tidyverse)
 library(targets)
 library(knitr)
-```
-
-    ## 
-    ## Attaching package: 'knitr'
-
-    ## The following object is masked from 'package:terra':
-    ## 
-    ##     spin
-
-``` r
 library(sf)
 output_file <- tar_read(output_file)
 data <- tar_read(pop_density)
