@@ -1,7 +1,7 @@
 # Load packages required to define the pipeline:
 pkgs <- c("targets", "tarchetypes", "geotargets", "sf", "tidyverse", "httr", "fs", 
 					"jsonlite", "qs", "qs2", "httr2", "readxl", "glue", "arrow",
-					"stringdist", "terra")
+					"stringdist", "exactextractr", "terra")
 lapply(pkgs, library, character.only = TRUE)
 
 options(timeout = max(90*60, getOption("timeout"))) # 30 minute timeout on downloads (or larger if env var "timeout" is set to larger number)
@@ -253,36 +253,37 @@ list(
   		spatial_tiger_counties
   	)
   ),
-  tar_terra_vect(
-  	spatial_vect,
-  	vect(spatial)
-  ),
+  # tar_terra_vect(
+  # 	spatial_vect,
+  # 	vect(spatial)
+  # ),
   tar_target(
   	wui,
   	{
+  		z <- spatial # need to copy explicitly here for some reason
   		wui_rast <- rast(spatial_wui_raw)
-	 		wui_num <- extract(
-	 			wui_rast,
-  			project(spatial_vect, crs(wui_rast)),
-  			func = c
-  		) %>% 
-	 			nest(.by = ID) %>%
-	 			mutate(data = distinct(data))
-  		spatial <- spatial %>% 
-  			mutate(ID = row_number()) %>%
-  			left_join(wui_num) %>%
+   		extracted_values <- exact_extract(
+  			x = wui_rast, 
+  			y = z, 
+				fun = function(values, coverage_fractions) {
+					unique(values[coverage_fractions > 0])
+				}
+			) # list of values in each fire
+  		intermix <- sapply(extracted_values, function(x) any(x %in% c(1, 3)))
+  		interface <- sapply(extracted_values, function(x) any(x %in% c(2, 4)))
+  		
+  		z %>% 
   			mutate(
-  				intermix  = (1 %in% data$WUI) | (3 %in% data$WUI),
-  				interface = (2 %in% data$WUI) | (4 %in% data$WUI),
-  				wuiclass = case_when(
+  				intermix  = sapply(extracted_values, function(x) any(x %in% c(1, 3))),
+  				interface = sapply(extracted_values, function(x) any(x %in% c(2, 4))),
+  				wuildfire_wui = case_when(
   					intermix & interface ~ 'interface|intermix',
   					intermix ~ 'intermix',
   					interface ~ 'interface',
   					TRUE ~ NA_character_
   				)
-  			) %>% 
-  			group_by(wildfire_id) 
-  	}
+  			) 
+  	},
   ),
   tar_target(
   	pop_density_py_script,
