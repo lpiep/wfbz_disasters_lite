@@ -19,6 +19,7 @@ conf/*
 # Session Data files
 .RData
 .RDataTmp
+renv/
 
 # User-specific files
 .Ruserdata
