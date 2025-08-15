@@ -1,6 +1,6 @@
 ---
 title: "Wildfire Disasters Lite Summary Report"
-format: html
+output: github_document
 editor: visual
 ---
 
