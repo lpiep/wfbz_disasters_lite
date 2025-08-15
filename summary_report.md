@@ -1,7 +1,35 @@
 # Wildfire Disasters Lite Summary Report
 
 
-    [1] "data/02_processed/fire_pop_density_criteria.csv"
+Sample Data:
+
+| wildfire_id | wildfire_year | wildfire_states | wildfire_area | wildfire_complex | wildfire_complex_names | wildfire_total_fatalities | wildfire_max_civil_fatalities | wildfire_civil_fatalities | wildfire_struct_destroyed | wildfire_community_intersect | wildfire_max_pop_den | wildfire_buffered_avg_pop_den | wildfire_wui | wildfire_fema_dec | wildfire_disaster_criteria_met | wildfire_ignition_date | wildfire_containment_date | wildfire_ignition_date_max | wildfire_containment_date_max | wildfire_fema_dec_date | wildfire_poo_lat | wildfire_poo_lon | geometry_src | redbook_id | ics_id | fired_id | mtbs_id | fema_id |
+|---:|---:|:---|---:|:---|:---|---:|---:|---:|---:|:---|---:|---:|:---|:---|:---|:---|:---|:---|:---|:---|---:|---:|:---|:---|:---|:---|:---|:---|
+| 1 | 2018 | CA | 146.200893 | FALSE | DONNELL | NA | NA | NA | 135 | TRUE | 447.238419 | 6.2489474 | NA | FALSE | structures_destroyed | 2018-08-01 | 2018-10-31 | 2018-08-01 | 2018-10-31 | NA | 38.34877 | -119.92940 | MTBS | 801 | 2018_001702_DONNELL | NA | CA3834911992920180801 | NA |
+| 2 | 2024 | OK | 19.105698 | FALSE | 57 | NA | NA | NA | 1 | TRUE | 45.199041 | 4.7948225 | NA | FALSE | structures_destroyed | 2024-04-06 | NA | 2024-04-06 | NA | NA | 36.19250 | -99.50333 | MTBS | NA | 2024_240450_57 | NA | OK3619309950320240406 | NA |
+| 3 | 2017 | FL | 2.921101 | FALSE | GARFIELD ROAD | NA | NA | NA | 19 | TRUE | 13.603445 | 1.6651515 | intermix | FALSE | structures_destroyed | 2017-03-22 | NA | 2017-03-22 | NA | NA | 30.42750 | -82.02333 | MTBS | NA | 2017_070202_GARFIELD ROAD | NA | FL3042808202320170322 | NA |
+| 4 | 2014 | AK | 6.714350 | FALSE | TYONEK | NA | NA | NA | 5 | TRUE | 0.000000 | 0.9531709 | NA | FALSE | structures_destroyed | 2014-05-19 | NA | 2014-05-19 | NA | NA | 61.09932 | -151.12863 | MTBS | NA | 2014_401138_TYONEK | NA | AK6109915112920140519 | NA |
+| 5 | 2017 | FL | 26.204585 | FALSE | 30TH AVE | NA | NA | NA | 4 | TRUE | 285.556021 | 21.8901292 | intermix | FALSE | structures_destroyed | 2017-04-20 | NA | 2017-04-20 | NA | NA | 44.39167 | -115.51306 | MTBS | NA | 2017_170178_30TH AVE | NA | FL2618808154420170420 | NA |
+| 6 | 2019 | CO | 9.151442 | FALSE | G18 | NA | NA | NA | 4 | TRUE | 0.000000 | 25.7227620 | intermix | FALSE | structures_destroyed | 2019-10-27 | NA | 2019-10-27 | NA | NA | 37.08167 | -105.94222 | MTBS | NA | 2019_1713_G18 | NA | CO3708210594220191027 | NA |
+| 7 | 2016 | CA | 11.433032 | FALSE | WILLARD | NA | NA | NA | 7 | TRUE | 60.934258 | 4.0823061 | NA | FALSE | structures_destroyed | 2016-09-11 | 2016-10-12 | 2016-09-11 | 2016-10-12 | NA | 40.41444 | -120.73667 | MTBS | 568 | 2016_004695_WILLARD | NA | CA4036812080220160911 | NA |
+| 8 | 2015 | AZ | 6.250412 | FALSE | KEARNY RIVER | NA | NA | NA | 3 | TRUE | 1000.481461 | 214.2521526 | interface\|intermix | FALSE | structures_destroyed | 2015-06-17 | NA | 2015-06-17 | NA | NA | 33.05300 | -110.91400 | MTBS | NA | 2015_003786_KEARNY RIVER | NA | AZ3305311091420150617 | NA |
+| 9 | 2017 | MT | 6.634805 | FALSE | TURTLE | NA | NA | NA | 2 | TRUE | 4.587496 | 0.1410499 | intermix | FALSE | structures_destroyed | 2017-07-16 | NA | 2017-07-16 | NA | NA | 45.57056 | -106.33139 | MTBS | NA | 2017_017-35_TURTLE | NA | MT4557110633120170716 | NA |
+| 10 | 2020 | NV | 75.963891 | FALSE | NUMBERS | NA | NA | NA | 40 | TRUE | 32.380747 | 0.6645969 | intermix | FALSE | structures_destroyed | 2020-07-06 | NA | 2020-07-07 | NA | NA | 38.84333 | -119.63861 | MTBS | NA | 2020_030406_NUMBERS | NA | NV3884311963920200707 | NA |
+| 11 | 2020 | CA | 183.863534 | FALSE | LOYALTON | NA | NA | NA | 29 | TRUE | 39.054494 | 3.7904177 | intermix | FALSE | structures_destroyed | 2020-08-14 | 2020-08-30 | 2020-08-14 | 2020-08-30 | NA | 39.68143 | -120.17130 | MTBS | 960 | 2020_001600_LOYALTON | NA | CA3968112017120200814 | NA |
+| 12 | 2014 | AK | 779.853002 | FALSE | FUNNY RIVER | NA | NA | NA | 4 | TRUE | 2709.861449 | 289.1528450 | NA | FALSE | structures_destroyed | 2014-05-19 | NA | 2014-05-20 | NA | NA | 60.43945 | -150.96188 | MTBS | NA | 2014_403140_FUNNY RIVER | NA | AK6043915096220140520 | NA |
+| 13 | 2017 | CA | 118.405687 | FALSE | ALAMO | 0 | 0 | 0 | 14 | TRUE | 110.468684 | 2.6990012 | intermix | FALSE | structures_destroyed | 2017-07-06 | 2017-07-18 | 2017-07-06 | 2017-07-18 | NA | 30.57444 | -82.32333 | MTBS | 632 | 2017_007624_ALAMO | NA | CA3502012029920170706 | NA |
+| 14 | 2016 | CA | 27.726980 | FALSE | MINERAL | NA | NA | NA | 1 | TRUE | 0.000000 | 2.1012986 | NA | FALSE | structures_destroyed | 2016-08-09 | NA | 2016-08-09 | NA | NA | 36.08889 | -120.52167 | MTBS | NA | 2016_011358_MINERAL | NA | CA3608912052220160809 | NA |
+| 15 | 2022 | TX | 13.360132 | FALSE | 3 OAKS | NA | NA | NA | 3 | TRUE | 2335.291682 | 211.3928415 | NA | FALSE | structures_destroyed | 2022-03-14 | NA | 2022-03-14 | NA | NA | 31.38765 | -98.36158 | MTBS | NA | 2022_221627_3 OAKS | NA | TX3138809836220220314 | NA |
+| 16 | 2022 | CA | 78.495953 | FALSE | OAK | NA | NA | NA | 127 | TRUE | 0.000000 | 0.0898793 | intermix | TRUE | structures_destroyed\|fema_fmag_declaration | 2022-07-22 | 2022-08-03 | 2022-07-22 | 2022-08-03 | 2022-07-23 | 37.54871 | -119.92077 | MTBS | 1073 | 2022_016149_OAK | NA | CA3754911992120220722 | FM-5445-CA |
+| 17 | 2020 | AZ | 54.115531 | FALSE | SEARS | NA | NA | NA | 9 | TRUE | 2.964817 | 0.6639147 | NA | FALSE | structures_destroyed | 2020-09-25 | NA | 2020-09-25 | NA | NA | 33.88522 | -111.81590 | MTBS | NA | 2020_002852_SEARS | NA | AZ3388511181620200925 | NA |
+| 18 | 2022 | OK | 12.053531 | FALSE | KERNS RANCH | NA | NA | NA | 10 | TRUE | 169.883758 | 10.2669810 | NA | FALSE | structures_destroyed | 2022-09-26 | NA | 2022-09-26 | NA | NA | 34.32833 | -95.15111 | MTBS | NA | 2022_221181_KERNS RANCH FIRE | NA | OK3432809515120220926 | NA |
+| 19 | 2020 | CA\|NV | 339.579780 | FALSE | W-5 COLD SPRINGS | NA | NA | NA | 1 | TRUE | 68.408877 | 257.3774980 | intermix | FALSE | structures_destroyed | 2020-08-18 | NA | 2020-08-18 | NA | NA | 41.02865 | -120.28133 | MTBS | NA | 2020_004727_W-5 COLD SPRINGS | NA | CA4102912028120200818 | NA |
+| 20 | 2021 | OR | 93.276191 | FALSE | ELBOW CREEK | NA | NA | NA | 4 | TRUE | 188.876796 | 1.8370654 | NA | FALSE | structures_destroyed | 2021-07-15 | NA | 2021-07-15 | NA | NA | 45.86778 | -117.63028 | MTBS | NA | 2021_745_ELBOW CREEK | NA | OR4586811763020210715 | NA |
+| 21 | 2021 | OR | 1670.562733 | FALSE | BOOTLEG | NA | NA | NA | 247 | TRUE | 0.000000 | 2.7771006 | intermix | FALSE | structures_destroyed | 2021-07-06 | NA | 2021-07-06 | NA | NA | 42.61591 | -121.42090 | MTBS | NA | 2021_210321_BOOTLEG | NA | OR4261612142120210706 | NA |
+| 22 | 2020 | CA | 8.256832 | FALSE | POND | NA | NA | NA | 13 | TRUE | 164.622775 | 81.0269912 | intermix | FALSE | structures_destroyed | 2020-08-01 | 2020-08-09 | 2020-08-01 | 2020-08-09 | NA | 35.41634 | -120.45571 | MTBS | 909 | 2020_009866_POND | NA | CA3541612045620200801 | NA |
+| 23 | 2017 | OR | 787.395247 | FALSE | CHETCO BAR | NA | NA | NA | 24 | TRUE | 1319.628799 | 228.1131571 | intermix | FALSE | structures_destroyed | 2017-07-12 | NA | 2017-07-12 | NA | NA | 42.29667 | -123.95361 | MTBS | NA | 2017_000326_CHETCO BAR | NA | OR4229712395420170712 | NA |
+| 24 | 2024 | CA | 64.079217 | FALSE | POST | NA | NA | NA | 2 | TRUE | 52.756461 | 0.0131569 | intermix | FALSE | structures_destroyed | 2024-06-15 | NA | 2024-06-15 | NA | NA | 34.80285 | -118.87760 | MTBS | NA | 2024_205253_POST | NA | CA3480311887820240615 | NA |
+| 25 | 2022 | TX | 43.750351 | FALSE | MESQUITE HEAT | NA | NA | NA | 20 | TRUE | 238.719319 | 18.6243053 | interface\|intermix | FALSE | structures_destroyed | 2022-05-17 | NA | 2022-05-17 | NA | NA | 32.26583 | -99.96361 | MTBS | NA | 2022_222985_MESQUITE HEAT | NA | TX3226609996420220517 | NA |
 
 *Last run: 2025-08-15*
 
@@ -12,20 +40,20 @@ wflite.geojson
 - File Size: 356M
 - File Checksum (md5): bdec9cace5850cdbda2e1b4a9af2cc4c
 
-| data_set      | nobs_wflite | nobs_wfheavy |
-|:--------------|------------:|-------------:|
-| event_fema    |        1731 |         1339 |
-| event_ics209  |       36532 |        32425 |
-| event_redbook |        1375 |         1126 |
-| event         |        7536 |        32512 |
-| spatial_fired |      219383 |        98723 |
-| spatial_mtbs  |       14321 |        20644 |
-| spatial_nifc  |       62759 |        54158 |
-| spatial       |        7954 |         5461 |
+| Cleaned Data Set   | N Obs. |
+|:-------------------|-------:|
+| FEMA               |   1731 |
+| ICS209 Minimal     |  36532 |
+| Redbooks           |   1375 |
+| Harmonized Events  |   7536 |
+| FIRED              | 219383 |
+| MTBS               |  14321 |
+| NIFC               |  62759 |
+| Harmonized Spatial |   7954 |
 
 Burn Perimeter Join Types
 
-| geometry_method              | n_wflite |
+| geometry_method              | N Events |
 |:-----------------------------|---------:|
 | FIRED by Place/Time          |     1312 |
 | ICS by Point of Origin, Size |     4297 |
