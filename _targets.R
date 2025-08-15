@@ -306,7 +306,7 @@ list(
   ),
   tar_render(
   	summary_report, 
-  	"summary_report.Rmd"
+  	"summary_report.qmd"
   ),
   tar_target(
   	output_file, 
