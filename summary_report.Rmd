@@ -2,6 +2,8 @@
 title: "Wildfire Disasters Lite Summary Report"
 output: github_document
 editor: visual
+execute:
+  echo: false
 ---
 
 ```{r}
@@ -37,7 +39,7 @@ row_counts <- tribble(
 	'spatial'       , nrow(tar_read(spatial)),        5461
 )
 
-row_counts
+row_counts %>% gt()
 ```
 
 Burn Perimeter Join Types
@@ -46,7 +48,8 @@ Burn Perimeter Join Types
 tar_read(spatial) %>%
 	st_drop_geometry() %>% 
 	group_by(geometry_method) %>%
-	summarize(n_wflite = n())
+	summarize(n_wflite = n()) %>%
+	gt()
 ```
 
 ## Documentation
