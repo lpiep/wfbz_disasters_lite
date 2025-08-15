@@ -1,6 +1,6 @@
 ---
 title: "Wildfire Disasters Lite Summary Report"
-output: github_document
+format: gfm
 execute:
     echo: false
     message: false
@@ -8,7 +8,6 @@ execute:
 ---
 
 ```{r}
-#| include: true
 library(tidyverse)
 library(targets)
 library(knitr)

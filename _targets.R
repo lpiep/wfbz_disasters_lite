@@ -304,7 +304,7 @@ list(
   	),
   	format = 'file'
   ),
-  tar_render(
+  tar_quarto(
   	summary_report, 
   	"summary_report.qmd"
   ),
