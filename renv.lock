@@ -487,14 +487,19 @@
     },
     "digest": {
       "Package": "digest",
-      "Version": "0.6.36",
-      "Source": "Repository",
-      "Repository": "CRAN",
+      "Version": "0.6.37.3",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "eddelbuettel",
+      "RemoteRepo": "digest",
+      "RemoteRef": "master",
+      "RemoteSha": "85b3b1455ae78178d2f9ccc9bd632170e90658fd",
       "Requirements": [
         "R",
         "utils"
       ],
-      "Hash": "fd6824ad91ede64151e93af67df6376b"
+      "Hash": "7ede74509951c3e8980fd354763bc823"
     },
     "dplyr": {
       "Package": "dplyr",
