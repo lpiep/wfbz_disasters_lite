@@ -1,5 +1,7 @@
 # Load packages required to define the pipeline:
-pkgs <- c("targets", "tarchetypes", "sf", "tidyverse", "httr", "fs", "jsonlite", "qs", "qs2", "httr2", "readxl", "glue", "arrow", "stringdist", "clustermq")
+pkgs <- c("targets", "tarchetypes", "geotargets", "sf", "tidyverse", "httr", "fs", 
+					"jsonlite", "qs", "qs2", "httr2", "readxl", "glue", "arrow",
+					"stringdist", "exactextractr", "terra")
 lapply(pkgs, library, character.only = TRUE)
 
 options(timeout = max(90*60, getOption("timeout"))) # 30 minute timeout on downloads (or larger if env var "timeout" is set to larger number)
@@ -15,8 +17,9 @@ tar_option_set(
   error = "abridge" # still finish healthy branches on error 
 )
 
-# tar_make_clustermq() configuration (okay to leave alone):
-options(clustermq.scheduler = "multicore")
+# Parallelization
+future::plan(future.mirai::mirai_multisession, workers = 4L)
+set.seed(8675309, kind = "L'Ecuyer-CMRG")
 
 # Run the R scripts in the R/ folder with your custom functions:
 tar_source(files = 'code/')
@@ -78,10 +81,10 @@ list(
 	  name = spatial_wui_raw,
 	  {
 		  unzip_url(
-		  	'https://usfs-public.box.com/shared/static/bjupat9dkwln7yanslfls0zb4n949qv2.zip',
+		  	'https://geoserver.silvis.forest.wisc.edu/geodata/globalwui/NA.zip',
 		  	dir_create('data/01_raw/spatial/wui')
 		  )
-	  	fs::dir_ls('data/01_raw/spatial/wui', recurse = TRUE, regexp = '\\.gdb$')
+	  	'data/01_raw/spatial/wui/NA/mosaic/WUI.vrt'
 	  },	
 	  format = 'file',
 	  cue = tar_cue(mode = getOption('wildfire_disasters_lite.cue_downloads'))
@@ -176,30 +179,30 @@ list(
   	name = spatial_nifc,
   	clean_nifc(spatial_nifc_raw)
   ),
-	tar_target(
-		name = spatial_wui,
-		st_read(
-			spatial_wui_raw, 
-			query = '
-				select FIPS, WUICLASS2000, WUICLASS2010, WUICLASS2020, Shape
-				from CONUS_WUI_block_1990_2020_change_v4
-				where (WUIFLAG2020 = 1 or WUIFLAG2010 = 1 or WUIFLAG2000 = 1)'
-		) %>% 
-			pivot_longer(-c(FIPS, Shape), names_to = 'year', values_to = 'wuiclass') %>% 
-			mutate(
-				county = substr(FIPS, 1, 5),
-				year = as.numeric(str_sub(year, 9, 12)), 
-				wuiclass = str_extract(wuiclass, '(Intermix|Interface)')
-			) %>% 
-			filter(!is.na(wuiclass)) %>% 
-			st_set_geometry('geometry') %>%
-			group_by(county, year, wuiclass) %>% 
-			summarize(
-				geometry = st_simplify(st_union(geometry), dTolerance = 10),
-				.groups = 'drop'
-			) %>%
-			st_make_valid() 
-	),
+	# tar_target(
+	# 	name = spatial_wui,
+	# 	st_read(
+	# 		spatial_wui_raw, 
+	# 		query = '
+	# 			select FIPS, WUICLASS2000, WUICLASS2010, WUICLASS2020, Shape
+	# 			from CONUS_WUI_block_1990_2020_change_v4
+	# 			where (WUIFLAG2020 = 1 or WUIFLAG2010 = 1 or WUIFLAG2000 = 1)'
+	# 	) %>% 
+	# 		pivot_longer(-c(FIPS, Shape), names_to = 'year', values_to = 'wuiclass') %>% 
+	# 		mutate(
+	# 			county = substr(FIPS, 1, 5),
+	# 			year = as.numeric(str_sub(year, 9, 12)), 
+	# 			wuiclass = str_extract(wuiclass, '(Intermix|Interface)')
+	# 		) %>% 
+	# 		filter(!is.na(wuiclass)) %>% 
+	# 		st_set_geometry('geometry') %>%
+	# 		group_by(county, year, wuiclass) %>% 
+	# 		summarize(
+	# 			geometry = st_simplify(st_union(geometry), dTolerance = 10),
+	# 			.groups = 'drop'
+	# 		) %>%
+	# 		st_make_valid() 
+	# ),
   tar_target(
   	name = event_fema,
   	clean_fema(event_fema_raw)
@@ -250,23 +253,37 @@ list(
   		spatial_tiger_counties
   	)
   ),
+  # tar_terra_vect(
+  # 	spatial_vect,
+  # 	vect(spatial)
+  # ),
   tar_target(
   	wui,
   	{
-  		wui <- st_join(
-	  		st_transform(spatial, proj_crs),
-  			st_transform(
-	  			spatial_wui,
-	  			proj_crs
-	  		),
-	  		left = TRUE
-  		) %>% 
-  			st_drop_geometry() %>% 
-  			group_by(wildfire_id) %>%
-  			summarize(wildfire_wui = paste(unique(sort(wuiclass)), collapse = '|'), .groups = 'drop') %>%
-  			mutate(wildfire_wui = na_if(wildfire_wui, ''))
-  		left_join(spatial, wui, by = 'wildfire_id', unmatched = 'error')
-  	}
+  		z <- spatial # need to copy explicitly here for some reason
+  		wui_rast <- rast(spatial_wui_raw)
+   		extracted_values <- exact_extract(
+  			x = wui_rast, 
+  			y = z, 
+				fun = function(values, coverage_fractions) {
+					unique(values[coverage_fractions > 0])
+				}
+			) # list of values in each fire
+  		intermix <- sapply(extracted_values, function(x) any(x %in% c(1, 3)))
+  		interface <- sapply(extracted_values, function(x) any(x %in% c(2, 4)))
+  		
+  		z %>% 
+  			mutate(
+  				intermix  = sapply(extracted_values, function(x) any(x %in% c(1, 3))),
+  				interface = sapply(extracted_values, function(x) any(x %in% c(2, 4))),
+  				wildfire_wui = case_when(
+  					intermix & interface ~ 'interface|intermix',
+  					intermix ~ 'intermix',
+  					interface ~ 'interface',
+  					TRUE ~ NA_character_
+  				)
+  			) 
+  	},
   ),
   tar_target(
   	pop_density_py_script,
@@ -287,9 +304,9 @@ list(
   	),
   	format = 'file'
   ),
-  tar_render(
+  tar_quarto(
   	summary_report, 
-  	"summary_report.Rmd"
+  	"summary_report.qmd"
   ),
   tar_target(
   	output_file, 

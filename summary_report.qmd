@@ -1,0 +1,58 @@
+---
+title: "Wildfire Disasters Lite Summary Report"
+format: gfm
+execute:
+    echo: false
+    message: false
+    warning: false
+---
+
+Sample Data: 
+
+```{r}
+library(tidyverse)
+library(targets)
+library(knitr)
+library(sf)
+output_file <- tar_read(output_file)
+read_sf(output_file) %>% st_drop_geometry() %>% head(n = 25) %>% kable()
+```
+
+*Last run: `r today()`*
+
+Output File Details:
+
+`r output_file`
+
+-   File Size: `r as.character(fs::file_info(path = output_file)$size)`
+-   File Checksum (md5): `r tools::md5sum(output_file)`
+
+```{r}
+row_counts <- tribble(
+	~`Cleaned Data Set`, ~`N Obs.`, 
+	'FEMA'    , nrow(tar_read(event_fema)),     
+	'ICS209 Minimal'  , nrow(tar_read(event_ics209)),  
+	'Redbooks' , nrow(tar_read(event_redbook)), 
+	'Harmonized Events'         , nrow(tar_read(event)),          
+	'FIRED' , nrow(tar_read(spatial_fired)), 
+	'MTBS'  , nrow(tar_read(spatial_mtbs)),  
+	'NIFC'  , nrow(tar_read(spatial_nifc)),  
+	'Harmonized Spatial'       , nrow(tar_read(spatial)),       
+)
+
+row_counts %>% kable()
+```
+
+Burn Perimeter Join Types
+
+```{r}
+tar_read(spatial) %>%
+	st_drop_geometry() %>% 
+	group_by(geometry_method) %>%
+	summarize(`N Events` = n()) %>%
+	kable()
+```
+
+## Documentation
+
+See detailed documentation for the input and output data sets here: <https://lpiep.github.io/wildfire_disasters_lite/>

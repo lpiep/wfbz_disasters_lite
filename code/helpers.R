@@ -24,6 +24,50 @@ unzip_url <- function(url, dst) {
   dst
 }
 
+# Defaults: up to one hour total
+unzip_url <- function(url, dst, timeout = 60*60) {
+
+	if (!dir.exists(dst)) {
+		dir.create(dst, recursive = TRUE)
+	}
+	
+	temp_zip <- tempfile(fileext = ".zip")
+	on.exit(unlink(temp_zip, force = TRUE), add = TRUE)
+	
+	cat("Starting streaming download of", basename(url), "...\n")
+	
+	# Stream download (for very large files)
+	tryCatch({
+		response <- httr::GET(
+			url,
+			httr::write_disk(temp_zip, overwrite = TRUE),
+			httr::progress(),
+			httr::timeout(timeout)
+		)
+		
+		httr::stop_for_status(response)
+		
+		if (!file.exists(temp_zip) || file.size(temp_zip) == 0) {
+			stop("Streaming download failed or file is empty")
+		}
+		
+	}, error = function(e) {
+		stop("Streaming download failed: ", e$message)
+	})
+	
+	cat("Extracting files...\n")
+	
+	tryCatch({
+		extracted_files <- unzip(temp_zip, exdir = dst, overwrite = TRUE)
+		cat("Successfully extracted", length(extracted_files), "files to", dst, "\n")
+		
+	}, error = function(e) {
+		stop("Extraction failed: ", e$message)
+	})
+	
+	return(dst)
+}
+
 # For spatial data frames, use TIGER data to identify county or counties. Will create a duplicate row for each overlapping county
 append_county <- function(dat_sf, refdate, spatial_tiger_counties){
    stopifnot('sf' %in% class(dat_sf))

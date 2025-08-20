@@ -3,6 +3,10 @@
 .lintr
 *.sif
 
+# Renv Files
+renv/library/
+renv/staging/
+
 # Data files
 data/01_raw/*
 data/02_processed/*
