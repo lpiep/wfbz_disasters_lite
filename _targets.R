@@ -7,8 +7,9 @@ lapply(pkgs, library, character.only = TRUE)
 options(timeout = max(90*60, getOption("timeout"))) # 30 minute timeout on downloads (or larger if env var "timeout" is set to larger number)
 options(scipen = 9999)
 options(readr.show_col_types = FALSE)
-#options(wildfire_disasters_lite.cue_downloads = 'always') # Make 'always' for production
-conda = '/Users/loganap/miniconda3/bin/conda' #YOUR CONDA HERE!!!
+options(wildfire_disasters_lite.cue_downloads = 'never') # Make 'always' for production
+conda = Sys.getenv("CONDABIN", unset = glue('{Sys.getenv("HOME", "~")}/miniconda3/bin/conda')) #YOUR CONDA HERE!!!
+message("Conda is: ", conda)
 
 # Set target options:
 tar_option_set(

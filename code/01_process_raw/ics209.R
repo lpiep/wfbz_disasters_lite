@@ -32,5 +32,6 @@ clean_ics209 <- function(event_ics209_raw){
 			hurricane = str_detect(wildfire_name, "TROPICAL STORM") | str_detect(wildfire_name, "HURRICANE") | str_detect(wildfire_name, "(\\bHELENE\\b|\\bIRMA\\b|\\bMILTON\\b|\\bIAN\\b|\\bMICHAEL\\b|\\bJEANNE\\b|\\bFRANCES\\b|\\bSANDY\\b|\\bLAURA\\b|\\bMARIA\\b)"),
 			hurricane = if_else(is.na(wildfire_name), FALSE, hurricane)
 		) %>%
-		filter(!hurricane)
+		filter(!hurricane) %>%
+		filter(wildfire_ignition_date >= as.Date('2000-01-01'))
 }

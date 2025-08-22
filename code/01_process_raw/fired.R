@@ -78,6 +78,6 @@ clean_fired <- function(spatial_fired_raw){
 			geometry = st_make_valid(st_union(geometry))
 		) %>%
 		ungroup() %>%
-		select(-complex, -batch)
-	
+		select(-complex, -batch) %>%
+		filter(wildfire_ignition_date >= as.Date('2000-01-01'))
 }

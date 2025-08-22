@@ -49,7 +49,9 @@ clean_fema <- function(event_fema_raw){
 			wildfire_ignition_date = incidentBeginDate,
 			wildfire_containment_date = incidentEndDate ,
 			wildfire_counties = COUNTY_NAME
-		)
+		) %>%
+		filter(wildfire_ignition_date >= as.Date('2000-01-01'))
+
 	
 	# collapse county and state columns
 	fema_all %>% 
