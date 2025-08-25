@@ -1,0 +1,63 @@
+---
+title: "Manuscript Numbers"
+format: html
+editor: visual
+execute: 
+	echo: false
+---
+
+Numbers included in text of manuscript. 
+
+```{r setup}
+#| include: false
+library(sf)
+library(tidyverse)
+library(gt)
+library(glue)
+library(khroma)
+library(tigris)
+library(patchwork)
+library(targets)
+library(arrow)
+source("../code/helpers.R")
+options(scipen = 999)
+tar_load_everything(store = '../_targets') 
+```
+
+## County Names 
+
+### ICS209
+
+Rows in ics-minimal data set post 2000. 
+```{r}
+nrow(event_ics209)
+```
+Non-Missing POO Lat/long
+```{r}
+sum(!is.na(event_ics209$wildfire_poo_lat))
+sum(!is.na(event_ics209$wildfire_poo_lat)) / nrow(event_ics209)
+```
+
+Non-Missing County Name (N, pct):
+```{r}
+sum(!is.na(event_ics209$wildfire_counties))
+sum(!is.na(event_ics209$wildfire_counties)) / nrow(event_ics209)
+```
+
+### Red Books
+
+```{r}
+sum(!is.na(event_redbook$wildfire_counties))
+sum(!is.na(event_redbook$wildfire_counties)) / nrow(event_redbook)
+```
+
+### FEMA
+
+```{r}
+nrow(event_fema)
+```
+
+```{r}
+sum(!is.na(event_fema$wildfire_counties))
+sum(!is.na(event_fema$wildfire_counties)) / nrow(event_fema)
+```
