@@ -17,8 +17,11 @@ library(glue)
 library(khroma)
 library(tigris)
 library(patchwork)
+library(targets)
+library(arrow)
 source("../code/helpers.R")
 options(scipen = 999)
+tar_load_everything() 
 ```
 
 

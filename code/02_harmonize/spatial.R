@@ -343,7 +343,7 @@ harmonize_spatial <- function(
 	
 	t4 <- event %>% 
 		filter(
-			!(event_id %in% c(unlist(t1$event_id), unlist(t2$event_id), unlist(t3a$event_id), unlist(t3b$event_id), unlist(t3b$event_id)))
+			!(event_id %in% c(unlist(t1$event_id), unlist(t2$event_id), unlist(t3a$event_id), unlist(t3b$event_id), unlist(t3c$event_id)))
 		) %>%
 		mutate(tier = 4, geometry_src = 'ICS209') %>%
 		filter(!is.na(wildfire_poo_lat), !is.na(wildfire_poo_lon), !is.na(wildfire_area)) %>%
@@ -353,7 +353,7 @@ harmonize_spatial <- function(
 		st_as_sf(coords = c('wildfire_poo_lon', 'wildfire_poo_lat'), remove = FALSE, crs = 4269) %>% 
 		st_buffer(.$radius) %>%
 		select(-radius, -wildfire_states) %>%
-		filter(wildfire_area <= (5284*2))  # cutoff for believability of resulting geometry (twice the largest reported fire in this period (Alaska's Taylor Fire))
+		filter(wildfire_area <= (5284*2))  # cutoff for believability of resulting geometry (twice the largest reported fire between 2000 and 2025: Alaska's Taylor Fire)
 		
 	
 	### combine and shine
@@ -367,7 +367,7 @@ harmonize_spatial <- function(
 		.id = 'geometry_method'
 	) %>%
 		mutate(wildfire_id = row_number()) %>%
-		mutate(across(is.Date, ~if_else(is.infinite(.x), NA_Date_, .x)))
+		mutate(across(where(is.Date), ~if_else(is.infinite(.x), NA_Date_, .x)))
 	
 	### Add State/County from final geometry
 
