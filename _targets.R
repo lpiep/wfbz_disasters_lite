@@ -312,7 +312,7 @@ list(
   tar_target(
   	output_file, 
   	command = {
-  		if(file_exists('wflite.geojson')){file_delete('wflite.geojson')}
+  		if(file_exists('wfbz.geojson')){file_delete('wfbz.geojson')}
   		out <- left_join(wui, read_csv(pop_density), by = 'wildfire_id')
   		out <- out %>%
   			select(
@@ -352,8 +352,8 @@ list(
   				mtbs_id,
   				fema_id
   			)
-  		write_sf(out, 'wflite.geojson')
-  		'wflite.geojson'
+  		write_sf(out, 'wfbz.geojson')
+  		'wfbz.geojson'
   	},
   	format = 'file'
   )

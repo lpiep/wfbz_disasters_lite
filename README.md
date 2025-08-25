@@ -1,119 +1,70 @@
 # Wildfire Wildfire Burn Zone Disaster (WFBZ) Data Harmonization
-## "Lite" Version
 
 This program will harmonize wildfire and disaster data from several sources to produce a single geospatial data set. 
-It is off Milo Gordon's work that created a harmonized data set for the years 2000-2019, which involved a large amount
-of manual data cleaning. This project aims to reproduce that work for future data releases, sacrificing some accuracy 
-and completeness in favor of a more automated process. 
+This project aims to be reproducible for future data releases, with as little manual input as possible.
+
+## Data
+
+The final data product is included in this directory as `wfbz.geojson`. See https://lpiep.github.io/wildfire_disasters_lite/
+for a data dictionary and information on input data. 
 
 ## Run
 
-Clone this repo, and run `run.R` in R. You can run the same code using the `rocker/geospatial` docker image as 
-well for reproducibility. _Note: `targets` is not included in `rocker/geospatial`.
-
-With your system R:
+Clone this repository. 
 
 ```
 $ git clone https://github.com/lpiep/wildfire_disasters_lite.git
 $ cd wildfire_disasters_lite
-$ Rscript run.R
 ```
 
-With Docker: 
+### System Requirements
 
-```
-$ git clone https://github.com/lpiep/wildfire_disasters_lite.git
-$ cd wildfire_disasters_lite
-$ docker build -t wflite .
-$ docker run --rm -v ".:/app" wflite Rscript -e "targets::tar_make()"
-```
+* OS: This has been tested on Linux and MacOS. 
+* Storage: We recommend at least 100GB free disk space.
 
-With Apptainer/Singularity:
+### Dependencies
 
-```
-$ git clone https://github.com/lpiep/wildfire_disasters_lite.git
-$ cd wildfire_disasters_lite
-$ singularity build --remote wflite.sif apptainer.def
-$ singularity exec --bind ".:/app/" wflite.sif /app/wfbz_disasters_lite.sh
-```
-## Python Setup
+* `conda`
+* `R`  
 
-### Install Conda 
+## Environments
 
-1. See if conda is already installed. 
-
-```
-conda --version
-```
-
-If so, skip to making the environement (3) below. 
-
-2. Install conda.
-
-For Mac (Apple Silicon):
-
-```
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
-chmod +x Miniconda3-latest-MacOSX-arm64.sh 
-./Miniconda3-latest-MacOSX-arm64.sh 
-```
-
-For Windows:
-
-```
-curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe -o miniconda.exe
-start miniconda.exe 
-```
-
-Walk through the installer GUI. 
-
-```
-del miniconda.exe
-```
-
-Continue in the "Anaconda Prompt" program that has been added to your start menu.
-### Make Environment for this Code
-
-From `wildfire_disasters_lite` directory: 
-
+Build the conda environment with 
 ```
 conda env create -f wf.yml
 conda activate wf
-pre-commit install
+```
+
+Build the R environment by opening R, and running `renv::restore()`. 
+
+```
+$ git clone https://github.com/lpiep/wildfire_disasters_lite.git
+$ cd wildfire_disasters_lite
+```
+
+### Run data pipeline
+
+```
+chmod +x ./wfbz_disasters_lite.sh
+./wfbz_disasters_lite.sh
 ```
 
 ## Data Sources
 
 ### Spatial 
 
-* MBTS 
-	* Will be updated
-	* Included here
-* FIRED
-  * Will be updated
-  * Included here
-* USGS
-	* Unsure about updates per authors
-	* Not included here
-* GEOMAC
-  * Will not be updated (migrated to NIFT in 2020)
-  * Not included here
-* NIFC 
-  * Will be updated
-  * Included here
-
+* MBTS (updates on run)
+* FIRED (updates on run)
+* NIFC (updates on run)
 
 ### Non-Spatial
 
-* FEMA Disaster Declarations
-  * Will be updated
-* ICS-209-PLUS
-  * Will be updated with access to API(s) and processing with St Denis et al code. 
+* FEMA Disaster Declarations (updates on run)
+* ICS-209
+  * Will be updated with access to API(s) (see https://github.com/lpiep/ics209_minimal)
+  * The ICS209_minimal repository is configured to update itself automatically
 * REDBOOKS 
-	* Manually wrote out csvs from Milo's processing code -- will need to manually redo each year as it currently stands. 
-  
-https://github.com/katiemcconnell/ICS-209-PLUS_spatiotemporal_linkage
-
+	* Will need to manually redo each year as it currently stands. 
 
 ### Updating Docs
 
@@ -123,7 +74,8 @@ It is created using `mkdocs` which is included in the `wf` conda environment. Ma
 the markdown files at `docs-site/docs/` to update content, and to the YML file at `docs-site/mkdocs.yml`
 to update the site structure or add pages. 
 
-To apply updates to the GH Pages site, run `mkdocs gh-deploy -f docs-site/mkdocs.yml`. 
+To apply updates to the GH Pages site, run `mkdocs gh-deploy -f docs-site/mkdocs.yml`. Docs are also 
+deployed when pushed to main. 
 
 
 ### Process
