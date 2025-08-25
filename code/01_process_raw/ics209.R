@@ -29,7 +29,7 @@ clean_ics209 <- function(event_ics209_raw){
 			irwin_id = ics_irwin_id
 		) %>%
 		mutate( # get rid of hurricanes 
-			hurricane = str_detect(wildfire_name, "TROPICAL STORM") | str_detect(wildfire_name, "HURRICANE") | str_detect(wildfire_name, "(\\bHELENE\\b|\\bIRMA\\b|\\bMILTON\\b|\\bIAN\\b|\\bMICHAEL\\b|\\bJEANNE\\b|\\bFRANCES\\b|\\bSANDY\\b|\\bLAURA\\b|\\bMARIA\\b)"),
+			hurricane = str_detect(wildfire_name, "TROPICAL STORM") | str_detect(wildfire_name, "HURRICANE") | str_detect(wildfire_name, "(\\bHELENE\\b|\\bIRMA\\b|\\bMILTON\\b|\\bIAN\\b|\\bMICHAEL\\b|\\bJEANNE\\b|\\bFRANCES\\b|\\bLAURA\\b)"),
 			hurricane = if_else(is.na(wildfire_name), FALSE, hurricane)
 		) %>%
 		filter(!hurricane) %>%
