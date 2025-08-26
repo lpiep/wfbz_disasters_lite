@@ -1,7 +1,7 @@
 # Load packages required to define the pipeline:
 pkgs <- c("targets", "tarchetypes", "geotargets", "sf", "tidyverse", "httr", "fs", 
 					"jsonlite", "qs", "qs2", "httr2", "readxl", "glue", "arrow",
-					"stringdist", "exactextractr", "terra")
+					"stringdist", "exactextractr", "terra", "data.table")
 lapply(pkgs, library, character.only = TRUE)
 
 options(timeout = max(90*60, getOption("timeout"))) # 30 minute timeout on downloads (or larger if env var "timeout" is set to larger number)

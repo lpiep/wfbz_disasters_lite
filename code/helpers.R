@@ -269,3 +269,30 @@ standardize_place_name <- function(place_name) {
    place_name
 }
 
+
+assign_clusters <- function(lol){ # take list of lists, do a union find to assign group membership
+																	# according to connectedness
+	
+	dt <- data.table(lol = lol)
+	dt_exp <- dt[, .(lol = unlist(lol)), by = .(row = .I)]
+	dt_links <- dt_exp[dt_exp, on = .(lol), allow.cartesian = TRUE, nomatch = 0]
+	dt_links <- dt_links[I < i.I, .(I, i.I)] #uniquify
+	
+	# Union-Find (connected components)
+	uf <- function(n, edges) {
+		parent <- seq_len(n)
+		find <- function(x) { 
+			while (parent[x] != x) x <- parent[x]
+			x
+		}
+		union <- function(x, y) {
+			px <- find(x); py <- find(y)
+			if (px != py) parent[py] <<- px
+		}
+		for (i in seq_len(nrow(edges))) union(edges$I[i], edges$i.I[i])
+		sapply(seq_len(n), find)
+	}
+	
+	uf(nrow(dt), dt_links)
+	
+}

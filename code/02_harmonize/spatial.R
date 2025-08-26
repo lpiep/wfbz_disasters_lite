@@ -101,12 +101,12 @@ harmonize_spatial <- function(
 			wildfire_poo_lat = first(wildfire_poo_lat, na_rm = TRUE),
 			wildfire_poo_lon = first(wildfire_poo_lon, na_rm = TRUE),
 			geometry_src = 'NIFC',
-			redbook_id =  paste(unique(redbook_id), collapse = '|') %>% na_if('NA'),
-			ics_id     =  paste(unique(ics_id), collapse = '|') %>% na_if('NA'),
+			redbook_id =  paste(unique(na.omit(redbook_id)), collapse = '|') %>% na_if(''),
+			ics_id     =  paste(unique(na.omit(ics_id)), collapse = '|') %>% na_if(''),
 			fired_id   =  NA_character_,
 			mtbs_id    =  NA_character_,
-			nifc_id    =  paste(unique(nifc_id), collapse = '|') %>% na_if('NA'),
-			fema_id    =  paste(unique(fema_id), collapse = '|') %>% na_if('NA'),
+			nifc_id    =  paste(unique(na.omit(nifc_id)), collapse = '|') %>% na_if(''),
+			fema_id    =  paste(unique(na.omit(fema_id)), collapse = '|') %>% na_if(''),
 			.groups = 'drop'
 		) 
 	
@@ -181,12 +181,12 @@ harmonize_spatial <- function(
 			wildfire_poo_lat = first(wildfire_poo_lat, na_rm = TRUE),
 			wildfire_poo_lon = first(wildfire_poo_lon, na_rm = TRUE),
 			geometry_src = 'MTBS',
-			redbook_id =  paste(unique(redbook_id), collapse = '|') %>% na_if('NA'),
-			ics_id     =  paste(unique(ics_id), collapse = '|') %>% na_if('NA'),
+			redbook_id =  paste(unique(na.omit(redbook_id)), collapse = '|') %>% na_if(''),
+			ics_id     =  paste(unique(na.omit(ics_id)), collapse = '|') %>% na_if(''),
 			fired_id   =  NA_character_,
-			mtbs_id    =  paste(unique(mtbs_id), collapse = '|') %>% na_if('NA'),
+			mtbs_id    =  paste(unique(na.omit(mtbs_id)), collapse = '|') %>% na_if(''),
 			nifc_id    =  NA_character_,
-			fema_id    =  paste(unique(fema_id), collapse = '|') %>% na_if('NA'),
+			fema_id    =  paste(unique(na.omit(fema_id)), collapse = '|') %>% na_if(''),
 			.groups = 'drop'
 		) %>%
 		select(-orig_rowid_mtbs)
@@ -257,12 +257,12 @@ harmonize_spatial <- function(
 			wildfire_poo_lat = first(wildfire_poo_lat, na_rm = TRUE),
 			wildfire_poo_lon = first(wildfire_poo_lon, na_rm = TRUE),
 			geometry_src = 'NIFC',
-			redbook_id =  paste(unique(redbook_id), collapse = '|') %>% na_if('NA'),
-			ics_id     =  paste(unique(ics_id), collapse = '|') %>% na_if('NA'),
+			redbook_id =  paste(unique(na.omit(redbook_id)), collapse = '|') %>% na_if(''),
+			ics_id     =  paste(unique(na.omit(ics_id)), collapse = '|') %>% na_if(''),
 			fired_id   =  NA_character_,
 			mtbs_id    =  NA_character_,
-			nifc_id    =  paste(unique(nifc_id), collapse = '|') %>% na_if('NA'),
-			fema_id    =  paste(unique(fema_id), collapse = '|') %>% na_if('NA'),
+			nifc_id    =  paste(unique(na.omit(nifc_id)), collapse = '|') %>% na_if(''),
+			fema_id    =  paste(unique(na.omit(fema_id)), collapse = '|') %>% na_if(''),
 			.groups = 'drop'
 		) %>%
 		select(-orig_rowid_nifc)
@@ -329,12 +329,12 @@ harmonize_spatial <- function(
 			wildfire_poo_lat = first(wildfire_poo_lat, na_rm = TRUE),
 			wildfire_poo_lon = first(wildfire_poo_lon, na_rm = TRUE),
 			geometry_src = 'FIRED',
-			redbook_id =  paste(unique(redbook_id), collapse = '|') %>% na_if('NA'),
-			ics_id     =  paste(unique(ics_id), collapse = '|') %>% na_if('NA'),
-			fired_id   =  paste(unique(fired_id), collapse = '|') %>% na_if('NA'),
+			redbook_id =  paste(unique(na.omit(redbook_id)), collapse = '|') %>% na_if(''),
+			ics_id     =  paste(unique(na.omit(ics_id)), collapse = '|') %>% na_if(''),
+			fired_id   =  paste(unique(na.omit(fired_id)), collapse = '|') %>% na_if(''),
 			mtbs_id    =  NA_character_,
 			nifc_id    =  NA_character_,
-			fema_id    =  paste(unique(fema_id), collapse = '|') %>% na_if('NA'),
+			fema_id    =  paste(unique(na.omit(fema_id)), collapse = '|') %>% na_if(''),
 			.groups = 'drop'
 		) %>%
 		select(-orig_rowid_fired)
@@ -355,7 +355,6 @@ harmonize_spatial <- function(
 		select(-radius, -wildfire_states) %>%
 		filter(wildfire_area <= (5284*2))  # cutoff for believability of resulting geometry (twice the largest reported fire between 2000 and 2025: Alaska's Taylor Fire)
 		
-	
 	t5 <- event %>% 
 		filter(
 			!(event_id %in% c(unlist(t1$event_id), unlist(t2$event_id), unlist(t3a$event_id), unlist(t3b$event_id), unlist(t3c$event_id)))
@@ -367,18 +366,63 @@ harmonize_spatial <- function(
 	
 	### combine and shine
 	all_tiers <- bind_rows(
-		`MTBS by ID` = t1 %>% select(-event_id),
-		`NIFC by ID` = t2 %>% select(-event_id),
-		`MTBS by Name/Place/Time` = t3a %>% select(-event_id),
-		`NIFC by Name/Place/Time` = t3b %>% select(-event_id),
-		`FIRED by Place/Time` = t3c %>% select(-event_id),
-		`ICS by Point of Origin, Size` = t4 %>% select(-event_id), 
-		`ICS by Point of Origin, POO-only` = t5 %>% select(-event_id), 
+		`MTBS by ID` = t1 %>% mutate(priority = 1),
+		`NIFC by ID` = t2 %>% mutate(priority = 2),
+		`MTBS by Name/Place/Time` = t3a %>% mutate(priority = 3),
+		`NIFC by Name/Place/Time` = t3b %>% mutate(priority = 4),
+		`FIRED by Place/Time` = t3c %>% mutate(priority = 5),
+		`ICS by Point of Origin, Size` = t4 %>% mutate(event_id = map(event_id, list)) %>% mutate(priority = 6), 
+		`ICS by Point of Origin, POO-only` = t5 %>% mutate(event_id = map(event_id, list)) %>% mutate(priority = 7), 
 		.id = 'geometry_method'
 	) %>%
-		mutate(wildfire_id = row_number()) %>%
-		mutate(across(where(is.Date), ~if_else(is.infinite(.x), NA_Date_, .x)))
+		mutate(across(where(is.Date), ~if_else(is.infinite(.x), NA_Date_, .x))) %>%
+		mutate(temp_id = row_number())
 	
+	# Final round of deduping (joining disjoint groups into one)
+	#   Take geometry from best join, integrate attributes from all available
+	all_tiers$wildfire_id <- assign_clusters(all_tiers$event_id)
+	all_tiers_sf <- all_tiers %>% select(temp_id, geometry)
+	all_tiers <- all_tiers %>%
+		st_drop_geometry() %>% # temporarily get rid of geom to play nice with summarize
+		group_by(wildfire_id) %>%
+		arrange(desc(priority), wildfire_area) %>% 
+		summarize(
+			temp_id = first(temp_id),
+			event_id = list(event_id),
+			wildfire_year = first(wildfire_year, na_rm = TRUE), 
+			wildfire_area = suppressWarnings(max(wildfire_area)) %>% na_if(Inf),
+			wildfire_complex = any(wildfire_complex),
+			wildfire_complex_names = dedupe_pipe_delim(paste(wildfire_complex_names, collapse = '|')),
+			wildfire_total_fatalities = suppressWarnings(max(wildfire_total_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
+			wildfire_civil_fatalities = suppressWarnings(max(wildfire_civil_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
+			wildfire_max_civil_fatalities = suppressWarnings(max(wildfire_max_civil_fatalities, na.rm = TRUE)) %>% na_if(-Inf),
+			wildfire_struct_destroyed = suppressWarnings(max(wildfire_struct_destroyed, na.rm = TRUE)) %>% na_if(-Inf),
+			wildfire_struct_threatened = suppressWarnings(max(wildfire_struct_threatened, na.rm = TRUE)) %>% na_if(-Inf),
+			wildfire_total_injuries = suppressWarnings(max(wildfire_total_injuries, na.rm = TRUE)) %>% na_if(-Inf),
+			wildfire_civil_injuries = suppressWarnings(max(wildfire_civil_injuries, na.rm = TRUE)) %>% na_if(-Inf),
+			wildfire_total_evacuation = suppressWarnings(max(wildfire_total_evacuation, na.rm = TRUE)) %>% na_if(-Inf),
+			wildfire_civil_evacuation = suppressWarnings(max(wildfire_civil_evacuation, na.rm = TRUE)) %>% na_if(-Inf),
+			wildfire_cost = suppressWarnings(max(wildfire_cost, na.rm = TRUE)) %>% na_if(-Inf),
+			wildfire_fema_dec = any(wildfire_fema_dec, na.rm = TRUE),
+			wildfire_ignition_date        = suppressWarnings(min(wildfire_ignition_date, na.rm = TRUE)), # event only -- see below
+			wildfire_containment_date     = suppressWarnings(min(wildfire_containment_date, na.rm = TRUE)),
+			wildfire_ignition_date_max    = suppressWarnings(max(wildfire_ignition_date_max, na.rm = TRUE)), # event only -- see below
+			wildfire_containment_date_max = suppressWarnings(max(wildfire_containment_date_max, na.rm = TRUE)),
+			wildfire_fema_dec_date        = suppressWarnings(min(wildfire_fema_dec_date, na.rm = TRUE)),
+			wildfire_poo_lat = first(wildfire_poo_lat, na_rm = TRUE),
+			wildfire_poo_lon = first(wildfire_poo_lon, na_rm = TRUE),
+			geometry_src = first(geometry_src),
+			redbook_id =  paste(unique(na.omit(redbook_id)), collapse = '|') %>% na_if(''),
+			ics_id     =  paste(unique(na.omit(ics_id)), collapse = '|') %>% na_if(''),
+			fired_id   =  paste(unique(na.omit(fired_id)), collapse = '|') %>% na_if(''),
+			mtbs_id    =  first(mtbs_id),
+			nifc_id    =  first(nifc_id),
+			fema_id    =  first(fema_id),
+			geometry_method = first(geometry_method),
+			priority = first(priority)
+		) 
+		all_tiers <- inner_join(all_tiers_sf, all_tiers, by = 'temp_id') # join the geom back in
+
 	### Add State/County from final geometry
 
 	wildfire_states <- all_tiers %>%
@@ -403,6 +447,7 @@ harmonize_spatial <- function(
 			fema_crit   = if_else(wildfire_fema_dec, 'fema_fmag_declaration', NA_character_)
 		) %>%
 		unite(wildfire_disaster_criteria_met, c(civ_crit, struct_crit, fema_crit), sep = '|', na.rm = TRUE) %>%
-		filter(wildfire_disaster_criteria_met != '') # when fatalities are the only passing criteria and we know that there were deaths, but no civ deaths
+		filter(wildfire_disaster_criteria_met != '') %>% # when fatalities are the only passing criteria and we know that there were deaths, but no civ deaths
+		select(-event_id)
 }
 
