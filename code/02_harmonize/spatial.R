@@ -356,6 +356,15 @@ harmonize_spatial <- function(
 		filter(wildfire_area <= (5284*2))  # cutoff for believability of resulting geometry (twice the largest reported fire between 2000 and 2025: Alaska's Taylor Fire)
 		
 	
+	t5 <- event %>% 
+		filter(
+			!(event_id %in% c(unlist(t1$event_id), unlist(t2$event_id), unlist(t3a$event_id), unlist(t3b$event_id), unlist(t3c$event_id)))
+		) %>%
+		mutate(tier = 4, geometry_src = 'ICS209') %>%
+		filter(!is.na(wildfire_poo_lat), !is.na(wildfire_poo_lon), is.na(wildfire_area)) %>%
+		st_as_sf(coords = c('wildfire_poo_lon', 'wildfire_poo_lat'), remove = FALSE, crs = 4269) %>% 
+		select(-wildfire_states)
+	
 	### combine and shine
 	all_tiers <- bind_rows(
 		`MTBS by ID` = t1 %>% select(-event_id),
@@ -364,6 +373,7 @@ harmonize_spatial <- function(
 		`NIFC by Name/Place/Time` = t3b %>% select(-event_id),
 		`FIRED by Place/Time` = t3c %>% select(-event_id),
 		`ICS by Point of Origin, Size` = t4 %>% select(-event_id), 
+		`ICS by Point of Origin, POO-only` = t5 %>% select(-event_id), 
 		.id = 'geometry_method'
 	) %>%
 		mutate(wildfire_id = row_number()) %>%

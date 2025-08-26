@@ -50,6 +50,7 @@ tar_read(spatial) %>%
 	st_drop_geometry() %>% 
 	group_by(geometry_method) %>%
 	summarize(`N Events` = n()) %>%
+	arrange(desc(`N Events`)) %>% 
 	kable()
 ```
 

@@ -262,6 +262,9 @@ list(
   	wui,
   	{
   		z <- spatial # need to copy explicitly here for some reason
+  		# temporarily turn points into very small polygons to satisfy exact_extract
+  		z$geometry_temp <- st_geometry(z)
+  		st_geometry(z)[st_geometry_type(z$geometry) == 'POINT'] <- st_buffer(z$geometry[st_geometry_type(z$geometry) == 'POINT'], .01)
   		wui_rast <- rast(spatial_wui_raw)
    		extracted_values <- exact_extract(
   			x = wui_rast, 
@@ -282,8 +285,10 @@ list(
   					intermix ~ 'intermix',
   					interface ~ 'interface',
   					TRUE ~ NA_character_
-  				)
-  			) 
+  				),
+  				geometry = geometry_temp
+  			) %>%
+  			select(-geometry_temp) # put back original geometry
   	},
   ),
   tar_target(
@@ -346,6 +351,7 @@ list(
   				wildfire_poo_lat,
   				wildfire_poo_lon,
   				geometry_src,
+					geometry_method,
   				redbook_id,
   				ics_id,
   				fired_id,
