@@ -31,14 +31,14 @@ Sample Data:
 | 24 | 2017 | OR | 787.395247 | FALSE | CHETCO BAR | NA | NA | NA | 0 | 5 | 5122 | 5122 | 24 | 0 | 7.20e+07 | TRUE | 137.5136069 | 3.6594131 | intermix | FALSE | structures_destroyed | 2017-07-12 | NA | 2017-07-12 | NA | NA | 42.29667 | -123.95361 | MTBS | MTBS by ID | NA | 2017_000326_CHETCO BAR | NA | OR4229712395420170712 | NA |
 | 25 | 2024 | CA | 64.079217 | FALSE | POST | NA | NA | NA | 1 | 1 | 1200 | 1200 | 2 | 10 | 2.00e+07 | TRUE | 77.2113425 | 2.1814613 | intermix | FALSE | structures_destroyed | 2024-06-15 | NA | 2024-06-15 | NA | NA | 34.80285 | -118.87760 | MTBS | MTBS by ID | NA | 2024_205253_POST | NA | CA3480311887820240615 | NA |
 
-*Last run: 2025-08-25*
+*Last run: 2025-08-26*
 
 Output File Details:
 
 wfbz.geojson
 
-- File Size: 343M
-- File Checksum (md5): 2336e22c23e1d32c4c8755ed4d1a47dc
+- File Size: 326M
+- File Checksum (md5): 0bd9ccb51ec53a3099bd3c5141ead3fa
 
 | Cleaned Data Set   | N Obs. |
 |:-------------------|-------:|
@@ -49,17 +49,17 @@ wfbz.geojson
 | FIRED              | 219383 |
 | MTBS               |  14321 |
 | NIFC               |  60803 |
-| Harmonized Spatial |   7614 |
+| Harmonized Spatial |   6490 |
 
 Burn Perimeter Join Types
 
 | geometry_method                  | N Events |
 |:---------------------------------|---------:|
 | ICS by Point of Origin, Size     |     3778 |
-| FIRED by Place/Time              |     1349 |
-| MTBS by Name/Place/Time          |     1201 |
-| NIFC by Name/Place/Time          |      599 |
+| MTBS by Name/Place/Time          |     1136 |
+| FIRED by Place/Time              |      476 |
 | MTBS by ID                       |      462 |
+| NIFC by Name/Place/Time          |      413 |
 | ICS by Point of Origin, POO-only |      139 |
 | NIFC by ID                       |       86 |
 

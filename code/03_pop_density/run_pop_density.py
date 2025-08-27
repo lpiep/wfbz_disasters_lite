@@ -130,11 +130,11 @@ def main(
         # i. take buffered fire poly and mask everything outside of that (set everything outside buffered poly to 0 which you can do w/ raster.mask)
         # ii. find max pixel val and if it exceeds your threshold then it overlaps with a communtiy that exceeds the threshold and is marked as TRUE in final csv. 
         max_pop_density = np.max(mean_pop_density.mask(buffered_fire_series).to_numpy())
-        wildfire_community_intersect = (max_pop_density > pop_density_criteria) or wildfire_wui # pop density criteria met or previously met wui criteria
+        wildfire_community_intersect = (max_pop_density > pop_density_criteria) or bool(wildfire_wui) # pop density criteria met or previously met wui criteria
 
         # Calculate final metrics - handle no-data values properly
         fire_masked = mean_pop_density.mask(fire_series).to_numpy()
-        buffered_masked = mean_pop_density.mask(buffered_fire_series).to_numpy()
+        buffered_masked = mean_pop_density.mask(buffered_fire_series).to_numpy() 
         
         # Remove no-data values and negative values before calculating stats
         fire_valid = fire_masked[~np.isnan(fire_masked) & (fire_masked >= 0)]
