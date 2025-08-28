@@ -131,24 +131,21 @@ def main(
         # ii. find max pixel val and if it exceeds your threshold then it overlaps with a communtiy that exceeds the threshold and is marked as TRUE in final csv. 
         max_pop_density = np.max(mean_pop_density.mask(buffered_fire_series).to_numpy())
         wildfire_community_intersect = (max_pop_density > pop_density_criteria) or bool(wildfire_wui) # pop density criteria met or previously met wui criteria
-
+        
         # Calculate final metrics - handle no-data values properly
-        fire_masked = mean_pop_density.mask(fire_series).to_numpy()
         buffered_masked = mean_pop_density.mask(buffered_fire_series).to_numpy() 
         
         # Remove no-data values and negative values before calculating stats
-        fire_valid = fire_masked[~np.isnan(fire_masked) & (fire_masked >= 0)]
         buffered_valid = buffered_masked[~np.isnan(buffered_masked) & (buffered_masked >= 0)]
         
         # Calculate final metrics
-        max_pop_density_keep = np.max(fire_valid) if len(fire_valid) > 0 else 0
         avg_pop_density_keep = np.mean(buffered_valid) if len(buffered_valid) > 0 else 0
         
         # V. add to results df 
         df_fire = pd.DataFrame({
             'wildfire_id': [str(wildfire_id)],
             'wildfire_community_intersect': [wildfire_community_intersect],
-            'wildfire_max_pop_den': [max_pop_density_keep],
+            'wildfire_max_pop_den': [max_pop_density],
             'wildfire_buffered_avg_pop_den': [avg_pop_density_keep]
         })
 
