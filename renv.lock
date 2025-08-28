@@ -94,17 +94,6 @@
       ],
       "Hash": "6b868847b365672d6c1677b1608da9ed"
     },
-    "S7": {
-      "Package": "S7",
-      "Version": "0.2.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "utils"
-      ],
-      "Hash": "5deb66b3ae702137e1f4162c11861e76"
-    },
     "V8": {
       "Package": "V8",
       "Version": "4.4.2",
@@ -448,14 +437,14 @@
     },
     "data.table": {
       "Package": "data.table",
-      "Version": "1.15.4",
+      "Version": "1.17.8",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
         "methods"
       ],
-      "Hash": "8ee9ac56ef633d0c7cab8b2ca87d683e"
+      "Hash": "1d991cd6160fa7b1fdbd3689034cbd15"
     },
     "dbplyr": {
       "Package": "dbplyr",
@@ -708,25 +697,6 @@
       ],
       "Hash": "15e9634c0fcd294799e9b2e929ed1b86"
     },
-    "ggh4x": {
-      "Package": "ggh4x",
-      "Version": "0.3.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "S7",
-        "cli",
-        "ggplot2",
-        "grid",
-        "gtable",
-        "lifecycle",
-        "rlang",
-        "scales",
-        "stats",
-        "vctrs"
-      ],
-      "Hash": "024c1c1d5894bf313a1625b167984f2e"
-    },
     "ggplot2": {
       "Package": "ggplot2",
       "Version": "3.5.2",
@@ -751,24 +721,6 @@
         "withr"
       ],
       "Hash": "7ad64861e028a777d7d67ff83231b548"
-    },
-    "gguw": {
-      "Package": "gguw",
-      "Version": "0.1.0",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "lpiep",
-      "RemoteRepo": "gguw",
-      "RemoteRef": "main",
-      "RemoteSha": "c30f9d446b775cffe31ce3240737a49c1c4c2483",
-      "Requirements": [
-        "ggplot2",
-        "magrittr",
-        "showtext",
-        "sysfonts"
-      ],
-      "Hash": "3cbdd173a6840b5fb080747a5fa0677a"
     },
     "globals": {
       "Package": "globals",
@@ -1717,29 +1669,6 @@
       ],
       "Hash": "b320f164b1d7bb7e4582b841e22d15a0"
     },
-    "showtext": {
-      "Package": "showtext",
-      "Version": "0.9-7",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "grDevices",
-        "showtextdb",
-        "sysfonts"
-      ],
-      "Hash": "ebc23fc796c28737ffe0a64e5404f3d1"
-    },
-    "showtextdb": {
-      "Package": "showtextdb",
-      "Version": "3.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "sysfonts",
-        "utils"
-      ],
-      "Hash": "c12e756cf947e58b0f2c2a520521a5a8"
-    },
     "stringi": {
       "Package": "stringi",
       "Version": "1.8.7",
@@ -1777,23 +1706,22 @@
       "Repository": "CRAN",
       "Hash": "de342ebfebdbf40477d0758d05426646"
     },
-    "sysfonts": {
-      "Package": "sysfonts",
-      "Version": "0.8.9",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "7dfca1e9c5c278300b5ca6a1772072f7"
-    },
     "systemfonts": {
       "Package": "systemfonts",
-      "Version": "1.0.6",
+      "Version": "1.2.3",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
-        "cpp11"
+        "base64enc",
+        "cpp11",
+        "grid",
+        "jsonlite",
+        "lifecycle",
+        "tools",
+        "utils"
       ],
-      "Hash": "6d538cff441f0f1f36db2209ac7495ac"
+      "Hash": "fe31683d2c6fd9a5724bcdf8ed44ded9"
     },
     "targets": {
       "Package": "targets",
@@ -2094,15 +2022,16 @@
     },
     "xfun": {
       "Package": "xfun",
-      "Version": "0.46",
+      "Version": "0.53",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
+        "R",
         "grDevices",
         "stats",
         "tools"
       ],
-      "Hash": "00ce32f398db0415dde61abfef11300c"
+      "Hash": "1befe97a0d56060b3964e3986d408df9"
     },
     "xml2": {
       "Package": "xml2",
