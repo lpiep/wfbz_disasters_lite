@@ -132,14 +132,15 @@ def main(
         max_pop_density = np.max(mean_pop_density.mask(buffered_fire_series).to_numpy())
         wildfire_community_intersect = (max_pop_density > pop_density_criteria) or bool(wildfire_wui) # pop density criteria met or previously met wui criteria
         
-        # Calculate final metrics - handle no-data values properly
-        buffered_masked = mean_pop_density.mask(buffered_fire_series).to_numpy() 
-        
-        # Remove no-data values and negative values before calculating stats
-        buffered_valid = buffered_masked[~np.isnan(buffered_masked) & (buffered_masked >= 0)]
+        # Calculate final metrics
+        buffered_clipped = pop.clip(buffered_fire_series)  # Keep as GeoDataFrame
+        buffered_masked = buffered_clipped.mask(buffered_fire_series).to_numpy()
         
         # Calculate final metrics
-        avg_pop_density_keep = np.mean(buffered_valid) if len(buffered_valid) > 0 else 0
+        # make any neg numbers 0 -- -200 indicates 'no data' per the docs
+        buffered_masked[buffered_masked < 0] = 0
+        avg_pop_density_keep = buffered_masked.sum()/buffered_fire_series.area * 1000**2
+        
         
         # V. add to results df 
         df_fire = pd.DataFrame({
