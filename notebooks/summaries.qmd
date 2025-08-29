@@ -202,3 +202,12 @@ out %>% st_drop_geometry() %>%
 	group_by(lte2 = wildfire_max_civil_fatalities <= 4) %>%
 	summarize(n())
 ```
+
+
+### Damage from the worst fires
+
+gt 10 fatal and gt 10 struct
+
+```{r}
+out %>% filter((wildfire_max_civil_fatalities > 10) | (wildfire_struct_destroyed > 10)) %>% st_drop_geometry()  %>% summarize(n_death = sum(wildfire_max_civil_fatalities, na.rm=T), n_struct = sum(wildfire_struct_destroyed, na.rm =T))
+```
