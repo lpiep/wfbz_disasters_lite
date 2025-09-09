@@ -42,7 +42,7 @@ FRESC https://www.sciencebase.gov/catalog/item/61707c2ad34ea36449a6b066 (metadat
 --> 
 
 ```{r data}
-ours <- read_sf('../wfbz.geojson') #%>% filter(wildfire_year <= 2020)
+ours <- read_sf('../wfbz.geojson') %>% filter(wildfire_year <= 2020)
 ics209plus <- read_parquet('../data/reference/ICS-209-PLUS_spatiotemporal_linkage_county.parquet')
 #fresc <- st_read(dsn = '../data/reference/Fire_Feature_Data_Pro2_8_Geodatabase/Fire_Feature_Data.gdb/', query = 'select * from USGS_Wildland_Fire_Combined_Dataset where Fire_Year >= 1999 and Assigned_Fire_Type not like \'%Prescribed%\'')
 compare <- bind_rows(
