@@ -19,7 +19,7 @@ library(patchwork)
 library(gguw)
 library(showtext)
 showtext_auto()
-font_add("Arial", regular = "arial.ttf") 
+font_add("Arial", regular = "LiberationSans-Regular.ttf") 
 
 theme_set(
   theme_uw() +

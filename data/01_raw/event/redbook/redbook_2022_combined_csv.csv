@@ -1,4 +1,4 @@
-﻿incident_id,county_unit,incident_name,start_year,date_start,date_cont,origin_dpa,acres_burned,veg_type,cause,structures_est,structures_dam,fatalities_fire,fatalities_civilian
+incident_id,county_unit,incident_name,start_year,date_start,date_cont,origin_dpa,acres_burned,veg_type,cause,structures_dest,structures_dam,fatalities_fire,fatalities_civilian
 BEU-419,MONTEREY,COLORADO,2022,44582,44594,CAL FIRE,687," B, G, T ",DEBRIS BURNING,1,1,,
 BDU-2479,INYO,AIRPORT,2022,44608,44618,CAL FIRE,"4,136"," B, G ",UNDETERMINED,,,,
 MMU-7947,MADERA,VALLEY,2022,44664,44664,CAL FIRE,680, G ,UNDETERMINED,,,,
