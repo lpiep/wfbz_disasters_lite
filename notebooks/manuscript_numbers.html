@@ -63,8 +63,8 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>Numbers included in text of manuscript.</p>
-<section id="county-names" class="level2">
-<h2 class="anchored" data-anchor-id="county-names">County Names</h2>
+<section id="rows-in-src-data" class="level2">
+<h2 class="anchored" data-anchor-id="rows-in-src-data">Rows in src data</h2>
 <section id="ics209" class="level3">
 <h3 class="anchored" data-anchor-id="ics209">ICS209</h3>
 <p>Rows in ics-minimal data set post 2000.</p>
@@ -119,6 +119,227 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </section>
+</section>
+<section id="count-in-final-data" class="level2">
+<h2 class="anchored" data-anchor-id="count-in-final-data">Count in Final Data</h2>
+<p>total count</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6511</code></pre>
+</div>
+</div>
+<p>met criteria</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6377</code></pre>
+</div>
+</div>
+<p>met criteria pct</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9794194</code></pre>
+</div>
+</div>
+</section>
+<section id="bz-types" class="level2">
+<h2 class="anchored" data-anchor-id="bz-types">BZ types</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 2
+  geometry_method                  `n()`
+  &lt;chr&gt;                            &lt;int&gt;
+1 FIRED by Place/Time                476
+2 ICS by Point of Origin, POO-only   139
+3 ICS by Point of Origin, Size      3778
+4 MTBS by ID                         463
+5 MTBS by Name/Place/Time           1149
+6 NIFC by ID                          87
+7 NIFC by Name/Place/Time            419</code></pre>
+</div>
+</div>
+<p>with burn zones from spatial files</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2594</code></pre>
+</div>
+</div>
+</section>
+<section id="time-trend" class="level2">
+<h2 class="anchored" data-anchor-id="time-trend">Time trend</h2>
+<p>fluctuated from</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  wildfire_year     n
+          &lt;dbl&gt; &lt;int&gt;
+1          2001    70
+2          2011   581</code></pre>
+</div>
+</div>
+<p>Compared to 2000-2009, the years between 2010 and 2019 had more wildfire burn disasters</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  `wildfire_year &lt; 2010`     n
+  &lt;lgl&gt;                  &lt;int&gt;
+1 FALSE                   2748
+2 TRUE                    2412</code></pre>
+</div>
+</div>
+<p>more fires that met FMAG</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  `wildfire_year &lt; 2010`     n
+  &lt;lgl&gt;                  &lt;int&gt;
+1 FALSE                    364
+2 TRUE                     265</code></pre>
+</div>
+</div>
+<p>More fires that met structure criterion</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  `wildfire_year &lt; 2010`     n
+  &lt;lgl&gt;                  &lt;int&gt;
+1 FALSE                   2425
+2 TRUE                    2272</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  `wildfire_year &lt; 2010`     n
+  &lt;lgl&gt;                  &lt;int&gt;
+1 FALSE                    101
+2 TRUE                      78</code></pre>
+</div>
+</div>
+</section>
+<section id="states" class="level2">
+<h2 class="anchored" data-anchor-id="states">States</h2>
+<p>States with greated number of fires each by year were…</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'wildfire_states'. You can override using
+the `.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 26 × 3
+# Groups:   wildfire_year [26]
+   wildfire_states wildfire_year     n
+   &lt;chr&gt;                   &lt;dbl&gt; &lt;int&gt;
+ 1 OK                       2000    19
+ 2 CA                       2001    22
+ 3 CA                       2002    50
+ 4 CA                       2003    44
+ 5 CA                       2004    58
+ 6 OK                       2005    50
+ 7 TX                       2006    66
+ 8 SC                       2007    79
+ 9 TX                       2008    55
+10 FL                       2009    44
+# ℹ 16 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="criteria" class="level2">
+<h2 class="anchored" data-anchor-id="criteria">Criteria</h2>
+<p>structure</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "5883 90.4 %"</code></pre>
+</div>
+</div>
+<p>fema</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "814 12.5 %"</code></pre>
+</div>
+</div>
+<p>fatal</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "227 3.5 %"</code></pre>
+</div>
+</div>
+<p>total struct</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 118044</code></pre>
+</div>
+</div>
+<p>total death</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 536</code></pre>
+</div>
+</div>
+</section>
+<section id="california-only" class="level2">
+<h2 class="anchored" data-anchor-id="california-only">California only</h2>
+<p>cali had the most disasters…</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "936 14.4 %"</code></pre>
+</div>
+</div>
+<p>fatalities</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "237 44.2 %"</code></pre>
+</div>
+</div>
+<p>and structures</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "81377 68.9 %"</code></pre>
+</div>
+</div>
+<p>… and fmags</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "226 27.8 %"</code></pre>
+</div>
+</div>
+</section>
+<section id="among-structure-destroying-fires" class="level2">
+<h2 class="anchored" data-anchor-id="among-structure-destroying-fires">Among structure destroying fires</h2>
+<p>this many destroyed OR damaged fewer than 5</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+    gt4 `gt4/n()`
+  &lt;int&gt;     &lt;dbl&gt;
+1  4066     0.691</code></pre>
+</div>
+</div>
+</section>
+<section id="of-fatal-fires" class="level2">
+<h2 class="anchored" data-anchor-id="of-fatal-fires">Of fatal fires</h2>
+<p>only this many resulted in 10 fatalities or 10 structures destroeyd</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+   gt10 `gt10/n()`
+  &lt;int&gt;      &lt;dbl&gt;
+1   653      0.100</code></pre>
+</div>
+</div>
+<p>however these fires accounted for…</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 653</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  n                        struct                      fatal                   
+  &lt;chr&gt;                    &lt;chr&gt;                       &lt;chr&gt;                   
+1 653 ( 10.0291813853479 ) 107317 ( 90.9127105147233 ) 397 ( 74.0671641791045 )</code></pre>
+</div>
+</div>
 </section>
 
 </main>

@@ -22,9 +22,11 @@ library(arrow)
 source("../code/helpers.R")
 options(scipen = 999)
 tar_load_everything(store = '../_targets') 
+final <- read_sf('../wfbz.geojson')
 ```
 
-## County Names
+
+## Rows in src data
 
 ### ICS209
 
@@ -64,4 +66,220 @@ nrow(event_fema)
 ```{r}
 sum(!is.na(event_fema$wildfire_counties))
 sum(!is.na(event_fema$wildfire_counties)) / nrow(event_fema)
+```
+
+
+## Count in Final Data
+
+total count
+```{r}
+nrow(final) 
+```
+met criteria
+```{r}
+sum(final$wildfire_community_intersect) 
+```
+met criteria pct
+```{r}
+sum(final$wildfire_community_intersect) / nrow(final)
+```
+## BZ types
+
+```{r}
+final %>% st_drop_geometry() %>% group_by(geometry_method) %>% summarize(n())
+```
+
+with burn zones from spatial files
+```{r}
+sum(str_detect(final$geometry_src, '(FIRED|MTBS|NIFC)')) 
+```
+
+## Time trend
+
+fluctuated from 
+```{r}
+final %>% st_drop_geometry() %>% group_by(wildfire_year) %>% summarize(n=n()) %>%
+	filter(n %in% range(n))
+```
+
+Compared to 2000-2009, the years between 2010 and 2019 had more wildfire burn disasters
+
+```{r}
+final %>% st_drop_geometry() %>% filter(between(wildfire_year, 2000, 2019)) %>% 
+	group_by(wildfire_year < 2010) %>% 
+	summarize(n=n())
+```
+
+more fires that met FMAG
+
+```{r}
+final %>% st_drop_geometry() %>% filter(between(wildfire_year, 2000, 2019)) %>% 
+	group_by(wildfire_year < 2010) %>% 
+	summarize(n=sum(wildfire_fema_dec, na.rm=TRUE))
+```
+
+More fires that met structure criterion
+
+```{r}
+final %>% st_drop_geometry() %>% filter(between(wildfire_year, 2000, 2019)) %>% 
+	group_by(wildfire_year < 2010) %>% 
+	summarize(n=sum(str_detect(wildfire_disaster_criteria_met, 'struct'), na.rm=TRUE))
+```
+
+```{r}
+final %>% st_drop_geometry() %>% filter(between(wildfire_year, 2000, 2019)) %>% 
+	group_by(wildfire_year < 2010) %>% 
+	summarize(n=sum(str_detect(wildfire_disaster_criteria_met, 'death'), na.rm=TRUE))
+```
+
+## States 
+
+States with greated number of fires each by year were...
+
+```{r}
+final %>% st_drop_geometry() %>% unnest(wildfire_states) %>% group_by(wildfire_states, wildfire_year) %>% summarize(n = n()) %>%
+	group_by(wildfire_year) %>%
+	filter(n == max(n)) %>%
+	arrange(wildfire_year)
+
+```
+
+## Criteria
+
+structure
+
+```{r}
+paste(
+	sum(str_detect(final$wildfire_disaster_criteria_met, 'struct')),
+	100*round(sum(str_detect(final$wildfire_disaster_criteria_met, 'struct')) / nrow(final), digits = 3), '%'
+)
+```
+
+fema
+```{r}
+paste(
+	sum(str_detect(final$wildfire_disaster_criteria_met, 'dec')),
+	100*round(sum(str_detect(final$wildfire_disaster_criteria_met, 'dec')) / nrow(final), digits = 3), '%'
+)
+```
+
+fatal
+```{r}
+paste(
+	sum(str_detect(final$wildfire_disaster_criteria_met, 'death')),
+	100*round(sum(str_detect(final$wildfire_disaster_criteria_met, 'death')) / nrow(final), digits = 3), '%'
+)
+```
+
+total struct
+```{r}
+sum(final$wildfire_struct_destroyed,na.rm=T)
+```
+total death
+
+```{r}
+sum(final$wildfire_max_civil_fatalities,na.rm=T)
+```
+
+## California only
+
+cali had the most disasters... 
+```{r}
+paste(
+	nrow(final %>% filter(str_detect(wildfire_states, 'CA'))),
+	format(100*nrow(final %>% filter(str_detect(wildfire_states, 'CA'))) / nrow(final), digits = 3), '%'
+)
+```
+
+fatalities
+
+```{r}
+paste(
+	final %>% 
+		filter(str_detect(wildfire_states, 'CA')) %>% 
+		pull(wildfire_max_civil_fatalities) %>% 
+		sum(na.rm=T),
+	format(
+		100* 	final %>% 
+		filter(str_detect(wildfire_states, 'CA')) %>% 
+		pull(wildfire_max_civil_fatalities) %>% 
+		sum(na.rm=T) %>%
+		`/`(sum(final$wildfire_max_civil_fatalities,na.rm=T))
+	, digits = 3), '%'
+)
+```
+and structures
+
+```{r}
+paste(
+	final %>% 
+		filter(str_detect(wildfire_states, 'CA')) %>% 
+		pull(wildfire_struct_destroyed) %>% 
+		sum(na.rm=T),
+	format(
+		100* 	final %>% 
+		filter(str_detect(wildfire_states, 'CA')) %>% 
+		pull(wildfire_struct_destroyed) %>% 
+		sum(na.rm=T) %>%
+		`/`(sum(final$wildfire_struct_destroyed,na.rm=T))
+	, digits = 3), '%'
+)
+```
+
+... and fmags
+
+
+```{r}
+paste(
+	final %>% 
+		filter(str_detect(wildfire_states, 'CA')) %>% 
+		pull(wildfire_fema_dec) %>% 
+		sum(na.rm=T),
+	format(
+		100* 	final %>% 
+		filter(str_detect(wildfire_states, 'CA')) %>% 
+		pull(wildfire_fema_dec) %>% 
+		sum(na.rm=T) %>%
+		`/`(sum(final$wildfire_fema_dec,na.rm=T))
+	, digits = 3), '%'
+)
+```
+## Among structure destroying fires
+
+this many destroyed OR damaged fewer than 5 
+```{r}
+	final %>% 
+		filter(str_detect(wildfire_disaster_criteria_met, 'struct')) %>%
+		st_drop_geometry() %>%
+		summarize(
+		 gt4 = sum(coalesce(wildfire_struct_destroyed, 0) + coalesce(wildfire_struct_threatened, 0) <= 4, na.rm = T),
+		 gt4 / n()
+		)
+```
+## Of fatal fires
+
+only this many resulted in 10 fatalities or 10 structures destroeyd 
+```{r}
+	final %>% 
+		st_drop_geometry() %>%
+		summarize(
+			gt10 = sum((coalesce(wildfire_struct_destroyed, 0) > 10) | (coalesce(wildfire_max_civil_fatalities,0) > 10), na.rm = T),
+			gt10 / n()
+		)
+```
+
+however these fires accounted for...
+```{r}
+final %>% 
+	filter((coalesce(wildfire_struct_destroyed, 0) > 10) | (coalesce(wildfire_max_civil_fatalities,0) > 10)) %>%
+	nrow()
+```
+```{r}
+final %>% 
+	st_drop_geometry() %>% 
+	filter((coalesce(wildfire_struct_destroyed, 0) > 10) | (coalesce(wildfire_max_civil_fatalities,0) > 10)) %>%
+	summarize(
+		n = paste(n(), '(',  100* n() / nrow(final), ')'),
+		struct = paste(sum(wildfire_struct_destroyed, na.rm =T), '(', 100*sum(wildfire_struct_destroyed, na.rm =T) / sum(final$wildfire_struct_destroyed,na.rm =T), ')'),
+	fatal = paste(sum(wildfire_max_civil_fatalities, na.rm =T), '(', 100*sum(wildfire_max_civil_fatalities, na.rm =T) / sum(final$wildfire_max_civil_fatalities,na.rm =T), ')'),	)
 ```
