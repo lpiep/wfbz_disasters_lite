@@ -44,7 +44,7 @@ FRESC https://www.sciencebase.gov/catalog/item/61707c2ad34ea36449a6b066 (metadat
 ```{r data}
 ours <- read_sf('../wfbz.geojson') %>% filter(wildfire_year <= 2020)
 ics209plus <- read_parquet('../data/reference/ICS-209-PLUS_spatiotemporal_linkage_county.parquet')
-#fresc <- st_read(dsn = '../data/reference/Fire_Feature_Data_Pro2_8_Geodatabase/Fire_Feature_Data.gdb/', query = 'select * from USGS_Wildland_Fire_Combined_Dataset where Fire_Year >= 1999 and Assigned_Fire_Type not like \'%Prescribed%\'')
+#fresc <- st_read(dsn = '../data/reference/Fire_Feature_Data_Pro2_8_Geodatabase/Fire_Feature_Data.gdb/', query = 'select * from USGS_Wildland_Fire_Combined_dataset where Fire_Year >= 1999 and Assigned_Fire_Type not like \'%Prescribed%\'')
 compare <- bind_rows(
     ours %>% 
         st_drop_geometry() %>% 
@@ -55,7 +55,7 @@ compare <- bind_rows(
             `Structures destroyed, N` = sum(wildfire_struct_destroyed, na.rm = TRUE),
             `Total fatalities, N` = sum(wildfire_total_fatalities, na.rm = TRUE)
         ) %>% 
-         mutate(Dataset = 'WFBZ Disaster'),
+         mutate(dataset = 'WFBZ Disaster'),
     ics209plus %>%
         group_by(INCIDENT_ID) %>%
         slice_head(n = 1) %>% # just take one of the counties
@@ -69,7 +69,7 @@ compare <- bind_rows(
             `Total fatalities, N` = sum(FATALITIES, na.rm = TRUE),
             `Structures destroyed, N` = sum(STR_DESTROYED_TOTAL, na.rm = TRUE)
         ) %>%
-        mutate(Dataset = 'ICS-209-PLUS') 
+        mutate(dataset = 'ICS-209-PLUS') 
 )
 
 ```
@@ -82,7 +82,7 @@ For ICS209-PLUS, we defined a disaster fire as a fire that destroyed a building,
 
 ```{r}
 ggplot(compare) + 
-  geom_line(aes(x = Year, y = `Wildfire burn zone disasters, N`, color = Dataset)) +
+  geom_line(aes(x = Year, y = `Wildfire burn zone disasters, N`, color = dataset)) +
 	scale_color_manual(values = pal)
 ```
 
@@ -91,13 +91,13 @@ ggplot(compare) +
 ```{r}
 #| fig-height: 8
 p1 <- ggplot() + 
-  geom_line(data = compare, aes(x = Year, y = `Civilian fatalities, N`, color = Dataset)) +
+  geom_line(data = compare, aes(x = Year, y = `Civilian fatalities, N`, color = dataset)) +
   annotate('segment', x = 2013.5, xend = 2013.5, y = 0, yend = 50, linetype = 'dashed') +
   annotate('text', x = 2013.5, y = 55, label = 'ICS-209 begins reporting\ncivilian fatalities separately.', size = 3, angle = -55, hjust = 1) + 
 	scale_color_manual(values = pal)
 
 p2 <- ggplot() + 
-  geom_line(data = compare, aes(x = Year, y = `Total fatalities, N`, color = Dataset)) +
+  geom_line(data = compare, aes(x = Year, y = `Total fatalities, N`, color = dataset)) +
 	scale_color_manual(values = pal)
 
 p1 + p2 + plot_layout(ncol = 1)
@@ -107,7 +107,7 @@ p1 + p2 + plot_layout(ncol = 1)
 
 ```{r}
 ggplot(compare) + 
-  geom_line(aes(x = Year, y = `Structures destroyed, N`, color = Dataset)) +	
+  geom_line(aes(x = Year, y = `Structures destroyed, N`, color = dataset)) +	
 	scale_color_manual(values = pal) + 
 	scale_y_continuous(labels = scales::comma)
 

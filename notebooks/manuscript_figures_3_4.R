@@ -16,7 +16,11 @@ pacman::p_load(here, readr, dplyr, tidyr, stringr, purrr,
                forcats, geofacet, lubridate, snakecase, ggplot2,
                ggthemes,rlang, ggmap, sf, tigris, tidyverse,
                ggnewscale, gridExtra, readxl, survey, gtsummary,
-               MetBrewer, PNWColors, biscale, patchwork, arrow, geojsonR, cdlTools)
+               MetBrewer, PNWColors, biscale, patchwork, arrow, geojsonR, 
+							 cdlTools, showtext)
+showtext_auto()
+font_add("Arial", regular = "notebooks/LiberationSans-Regular.ttf") 
+
 custom_pal <- c("#E38265", "#F4C988", "#EBAA6C", "#F2BF9D",
                 "#DE858D", "#E9AC7F", "#FAEAB8")
 rev_pal <- rev.default(custom_pal)
@@ -33,19 +37,25 @@ ca_counties <- counties %>%
 fl_counties  <- counties %>%
   filter(STATEFP == "12")
 
+theme_set(
+	theme_bw() +
+		theme(
+			text = element_text(family = 'Arial'), 
+		)
+)
 # read and clean data ---------------------------
 # read in all 3 file using function to clean and create composite criteria
 readin <- function(df_csv) {
   df <- st_read(df_csv) %>%
     filter(wildfire_community_intersect) %>%
     mutate(composite_measure = case_when(
-      wildfire_disaster_criteria_met == "civilian_death|structures_destroyed|fema_fmag_declaration" ~ "All 3 Criteria Met",
-      wildfire_disaster_criteria_met == "civilian_death" ~ "Civilian Fatality",
-      wildfire_disaster_criteria_met == "structures_destroyed" ~ "Structure Destroyed",
+      wildfire_disaster_criteria_met == "civilian_death|structures_destroyed|fema_fmag_declaration" ~ "All 3 criteria met",
+      wildfire_disaster_criteria_met == "civilian_death" ~ "Civilian fatality",
+      wildfire_disaster_criteria_met == "structures_destroyed" ~ "Structure destroyed",
       wildfire_disaster_criteria_met == "fema_fmag_declaration" ~ "FMAG",
-      wildfire_disaster_criteria_met == "civilian_death|structures_destroyed" ~ "Civilian Fatality and Structure Destroyed",
-      wildfire_disaster_criteria_met == "civilian_death|fema_fmag_declaration" ~ "Civilian Fatality and FMAG",
-      wildfire_disaster_criteria_met == "structures_destroyed|fema_fmag_declaration" ~ "Structure Destroyed and FMAG",
+      wildfire_disaster_criteria_met == "civilian_death|structures_destroyed" ~ "Civilian fatality and structure destroyed",
+      wildfire_disaster_criteria_met == "civilian_death|fema_fmag_declaration" ~ "Civilian fatality and FMAG",
+      wildfire_disaster_criteria_met == "structures_destroyed|fema_fmag_declaration" ~ "Structure destroyed and FMAG",
       TRUE ~ "Unknown"
     ))
   df$composite_measure <- as.factor(df$composite_measure)
@@ -79,7 +89,6 @@ statewrap <- ggplot(ng_state_counts, aes(wildfire_year, adj_count_90)) +
   # scale_y_log10()+
    scale_y_continuous(breaks = c(0, 30, 60, 90)) +
   # ylim(0,75) +
-  theme_bw() +
   theme(
     axis.text.x = element_text(angle = 90, size = 12),
     axis.text.y = element_text(size = 12),
@@ -88,7 +97,7 @@ statewrap <- ggplot(ng_state_counts, aes(wildfire_year, adj_count_90)) +
     panel.grid.minor = element_blank(),
     panel.background = element_blank(),
   ) +
-  labs(y = "Number of Wildfire Burn Zone Disasters",
+  labs(y = "Number of wildfire burn zone disasters",
        x = " ") +
   facet_geo(~state_abbr, grid = "us_state_without_DC_grid1")
 statewrap
@@ -103,7 +112,6 @@ statewrap_test <- ggplot(ng_state_counts, aes(wildfire_year, adj_count_90)) +
   geom_col(fill="#92351E") +
   scale_x_continuous(breaks = c(2000, 2005, 2010, 2015, 2020)) +
   scale_y_continuous(breaks = c(0, 30, 60, 90)) +
-  theme_bw() +
   theme(
     axis.text.x = element_text(angle = 90, size = 12, vjust = 0.5),
     # Adjust the margin for y-axis text to move it away from the axis
@@ -118,7 +126,7 @@ statewrap_test <- ggplot(ng_state_counts, aes(wildfire_year, adj_count_90)) +
     # This will help create more space for the tick labels
     plot.margin = margin(t = 5, r = 5, b = 10, l = 10, unit = "pt")
   ) +
-  labs(y = "Number of Wildfire Burn Zone Disasters",
+  labs(y = "Number of wildfire burn zone disasters",
        x = " ") +
   facet_geo(~state_abbr, grid = "us_state_without_DC_grid1")
 
@@ -141,18 +149,18 @@ ca_county_counts <- ca_county_counts %>%
   mutate(n = coalesce(n, 0))
 
 # creating labels for composite measures
-comp.labs <- c("Structure Destroyed",
-               "Structure Destroyed \n+ FMAG",
+comp.labs <- c("Structure destroyed",
+               "Structure destroyed \n+ FMAG",
                "FMAG",
-               "Civilian Fatality",
-               "Met All \n3 Criteria",
-               "Civilian Fatality \n+ Structure Destroyed")
-names(comp.labs) <- c("Structure Destroyed",
-                      "Structure Destroyed and FMAG",
+               "Civilian fatality",
+               "Met all \n3 criteria",
+               "Civilian fatality \n+ structure destroyed")
+names(comp.labs) <- c("Structure destroyed",
+                      "Structure destroyed and FMAG",
                       "FMAG",
-                      "Civilian Fatality",
-                      "All 3 Criteria Met",
-                      "Civilian Fatality and Structure Destroyed")
+                      "Civilian fatality",
+                      "All 3 criteria Met",
+                      "Civilian fatality and structure destroyed")
 ca_polygons <- usa_disaster_split %>% filter(STATEFP %in% c("06"))
 ca_cut <-st_intersection(ca_polygons, st_transform(ca_counties, st_crs(ca_polygons)))
 
@@ -174,9 +182,9 @@ comp_facet_map <- ggplot() +
 county_map <- ggplot() +
   geom_sf(data = ca_county_counts, aes(fill=n)) +
   scale_fill_gradient(low = "white", high = "#E08214") +
-  theme_map() +
+  theme_map(base_family = 'Arial') +
   theme(legend.position = "bottom") +
-  labs(fill = "Number of Wildfire \nBurn Zone Disasters")
+  labs(fill = "Number of wildfire \nburn zone disasters")
 
 california <- county_map + comp_facet_map +
   plot_layout(ncol = 2, widths = c(1, 1.5)) 
