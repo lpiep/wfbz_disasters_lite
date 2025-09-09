@@ -1,4 +1,4 @@
-﻿incident_id,county_unit,incident_name,start_year,date_start,date_cont,origin_dpa,acres_burned,veg_type,cause,structures_est,structures_dam,fatalities_fire,fatalities_civilian
+incident_id,county_unit,incident_name,start_year,date_start,date_cont,origin_dpa,acres_burned,veg_type,cause,structures_dest,structures_dam,fatalities_fire,fatalities_civilian
 NEU-11799,PLACER,AMORUSO,2020,43983,43983,CAL FIRE,670, G ,EQUIPMENT USE,,,,
 LNU-8419,SOLANO,QUAIL,2020,43988,43995,CAL FIRE,"1,837", T ,FIREARMS,5,12,,
 SLU-7149,SAN LUIS OBISPO,SODA,2020,43992,43992,CAL FIRE,"1,680", G ,VEHICLE,,,,

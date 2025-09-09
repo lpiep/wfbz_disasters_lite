@@ -25,7 +25,8 @@ tar_load_everything(store = '../_targets')
 out <- read_sf(file.path('../', output_file))
 ```
 
-### Intermediate data 
+### Intermediate data
+
 ```{r}
 steps <- tribble(
 	~ Step, ~ Count, ~denom, ~ major,
@@ -103,6 +104,7 @@ dat %>%
 ### Year Trends
 
 #### Min max
+
 ```{r}
 out %>% 
 	st_drop_geometry() %>% 
@@ -112,6 +114,7 @@ out %>%
 ```
 
 #### pre/post 2010
+
 ```{r}
 out %>% 
 	st_drop_geometry() %>%
@@ -140,10 +143,7 @@ out %>%
 	arrange(wildfire_states, wildfire_year)
 ```
 
-
 These six states had...
-
-
 
 ```{r}
 
@@ -156,7 +156,6 @@ out %>%
 		n = n()
 	) 
 ```
-
 
 Totals:
 
@@ -183,9 +182,8 @@ out %>%
 	)
 ```
 
+among fires that killed someone, x% killed lte 2.
 
-
-among fires that killed someone, x% killed lte 2. 
 ```{r}
 out %>% st_drop_geometry() %>%
 	filter(str_detect('civilian_death', wildfire_disaster_criteria_met)) %>%
@@ -193,16 +191,14 @@ out %>% st_drop_geometry() %>%
 	summarize(n())
 ```
 
+among fires that destroyed structures, x% killed lte 4.
 
-
-among fires that destroyed structures, x% killed lte 4. 
 ```{r}
 out %>% st_drop_geometry() %>%
 	filter(str_detect('civilian_death', wildfire_disaster_criteria_met)) %>%
 	group_by(lte2 = wildfire_max_civil_fatalities <= 4) %>%
 	summarize(n())
 ```
-
 
 ### Damage from the worst fires
 

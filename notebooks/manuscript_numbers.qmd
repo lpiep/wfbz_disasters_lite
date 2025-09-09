@@ -2,11 +2,11 @@
 title: "Manuscript Numbers"
 format: html
 editor: visual
-execute: 
-	echo: false
+execute:
+  echo: false
 ---
 
-Numbers included in text of manuscript. 
+Numbers included in text of manuscript.
 
 ```{r setup}
 #| include: false
@@ -24,21 +24,25 @@ options(scipen = 999)
 tar_load_everything(store = '../_targets') 
 ```
 
-## County Names 
+## County Names
 
 ### ICS209
 
-Rows in ics-minimal data set post 2000. 
+Rows in ics-minimal data set post 2000.
+
 ```{r}
 nrow(event_ics209)
 ```
+
 Non-Missing POO Lat/long
+
 ```{r}
 sum(!is.na(event_ics209$wildfire_poo_lat))
 sum(!is.na(event_ics209$wildfire_poo_lat)) / nrow(event_ics209)
 ```
 
 Non-Missing County Name (N, pct):
+
 ```{r}
 sum(!is.na(event_ics209$wildfire_counties))
 sum(!is.na(event_ics209$wildfire_counties)) / nrow(event_ics209)

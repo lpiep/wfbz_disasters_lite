@@ -25,7 +25,7 @@ Sample Data:
 | dtype: float64 | intermix | FALSE | structures_destroyed | 2017-07-16 | NA | 2017-07-16 | NA | NA | 45.57056 | -106.33139 | MTBS | MTBS by ID | NA | 2017_017-35_TURTLE | NA | MT4557110633120170716 | NA |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | 10 | 2020 | NV | 75.963891 | FALSE | NUMBERS | NA | NA | NA | 0 | 2 | 50 | 50 | 40 | NA | NA | TRUE | 1361.8416 | 0 3.101947 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | dtype: float64 | intermix | FALSE | structures_destroyed | 2020-07-06 | NA | 2020-07-07 | NA | NA | 38.84333 | -119.63861 | MTBS | MTBS by ID | NA | 2020_030406_NUMBERS | NA | NV3884311963920200707 | NA |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 11 | 2020 | CA | 183.863534 | FALSE | LOYALTON | NA | NA | NA | NA | NA | 0 | 0 | 29 | NA | NA | TRUE | 35103.2479 | 0 25.641512 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| 11 | 2020 | CA | 183.863534 | FALSE | LOYALTON | NA | NA | NA | NA | NA | 0 | 0 | 35 | NA | NA | TRUE | 35103.2479 | 0 25.641512 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | dtype: float64 | intermix | FALSE | structures_destroyed | 2020-08-14 | 2020-08-30 | 2020-08-14 | 2020-08-30 | NA | 39.68143 | -120.17130 | MTBS | MTBS by ID | 960 | 2020_001600_LOYALTON | NA | CA3968112017120200814 | NA |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | 12 | 2014 | AK | 779.853002 | FALSE | FUNNY RIV | NA | NA | NA | 0 | 4 | NA | NA | 4 | 0 | 1.30e+07 | TRUE | 12981.8287 | 0 3.194937 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | dtype: float64 | NA | FALSE | structures_destroyed | 2014-05-19 | NA | 2014-05-20 | NA | NA | 60.43945 | -150.96188 | MTBS | MTBS by ID | NA | 2014_403140_FUNNY RIVER | NA | AK6043915096220140520 | NA |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
@@ -35,7 +35,7 @@ Sample Data:
 | dtype: float64 | NA | FALSE | structures_destroyed | 2016-08-09 | NA | 2016-08-09 | NA | NA | 36.08889 | -120.52167 | MTBS | MTBS by ID | NA | 2016_011358_MINERAL | NA | CA3608912052220160809 | NA |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | 15 | 2022 | TX | 13.360132 | FALSE | 3 OAKS | NA | NA | NA | NA | NA | NA | NA | 3 | NA | NA | TRUE | 1674.7811 | 0 1.335844 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | dtype: float64 | NA | FALSE | structures_destroyed | 2022-03-14 | NA | 2022-03-14 | NA | NA | 31.38765 | -98.36158 | MTBS | MTBS by ID | NA | 2022_221627_3 OAKS | NA | TX3138809836220220314 | NA |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 16 | 2022 | CA | 78.495953 | FALSE | OAK | NA | NA | NA | NA | NA | NA | NA | 127 | NA | NA | TRUE | 2854.8085 | 0 4.25225 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| 16 | 2022 | CA | 78.495953 | FALSE | OAK | NA | NA | NA | NA | NA | NA | NA | 194 | NA | NA | TRUE | 2854.8085 | 0 4.25225 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | dtype: float64 | intermix | TRUE | structures_destroyed\|fema_fmag_declaration | 2022-07-22 | 2022-09-02 | 2022-07-22 | 2022-09-02 | 2022-07-23 | 37.54871 | -119.92077 | MTBS | MTBS by ID | 1073 | 2022_016149_OAK | NA | CA3754911992120220722 | FM-5445-CA |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | 17 | 2022 | TX | 152.386230 | FALSE | CANADIAN RIV BTM | NA | NA | NA | NA | NA | NA | NA | 20 | 127 | 0.00e+00 | TRUE | 2687.8431 | 0 0.941322 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | dtype: float64 | intermix | FALSE | structures_destroyed | 2022-03-29 | NA | 2022-03-29 | NA | NA | 35.74500 | -100.54300 | MTBS | MTBS by ID | NA | 2022_222207_CANADIAN RIVER BOTTOM | NA | TX3574610054320220329 | NA |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
@@ -49,44 +49,44 @@ Sample Data:
 | dtype: float64 | NA | FALSE | structures_destroyed | 2021-07-15 | NA | 2021-07-15 | NA | NA | 45.86778 | -117.63028 | MTBS | MTBS by ID | NA | 2021_745_ELBOW CREEK | NA | OR4586811763020210715 | NA |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | 22 | 2021 | OR | 1670.562733 | FALSE | BOOTLEG | NA | NA | NA | 0 | 20 | 236 | 236 | 247 | 0 | 1.10e+08 | TRUE | 565.3223 | 0 0.196424 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | dtype: float64 | intermix | FALSE | structures_destroyed | 2021-07-06 | NA | 2021-07-06 | NA | NA | 42.61591 | -121.42090 | MTBS | MTBS by ID | NA | 2021_210321_BOOTLEG | NA | OR4261612142120210706 | NA |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| 23 | 2020 | CA | 8.256832 | FALSE | POND | NA | NA | NA | NA | NA | 411 | 411 | 13 | 200 | 8.00e+06 | TRUE | 11818.0855 | 0 6.61884 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| 23 | 2020 | CA | 8.256832 | FALSE | POND | NA | NA | NA | NA | NA | 411 | 411 | 4 | 200 | 8.00e+06 | TRUE | 11818.0855 | 0 6.61884 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | dtype: float64 | intermix | FALSE | structures_destroyed | 2020-08-01 | 2020-08-09 | 2020-08-01 | 2020-08-09 | NA | 35.41634 | -120.45571 | MTBS | MTBS by ID | 909 | 2020_009866_POND | NA | CA3541612045620200801 | NA |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | 24 | 2017 | OR | 787.395247 | FALSE | CHETCO BAR | NA | NA | NA | 0 | 5 | 5122 | 5122 | 24 | 0 | 7.20e+07 | TRUE | 4660.8501 | 0 3.191236 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | dtype: float64 | intermix | FALSE | structures_destroyed | 2017-07-12 | NA | 2017-07-12 | NA | NA | 42.29667 | -123.95361 | MTBS | MTBS by ID | NA | 2017_000326_CHETCO BAR | NA | OR4229712395420170712 | NA |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | 25 | 2024 | CA | 64.079217 | FALSE | POST | NA | NA | NA | 1 | 1 | 1200 | 1200 | 2 | 10 | 2.00e+07 | TRUE | 3751.2883 | 0 2.094244 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | dtype: float64 | intermix | FALSE | structures_destroyed | 2024-06-15 | NA | 2024-06-15 | NA | NA | 34.80285 | -118.87760 | MTBS | MTBS by ID | NA | 2024_205253_POST | NA | CA3480311887820240615 | NA |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 
-*Last run: 2025-08-29*
+*Last run: 2025-09-09*
 
 Output File Details:
 
 wfbz.geojson
 
-- File Size: 327M
-- File Checksum (md5): 5cc9bd9dbae847f6a31b79bca7a0f8ae
+- File Size: 332M
+- File Checksum (md5): 4529b168f1ab4d5b699995882831cc55
 
 | Cleaned Data Set   | N Obs. |
 |:-------------------|-------:|
 | FEMA               |   1731 |
 | ICS209 Minimal     |  35961 |
 | Redbooks           |   1375 |
-| Harmonized Events  |   7553 |
+| Harmonized Events  |   7580 |
 | FIRED              | 219383 |
 | MTBS               |  14321 |
 | NIFC               |  60803 |
-| Harmonized Spatial |   6490 |
+| Harmonized Spatial |   6511 |
 
 Burn Perimeter Join Types
 
 | geometry_method                  | N Events |
 |:---------------------------------|---------:|
 | ICS by Point of Origin, Size     |     3778 |
-| MTBS by Name/Place/Time          |     1136 |
+| MTBS by Name/Place/Time          |     1149 |
 | FIRED by Place/Time              |      476 |
-| MTBS by ID                       |      462 |
-| NIFC by Name/Place/Time          |      413 |
+| MTBS by ID                       |      463 |
+| NIFC by Name/Place/Time          |      419 |
 | ICS by Point of Origin, POO-only |      139 |
-| NIFC by ID                       |       86 |
+| NIFC by ID                       |       87 |
 
 ## Documentation
 

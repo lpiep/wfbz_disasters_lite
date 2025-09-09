@@ -1,4 +1,4 @@
-﻿incident_id,county_unit,incident_name,start_year,date_start,date_cont,origin_dpa,acres_burned,veg_type,cause,structures_est,structures_dam,fatalities_fire,fatalities_civilian
+incident_id,county_unit,incident_name,start_year,date_start,date_cont,origin_dpa,acres_burned,veg_type,cause,structures_dest,structures_dam,fatalities_fire,fatalities_civilian
 KRN-3139,KERN,WOLF,2021,44215,44216,CC,865, G ,UNDETERMINED,,,,
 SKU-2246,SISKIYOU,REFUGE,2021,44282,44283,CAL FIRE,873, G ,DEBRIS BURNING,,,,
 MVU-7992,SAN DIEGO,SOUTHERN,2021,44317,44323,CAL FIRE,"5,366"," B, G ",UNDETERMINED,3,,,
