@@ -5,7 +5,7 @@ This project aims to be reproducible for future data releases, with as little ma
 
 ## Data
 
-The final data product is included in this directory as `wfbz.geojson`. See https://lpiep.github.io/wildfire_disasters_lite/
+The final data product is included in this directory as `wfbz.geojson`. See https://lpiep.github.io/wfbz_disasters_lite/
 for a data dictionary and information on input data. 
 
 ## Run
