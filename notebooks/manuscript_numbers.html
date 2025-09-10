@@ -305,13 +305,13 @@ the `.groups` argument.</code></pre>
 </section>
 <section id="among-structure-destroying-fires" class="level2">
 <h2 class="anchored" data-anchor-id="among-structure-destroying-fires">Among structure destroying fires</h2>
-<p>this many destroyed OR damaged fewer than 5</p>
+<p>this many destroyed fewer than 5</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
     gt4 `gt4/n()`
   &lt;int&gt;     &lt;dbl&gt;
-1  4066     0.691</code></pre>
+1  4737     0.805</code></pre>
 </div>
 </div>
 </section>
@@ -338,6 +338,96 @@ the `.groups` argument.</code></pre>
   n                        struct                      fatal                   
   &lt;chr&gt;                    &lt;chr&gt;                       &lt;chr&gt;                   
 1 653 ( 10.0291813853479 ) 107317 ( 90.9127105147233 ) 397 ( 74.0671641791045 )</code></pre>
+</div>
+</div>
+</section>
+<section id="unmatched-events" class="level2">
+<h2 class="anchored" data-anchor-id="unmatched-events">Unmatched Events</h2>
+<p>unmatched events total: 666</p>
+<p>By criteria met:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  wildfire_disaster_criteria_met          n
+  &lt;chr&gt;                               &lt;int&gt;
+1 civilian_death                         11
+2 civilian_death|structures_destroyed     7
+3 fema_fmag_declaration                 502
+4 structures_destroyed                  146</code></pre>
+</div>
+</div>
+<p>Of the actual lat longs provided (n = 22), none fall in the united states.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="manuscript_numbers_files/figure-html/unnamed-chunk-33-1.svg" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>4 Had no state information or invalid state information</p>
+<p>Of the ones that did have a recoverable state:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 39 × 2
+   wildfire_states     n
+   &lt;chr&gt;           &lt;int&gt;
+ 1 TX                 97
+ 2 CA                 91
+ 3 OK                 91
+ 4 FL                 41
+ 5 WA                 32
+ 6 OR                 31
+ 7 NM                 29
+ 8 CO                 23
+ 9 NV                 19
+10 AZ                 18
+11 MT                 17
+12 MI                 16
+13 MS                 15
+14 HI                 14
+15 MN                 13
+16 NC                 13
+17 KS                 11
+18 AL                  8
+19 SD                  8
+20 TN                  8
+21 WY                  7
+22 AK                  6
+23 KY                  6
+24 UT                  6
+25 GA                  5
+26 ID                  5
+27 MD                  5
+28 SC                  4
+29 VA                  4
+30 ND                  3
+31 NE                  3
+32 WV                  3
+33 LA                  2
+34 NJ                  2
+35 OH                  2
+36 CT                  1
+37 MO                  1
+38 NH                  1
+39 RI                  1</code></pre>
+</div>
+</div>
+<p>The data sources for the unmatched events were:</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'match_ics209', 'match_redbook'. You can
+override using the `.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+# Groups:   match_ics209, match_redbook [3]
+  match_ics209 match_redbook match_fema `n()`
+  &lt;lgl&gt;        &lt;lgl&gt;         &lt;lgl&gt;      &lt;int&gt;
+1 TRUE         NA            NA           137
+2 NA           TRUE          NA            27
+3 NA           NA            TRUE         502</code></pre>
 </div>
 </div>
 </section>

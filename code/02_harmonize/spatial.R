@@ -447,7 +447,7 @@ harmonize_spatial <- function(
 			fema_crit   = if_else(wildfire_fema_dec, 'fema_fmag_declaration', NA_character_)
 		) %>%
 		unite(wildfire_disaster_criteria_met, c(civ_crit, struct_crit, fema_crit), sep = '|', na.rm = TRUE) %>%
-		filter(wildfire_disaster_criteria_met != '') %>% # when fatalities are the only passing criteria and we know that there were deaths, but no civ deaths
-		select(-event_id)
+		filter(wildfire_disaster_criteria_met != '') #%>% # when fatalities are the only passing criteria and we know that there were deaths, but no civ deaths
+		#select(-event_id)
 }
 

@@ -246,13 +246,13 @@ paste(
 ```
 ## Among structure destroying fires
 
-this many destroyed OR damaged fewer than 5 
+this many destroyed fewer than 5 
 ```{r}
 	final %>% 
 		filter(str_detect(wildfire_disaster_criteria_met, 'struct')) %>%
 		st_drop_geometry() %>%
 		summarize(
-		 gt4 = sum(coalesce(wildfire_struct_destroyed, 0) + coalesce(wildfire_struct_threatened, 0) <= 4, na.rm = T),
+		 gt4 = sum(coalesce(wildfire_struct_destroyed, 0)<= 4, na.rm = T),
 		 gt4 / n()
 		)
 ```
@@ -282,4 +282,66 @@ final %>%
 		n = paste(n(), '(',  100* n() / nrow(final), ')'),
 		struct = paste(sum(wildfire_struct_destroyed, na.rm =T), '(', 100*sum(wildfire_struct_destroyed, na.rm =T) / sum(final$wildfire_struct_destroyed,na.rm =T), ')'),
 	fatal = paste(sum(wildfire_max_civil_fatalities, na.rm =T), '(', 100*sum(wildfire_max_civil_fatalities, na.rm =T) / sum(final$wildfire_max_civil_fatalities,na.rm =T), ')'),	)
+```
+
+
+## Unmatched Events
+
+```{r}
+matched_events <- spatial$event_id %>% unlist(recursive = T) %>% unique() 
+unmatched_events <- event %>% filter(!(event_id %in% matched_events)) %>%
+	mutate( # add in criteria just like we did in spatial
+			civ_crit    = if_else(
+				coalesce(wildfire_max_civil_fatalities, wildfire_civil_fatalities, 0) > 0 | (is.na(wildfire_max_civil_fatalities) & (coalesce(wildfire_total_fatalities, 0) > 0)), 
+				'civilian_death', 
+				NA_character_
+			),
+			struct_crit = if_else(
+				coalesce(wildfire_struct_destroyed, 0) > 0, 
+				'structures_destroyed', 
+				NA_character_
+			),
+			fema_crit   = if_else(wildfire_fema_dec, 'fema_fmag_declaration', NA_character_)
+		) %>%
+		unite(wildfire_disaster_criteria_met, c(civ_crit, struct_crit, fema_crit), sep = '|', na.rm = TRUE) %>%
+	filter(wildfire_disaster_criteria_met != '')
+```
+
+unmatched events total:
+`r nrow(unmatched_events)`
+
+By criteria met:
+
+```{r}
+unmatched_events %>%
+	group_by(wildfire_disaster_criteria_met) %>%
+	summarize(n = n())
+```
+
+Of the actual lat longs provided (n = `r sum(!is.na(unmatched_events$wildfire_poo_lon_ics209))`), none fall in the united states.
+
+```{r}
+ggplot() + 
+	geom_sf(data = tigris::states(cb = TRUE, year = 2024, progress_bar = FALSE)) + 
+	geom_sf(data = st_as_sf(unmatched_events, coords = c('wildfire_poo_lon_ics209', 'wildfire_poo_lat_ics209'), crs = 4269, na.fail = FALSE))
+```
+
+`r sum(is.na(unmatched_events$wildfire_states) | !(unmatched_events$wildfire_states %in% c(state.abb, 'DC', 'PR', 'GU', 'VI')))` Had no state information or invalid state information
+
+Of the ones that did have a recoverable state:
+
+```{r}
+unmatched_events %>%
+	filter(wildfire_states %in% c(state.abb, 'DC', 'PR', 'GU', 'VI')) %>% 
+	group_by(wildfire_states) %>%
+	summarize(n = n()) %>%
+	arrange(desc(n), wildfire_states) %>%
+	print(n = 40)
+```
+The data sources for the unmatched events were: 
+
+```{r}
+unmatched_events %>%
+	group_by(match_ics209, match_redbook, match_fema) %>%
+	summarize(n())
 ```
