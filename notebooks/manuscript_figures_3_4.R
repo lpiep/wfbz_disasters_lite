@@ -102,8 +102,8 @@ statewrap <- ggplot(ng_state_counts, aes(wildfire_year, adj_count_90)) +
   facet_geo(~state_abbr, grid = "us_state_without_DC_grid1")
 statewrap
 ggsave(here("figures", "statewrap_90.pdf"),
-       statewrap,
-       dpi=300, height=8, width=10, units="in")
+			 statewrap,
+			 dpi=300, height=10, width=15.5, units="in")
 
 
 # sectionheader ---------------------------
