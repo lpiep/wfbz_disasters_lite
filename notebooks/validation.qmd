@@ -112,3 +112,41 @@ ggplot(compare) +
 	scale_y_continuous(labels = scales::comma)
 
 ```
+
+## Direct Comparisons
+
+Comparison of sizes of fires:
+
+```{r}
+ics209plus_dedup <- ics209plus %>%
+        group_by(INCIDENT_ID) %>%
+        slice_head(n = 1) 
+
+ours_unnest <- ours %>%
+	mutate(ics_id = str_split(ics_id, '\\|')) %>%
+	unnest(ics_id)
+
+matches <- inner_join(ics209plus_dedup, ours_unnest, by = c('INCIDENT_ID' = 'ics_id')) 
+
+ggplot(matches) + 
+	geom_point(aes(x = FINAL_ACRES*0.00404686, y = wildfire_area), alpha = .25) + 
+	geom_abline(slope = 1, linetype = 'dashed', color = '#88A0DC') + 
+	annotate('label', x = 1500, y = 1500, hjust = 0, size = 2, label = '1-1 Line', color = '#88A0DC') + 
+	scale_x_continuous(labels = ~ scales::comma(.x, accuracy = .01), trans = 'log') + 
+	scale_y_continuous(labels = ~ scales::comma(.x, accuracy = .01), trans = 'log') + 
+	xlab("ICS-209-PLUS area (sq. km)") + 
+	ylab("WFBZ Disaster area (sq.km)") + 
+	coord_equal()
+```
+
+We were able to match `r length(unique(matches$INCIDENT_ID))` ICS-209-PLUS records to `r length(unique(matches$wildfire_id))` WFBZ Disaster records (some WFBZ Disasters included multiple records from ICS-209 and therefore corresponded to multiple ICS-209-PLUS records). 
+
+Median Difference (WFBZ Disaster - ICS-209-PLUS): `r median(matches$wildfire_area - (matches$FINAL_ACRES*0.00404686), na.rm = TRUE)`
+
+Median Abs. Difference: `r median(abs(matches$wildfire_area - (matches$FINAL_ACRES*0.00404686)), na.rm = TRUE)`
+
+IQR Difference: `r median((matches$wildfire_area - (matches$FINAL_ACRES*0.00404686)), na.rm = TRUE) - IQR(abs(matches$wildfire_area - (matches$FINAL_ACRES*0.00404686)), na.rm = TRUE)` to `r median((matches$wildfire_area - (matches$FINAL_ACRES*0.00404686)), na.rm = TRUE) + IQR(abs(matches$wildfire_area - (matches$FINAL_ACRES*0.00404686)), na.rm = TRUE)`
+
+IQR Abs. Difference: `r median(abs(matches$wildfire_area - (matches$FINAL_ACRES*0.00404686)), na.rm = TRUE) - IQR(abs(matches$wildfire_area - (matches$FINAL_ACRES*0.00404686)), na.rm = TRUE)` to `r median(abs(matches$wildfire_area - (matches$FINAL_ACRES*0.00404686)), na.rm = TRUE) + IQR(abs(matches$wildfire_area - (matches$FINAL_ACRES*0.00404686)), na.rm = TRUE)`
+
+
