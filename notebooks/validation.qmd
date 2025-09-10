@@ -20,6 +20,7 @@ library(gguw)
 library(showtext)
 showtext_auto()
 font_add("Arial", regular = "LiberationSans-Regular.ttf") 
+scipen = 999
 
 theme_set(
   theme_uw() +
@@ -42,8 +43,9 @@ FRESC https://www.sciencebase.gov/catalog/item/61707c2ad34ea36449a6b066 (metadat
 --> 
 
 ```{r data}
-ours <- read_sf('../wfbz.geojson') %>% filter(wildfire_year <= 2020)
-ics209plus <- read_parquet('../data/reference/ICS-209-PLUS_spatiotemporal_linkage_county.parquet')
+ours <- read_sf('../wfbz.geojson') %>% 
+	filter(year(wildfire_ignition_date) <= 2020)
+ics209plus <- read_csv('../data/reference/ics209-plus-wf_incidents_1999to2020.csv')
 #fresc <- st_read(dsn = '../data/reference/Fire_Feature_Data_Pro2_8_Geodatabase/Fire_Feature_Data.gdb/', query = 'select * from USGS_Wildland_Fire_Combined_dataset where Fire_Year >= 1999 and Assigned_Fire_Type not like \'%Prescribed%\'')
 compare <- bind_rows(
     ours %>% 
@@ -55,14 +57,14 @@ compare <- bind_rows(
             `Structures destroyed, N` = sum(wildfire_struct_destroyed, na.rm = TRUE),
             `Total fatalities, N` = sum(wildfire_total_fatalities, na.rm = TRUE)
         ) %>% 
-         mutate(dataset = 'WFBZ Disaster'),
+        mutate(dataset = 'WFBZ Disaster'),
     ics209plus %>%
         group_by(INCIDENT_ID) %>%
         slice_head(n = 1) %>% # just take one of the counties
         mutate(
-          disaster = (STR_DESTROYED_TOTAL > 0) | ((YEAR > 2013) & FATALITIES_PUBLIC > 0) |  ((YEAR <= 2013) & FATALITIES > 0)
+          disaster = (STR_DESTROYED_TOTAL > 0) | ((START_YEAR > 2013) & FATALITIES_PUBLIC > 0) |  ((START_YEAR <= 2013) & FATALITIES > 0)
         ) %>%
-        group_by(Year = YEAR) %>% 
+        group_by(Year = START_YEAR) %>% 
         summarize(
             `Wildfire burn zone disasters, N` = sum(disaster, na.rm = TRUE),
             `Civilian fatalities, N` = sum(FATALITIES_PUBLIC, na.rm = TRUE),
@@ -115,28 +117,31 @@ ggplot(compare) +
 
 ## Direct Comparisons
 
-Comparison of sizes of fires:
+### Comparison of sizes of fires
 
 ```{r}
 ics209plus_dedup <- ics209plus %>%
         group_by(INCIDENT_ID) %>%
-        slice_head(n = 1) 
+        slice_head(n = 1) %>%
+				ungroup() %>%
+				mutate(
+					INCIDENT_ID = if_else(is.na(INCIDENT_ID_OLD), INCIDENT_ID, INCIDENT_ID_OLD)
+				)
 
 ours_unnest <- ours %>%
+	st_drop_geometry() %>% 
 	mutate(ics_id = str_split(ics_id, '\\|')) %>%
 	unnest(ics_id)
 
-matches <- inner_join(ics209plus_dedup, ours_unnest, by = c('INCIDENT_ID' = 'ics_id')) 
+matches <- inner_join(ics209plus_dedup, ours_unnest, by = c('INCIDENT_ID' = 'ics_id'), na_matches = 'never')
 
 ggplot(matches) + 
 	geom_point(aes(x = FINAL_ACRES*0.00404686, y = wildfire_area), alpha = .25) + 
 	geom_abline(slope = 1, linetype = 'dashed', color = '#88A0DC') + 
-	annotate('label', x = 1500, y = 1500, hjust = 0, size = 2, label = '1-1 Line', color = '#88A0DC') + 
-	scale_x_continuous(labels = ~ scales::comma(.x, accuracy = .01), trans = 'log') + 
-	scale_y_continuous(labels = ~ scales::comma(.x, accuracy = .01), trans = 'log') + 
-	xlab("ICS-209-PLUS area (sq. km)") + 
-	ylab("WFBZ Disaster area (sq.km)") + 
-	coord_equal()
+	scale_x_log10(labels = ~ format(.x, nsmall = 1, big.mark = ','), name = "ICS-209-PLUS area (sq. km)", limits = c(1e-4, 10000)) + 
+	scale_y_log10(labels = ~ format(.x, nsmall = 1, big.mark = ','), name = "WFBZ Disaster area (sq.km)", limits = c(1e-4, 10000)) + 
+	coord_equal() +
+	theme(axis.title.x = element_text())
 ```
 
 We were able to match `r length(unique(matches$INCIDENT_ID))` ICS-209-PLUS records to `r length(unique(matches$wildfire_id))` WFBZ Disaster records (some WFBZ Disasters included multiple records from ICS-209 and therefore corresponded to multiple ICS-209-PLUS records). 
@@ -149,4 +154,6 @@ IQR Difference: `r median((matches$wildfire_area - (matches$FINAL_ACRES*0.004046
 
 IQR Abs. Difference: `r median(abs(matches$wildfire_area - (matches$FINAL_ACRES*0.00404686)), na.rm = TRUE) - IQR(abs(matches$wildfire_area - (matches$FINAL_ACRES*0.00404686)), na.rm = TRUE)` to `r median(abs(matches$wildfire_area - (matches$FINAL_ACRES*0.00404686)), na.rm = TRUE) + IQR(abs(matches$wildfire_area - (matches$FINAL_ACRES*0.00404686)), na.rm = TRUE)`
 
+Spearman Correlation: `r cor(matches$wildfire_area, matches$FINAL_ACRES*0.00404686, method = "spearman",  use = 'pairwise')`
 
+Pearson Correlation: `r cor(matches$wildfire_area, matches$FINAL_ACRES*0.00404686, method = "pearson",  use = 'pairwise')`
