@@ -45,7 +45,7 @@ FRESC https://www.sciencebase.gov/catalog/item/61707c2ad34ea36449a6b066 (metadat
 ```{r data}
 ours <- read_sf('../wfbz.geojson') %>% 
 	filter(year(wildfire_ignition_date) <= 2020)
-ics209plus <- read_csv('../data/reference/ics209-plus-wf_incidents_1999to2020.csv')
+ics209plus <- read_csv('../data/reference/ics209-plus-wf_incidents_1999to2020.csv') %>% filter(START_YEAR > 1999)
 #fresc <- st_read(dsn = '../data/reference/Fire_Feature_Data_Pro2_8_Geodatabase/Fire_Feature_Data.gdb/', query = 'select * from USGS_Wildland_Fire_Combined_dataset where Fire_Year >= 1999 and Assigned_Fire_Type not like \'%Prescribed%\'')
 compare <- bind_rows(
     ours %>% 
@@ -72,7 +72,7 @@ compare <- bind_rows(
             `Structures destroyed, N` = sum(STR_DESTROYED_TOTAL, na.rm = TRUE)
         ) %>%
         mutate(dataset = 'ICS-209-PLUS') 
-)
+) 
 
 ```
 
@@ -86,6 +86,19 @@ For ICS209-PLUS, we defined a disaster fire as a fire that destroyed a building,
 ggplot(compare) + 
   geom_line(aes(x = Year, y = `Wildfire burn zone disasters, N`, color = dataset)) +
 	scale_color_manual(values = pal)
+```
+
+
+```{r}
+compare %>% 
+	pivot_wider(names_from = dataset, values_from = matches('N')) %>%
+	summarize(
+		`Mean Diff (WFBZ - ICS-209-PLUS)` = mean(`Wildfire burn zone disasters, N_WFBZ Disaster` - `Wildfire burn zone disasters, N_ICS-209-PLUS`),
+		`SD Diff (WFBZ - ICS-209-PLUS)` = sd(`Wildfire burn zone disasters, N_WFBZ Disaster` - `Wildfire burn zone disasters, N_ICS-209-PLUS`),
+		`Mean Abs Diff (WFBZ - ICS-209-PLUS)` = mean(abs(`Wildfire burn zone disasters, N_WFBZ Disaster` - `Wildfire burn zone disasters, N_ICS-209-PLUS`)),
+		`SD Abs Diff (WFBZ - ICS-209-PLUS)` = sd(abs(`Wildfire burn zone disasters, N_WFBZ Disaster` - `Wildfire burn zone disasters, N_ICS-209-PLUS`))
+	) %>%
+	pivot_longer(everything())
 ```
 
 ### Fatalities
@@ -105,6 +118,21 @@ p2 <- ggplot() +
 p1 + p2 + plot_layout(ncol = 1)
 ```
 
+Stats for 2014 - 2020 only: 
+
+```{r}
+compare %>% 
+	filter(Year > 2013) %>% 
+	pivot_wider(names_from = dataset, values_from = matches('N')) %>%
+	summarize(
+		`Mean Diff (WFBZ - ICS-209-PLUS)` = mean(`Civilian fatalities, N_WFBZ Disaster` - `Civilian fatalities, N_ICS-209-PLUS`),
+		`SD Diff (WFBZ - ICS-209-PLUS)` = sd(`Civilian fatalities, N_WFBZ Disaster` - `Civilian fatalities, N_ICS-209-PLUS`),
+		`Mean Abs Diff (WFBZ - ICS-209-PLUS)` = mean(abs(`Civilian fatalities, N_WFBZ Disaster` - `Civilian fatalities, N_ICS-209-PLUS`)),
+		`SD Abs Diff (WFBZ - ICS-209-PLUS)` = sd(abs(`Civilian fatalities, N_WFBZ Disaster` - `Civilian fatalities, N_ICS-209-PLUS`))
+	) %>%
+	pivot_longer(everything())
+```
+
 ### Structures
 
 ```{r}
@@ -115,6 +143,17 @@ ggplot(compare) +
 
 ```
 
+```{r}
+compare %>% 
+	pivot_wider(names_from = dataset, values_from = matches('N')) %>%
+	summarize(
+		`Mean Diff (WFBZ - ICS-209-PLUS)` = mean(`Structures destroyed, N_WFBZ Disaster` - `Structures destroyed, N_ICS-209-PLUS`),
+		`SD Diff (WFBZ - ICS-209-PLUS)` = sd(`Structures destroyed, N_WFBZ Disaster` - `Structures destroyed, N_ICS-209-PLUS`),
+		`Mean Abs Diff (WFBZ - ICS-209-PLUS)` = mean(abs(`Structures destroyed, N_WFBZ Disaster` - `Structures destroyed, N_ICS-209-PLUS`)),
+		`SD Abs Diff (WFBZ - ICS-209-PLUS)` = sd(abs(`Structures destroyed, N_WFBZ Disaster` - `Structures destroyed, N_ICS-209-PLUS`))
+	) %>%
+	pivot_longer(everything())
+```
 ## Direct Comparisons
 
 ### Comparison of sizes of fires
