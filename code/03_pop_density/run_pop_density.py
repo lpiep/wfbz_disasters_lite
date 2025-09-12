@@ -153,7 +153,7 @@ def main(
         fire_dfs.append(df_fire)
         df_out = pd.concat(fire_dfs, ignore_index = True)
 
-        df_out.to_csv(data_dir / "02_processed/fire_pop_density_criteria.csv")
+    df_out.to_csv(data_dir / "02_processed/fire_pop_density_criteria.csv")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Population density criteria evaluations.")

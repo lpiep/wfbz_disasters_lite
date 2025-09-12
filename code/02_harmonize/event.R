@@ -89,6 +89,7 @@ harmonize_event <- function(
 		 	wildfire_struct_destroyed = coalesce(wildfire_struct_destroyed_redbook, wildfire_struct_destroyed_ics209),
 		 	wildfire_civil_fatalities = coalesce(wildfire_civil_fatalities_redbook, wildfire_civil_fatalities_ics209),
 		 	wildfire_total_fatalities = coalesce(wildfire_total_fatalities_redbook, wildfire_total_fatalities_ics209),
+		 	wildfire_total_fatalities = if_else(wildfire_total_fatalities < wildfire_civil_fatalities, wildfire_civil_fatalities, wildfire_total_fatalities), # fix weird cases where total reported as less than civil
 		 	wildfire_max_civil_fatalities = case_when(
 		 		str_detect(wildfire_states, 'CA') & wildfire_year < 2014 ~ wildfire_civil_fatalities_redbook,
 		 		str_detect(wildfire_states, 'CA') & wildfire_year >= 2014 ~ pmax(wildfire_civil_fatalities_ics209, wildfire_civil_fatalities_redbook, na.rm = TRUE),

@@ -296,3 +296,5 @@ assign_clusters <- function(lol){ # take list of lists, do a union find to assig
 	uf(nrow(dt), dt_links)
 	
 }
+
+as_numeric <- function(x) as.numeric(gsub(",", "", x))

@@ -422,7 +422,7 @@ harmonize_spatial <- function(
 			priority = first(priority)
 		) 
 		all_tiers <- inner_join(all_tiers_sf, all_tiers, by = 'temp_id') # join the geom back in
-
+	
 	### Add State/County from final geometry
 
 	wildfire_states <- all_tiers %>%
@@ -432,8 +432,32 @@ harmonize_spatial <- function(
 		group_by(wildfire_id) %>% 
 		summarize(wildfire_states = paste(unique(STATE_ABB), collapse = '|')) 
 
-	inner_join(all_tiers, wildfire_states, by = 'wildfire_id') %>%
+	### Add in events that had no match
+	unmatched_events <- event %>%
+		filter(!(event_id %in% unique(unlist(all_tiers$event_id, recursive = T)))) %>%
 		mutate(
+			event_id = list(event_id),
+			wildfire_id = row_number() + nrow(all_tiers), # add wildfire id starting from end of matched fires
+			geometry_src = "MISSING",
+			geometry_method = "Unmatched",
+			wildfire_states = if_else(
+				wildfire_states %in% c("AL", "AK", "AZ", "AR", "CA", "CO", "CT", 
+															 "DE", "FL", "GA", "HI", "ID", "IL", "IN", 
+															 "IA", "KS", "KY", "LA", "ME", "MD", "MA", 
+															 "MI", "MN", "MS", "MO", "MT", "NE", "NV", 
+															 "NH", "NJ", "NM", "NY", "NC", "ND", "OH", 
+															 "OK", "OR", "PA", "RI", "SC", "SD", "TN", 
+															 "TX", "UT", "VT", "VA", "WA", "WV", "WI", 
+															 "WY", "DC", "AS", "GU", "MP", "PR", "VI"),
+				wildfire_states,
+				NA_character_
+			)
+		)
+	all_tiers <- bind_rows(all_tiers, unmatched_events) %>% st_as_sf(na.fail = FALSE)
+	
+	left_join(all_tiers, wildfire_states, by = 'wildfire_id') %>%
+		mutate(
+			wildfire_states = coalesce(wildfire_states.y, wildfire_states.x), # take the original state when spatially determined one was missing (unmatched fires)
 			civ_crit    = if_else(
 				coalesce(wildfire_max_civil_fatalities, wildfire_civil_fatalities, 0) > 0 | (is.na(wildfire_max_civil_fatalities) & (coalesce(wildfire_total_fatalities, 0) > 0)), 
 				'civilian_death', 
@@ -447,7 +471,7 @@ harmonize_spatial <- function(
 			fema_crit   = if_else(wildfire_fema_dec, 'fema_fmag_declaration', NA_character_)
 		) %>%
 		unite(wildfire_disaster_criteria_met, c(civ_crit, struct_crit, fema_crit), sep = '|', na.rm = TRUE) %>%
-		filter(wildfire_disaster_criteria_met != '') #%>% # when fatalities are the only passing criteria and we know that there were deaths, but no civ deaths
-		#select(-event_id)
+		filter(wildfire_disaster_criteria_met != '') %>% # when fatalities are the only passing criteria and we know that there were deaths, but no civ deaths
+		select(-event_id, -wildfire_states.x, -wildfire_states.y)
 }
 
