@@ -25,16 +25,18 @@ A paper describing this dataset is currently in review.
 `wildfire_id` | `character` | Wildfire ID generated as row number of output dataset | 
 `wildfire_year` | `date` | Wildfire year [YYYY] of fire |
 `wildfire_states` | `character` | Wildfire US State(s) in which fire occurred (comma-delimited if more than one) |
-`wildfire_area` | `decimal` | Wildfire burned area in square kilometers |
 `wildfire_complex` | `boolean` | Fire is a complex of multiple member fires |
 `wildfire_complex_names` | `character` | List of wildfires in the wildfire complex |
-`wildfire_evac` | `integer` | Number of people evacuated | 
-`wildfire_cost` | `integer` | Cost of wildfire response in USD (does not include damages) |
-`wildfire_threatened_structures` | `integer` | Number of structures potentially threatened by the incident within the next 72 hours | 
-`wildfire_buffered_avg_pop_den` | `float` | Average population density in the buffered wildfire burn zone (people per square meter) | 
-`wildfire_max_pop_den` | `float` | Maximum population density in the wildfire burn zone (people per square meter) | 
-`wildfire_wui` | `character` | Types of wildland-urban areas intersected by the burn zone ("interface" and/or "intermix"), pipe separated |
-`wildfire_injuries` | `integer` | Number of people who were injured | 
+
+### Dates
+
+| Variable      | Data Type     | Description|
+| ------------- | ------------- | ---------- | 
+`wildfire_ignition_date` | `date` | Wildfire date of fire ignition (earliest recorded date) | 
+`wildfire_containment_date` | `date` | Wildfire date of fire end (earliest recorded containment date) |
+`wildfire_ignition_date_max` | `date` | Wildfire date of fire ignition (latest recorded date) | 
+`wildfire_containment_date_max` | `date` | Wildfire date of fire end (latest recorded containment date) |
+`wildfire_fema_dec_date` | `date` | Date of FEMA FMAG disaster declaration | 
 
 ### Criteria 
 
@@ -48,15 +50,18 @@ A paper describing this dataset is currently in review.
 `wildfire_fema_dec` | `boolean` | FEMA disaster declaration | 
 `wildfire_disaster_criteria_met` | `integer` | Wildfire disaster criteria met, including civilian fatalities, structures burned, or an FMAG declaration, or a combination of these variables |
 
-### Dates
-
+### Additional wildfire descriptors 
 | Variable      | Data Type     | Description|
 | ------------- | ------------- | ---------- | 
-`wildfire_ignition_date` | `date` | Wildfire date of fire ignition (earliest recorded date) | 
-`wildfire_containment_date` | `date` | Wildfire date of fire end (earliest recorded containment date) |
-`wildfire_ignition_date_max` | `date` | Wildfire date of fire ignition (latest recorded date) | 
-`wildfire_containment_date_max` | `date` | Wildfire date of fire end (latest recorded containment date) |
-`wildfire_fema_dec_date` | `date` | Date of FEMA FMAG disaster declaration | 
+`wildfire_buffered_avg_pop_den` | `float` | Average population density in the buffered wildfire burn zone (people per square meter) | 
+`wildfire_max_pop_den` | `float` | Maximum population density in the wildfire burn zone (people per square meter) | 
+`wildfire_wui` | `character` | Types of wildland-urban areas intersected by the burn zone ("interface" and/or "intermix"), pipe separated |
+`wildfire_area` | `decimal` | Wildfire burned area in square kilometers |
+`wildfire_threatened_structures` | `integer` | Number of structures potentially threatened by the incident within the next 72 hours | 
+`wildfire_injuries` | `integer` | Number of people who were injured | 
+`wildfire_evac` | `integer` | Number of people evacuated | 
+`wildfire_cost` | `integer` | Cost of wildfire response in USD (does not include damages) |
+
 
 ### Location 
 
