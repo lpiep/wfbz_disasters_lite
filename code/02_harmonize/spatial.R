@@ -463,6 +463,7 @@ harmonize_spatial <- function(
 	left_join(all_tiers, wildfire_states, by = 'cluster_id') %>%
 		mutate(
 			wildfire_states = coalesce(wildfire_states.y, wildfire_states.x), # take the original state when spatially determined one was missing (unmatched fires)
+			wildfire_counties = coalesce(wildfire_counties.y, wildfire_counties.x), # take the original county when spatially determined one was missing (unmatched fires)
 			civ_crit    = if_else(
 				coalesce(wildfire_max_civil_fatalities, wildfire_civil_fatalities, 0) > 0 | (is.na(wildfire_max_civil_fatalities) & (coalesce(wildfire_total_fatalities, 0) > 0)), 
 				'civilian_death', 

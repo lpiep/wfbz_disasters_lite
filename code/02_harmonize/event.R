@@ -103,7 +103,7 @@ harmonize_event <- function(
 			redbook_id = dedupe_pipe_delim(paste(redbook_id, collapse = '|')),
 			wildfire_name_redbook = dedupe_pipe_delim(paste(wildfire_name_redbook, collapse = '|')),
 			wildfire_year_redbook = first((wildfire_year_redbook), na_rm = TRUE),
-			wildfire_ignition_date_redbook = suppressWarnings(min(wildfire_ignition_date_redbook, na.rm = TRUE)),
+			wildfire_ignition_date_redbook = suppressWarnings(min(wildfire_ignition_date_redbook, na.rm = TRUE)) %>% na_if(as.Date(Inf)) %>% na_if(as.Date(-Inf)),
 			wildfire_containment_date_redbook = suppressWarnings(max(wildfire_containment_date_redbook, na.rm = TRUE)) %>% na_if(as.Date(Inf)) %>% na_if(as.Date(-Inf)),
 			wildfire_struct_destroyed_redbook = suppressWarnings(max(wildfire_struct_destroyed_redbook, na.rm = TRUE)) %>% na_if(Inf) %>% na_if(-Inf),
 			wildfire_civil_fatalities_redbook = suppressWarnings(max(wildfire_civil_fatalities_redbook, na.rm = TRUE)) %>% na_if(Inf) %>% na_if(-Inf),

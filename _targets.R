@@ -325,6 +325,7 @@ list(
   				wildfire_id,
   				wildfire_year,
   				wildfire_states,
+  				wildfire_counties,
   				wildfire_area,
   				wildfire_complex,
   				wildfire_complex_names,

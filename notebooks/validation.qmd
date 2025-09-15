@@ -83,9 +83,12 @@ compare <- bind_rows(
 For ICS209-PLUS, we defined a disaster fire as a fire that destroyed a building, had any fatality in or before 2013, or had a civilian fatality after 2013. 
 
 ```{r}
-ggplot(compare) + 
+p <- ggplot(compare) + 
   geom_line(aes(x = Year, y = `Wildfire burn zone disasters, N`, color = dataset)) +
 	scale_color_manual(values = pal)
+ggsave("../figures/validation_n_disasters.pdf", p,
+       dpi=300, height=7.5, width=10, units="in")
+p
 ```
 
 
@@ -115,7 +118,11 @@ p2 <- ggplot() +
   geom_line(data = compare, aes(x = Year, y = `Total fatalities, N`, color = dataset)) +
 	scale_color_manual(values = pal)
 
-p1 + p2 + plot_layout(ncol = 1)
+p <- p1 + p2 + plot_layout(ncol = 1)
+
+ggsave("../figures/validation_n_fatalities.pdf", p,
+       dpi=300, height=10, width=10, units="in")
+p
 ```
 
 Stats for 2014 - 2020 only: 
@@ -136,11 +143,14 @@ compare %>%
 ### Structures
 
 ```{r}
-ggplot(compare) + 
+p <- ggplot(compare) + 
   geom_line(aes(x = Year, y = `Structures destroyed, N`, color = dataset)) +	
 	scale_color_manual(values = pal) + 
 	scale_y_continuous(labels = scales::comma)
 
+ggsave("../figures/validation_n_structures.pdf", p,
+       dpi=300, height=7.5, width=10, units="in")
+p
 ```
 
 ```{r}
@@ -174,13 +184,17 @@ ours_unnest <- ours %>%
 
 matches <- inner_join(ics209plus_dedup, ours_unnest, by = c('INCIDENT_ID' = 'ics_id'), na_matches = 'never')
 
-ggplot(matches) + 
+p <- ggplot(matches) + 
 	geom_point(aes(x = FINAL_ACRES*0.00404686, y = wildfire_area), alpha = .25) + 
 	geom_abline(slope = 1, linetype = 'dashed', color = '#88A0DC') + 
 	scale_x_log10(labels = ~ format(.x, nsmall = 1, big.mark = ','), name = "ICS-209-PLUS area (sq. km)", limits = c(1e-4, 10000)) + 
 	scale_y_log10(labels = ~ format(.x, nsmall = 1, big.mark = ','), name = "WFBZ Disaster area (sq.km)", limits = c(1e-4, 10000)) + 
 	coord_equal() +
 	theme(axis.title.x = element_text())
+
+ggsave("../figures/validation_areas.pdf", p,
+       dpi=300, height=7.5, width=10, units="in")
+p
 ```
 
 We were able to match `r length(unique(matches$INCIDENT_ID))` ICS-209-PLUS records to `r length(unique(matches$wildfire_id))` WFBZ Disaster records (some WFBZ Disasters included multiple records from ICS-209 and therefore corresponded to multiple ICS-209-PLUS records). 
