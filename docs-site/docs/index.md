@@ -24,7 +24,8 @@ A paper describing this dataset is currently in review.
 | ------------- | ------------- | ---------- | 
 `wildfire_id` | `character` | Wildfire ID generated as row number of output dataset | 
 `wildfire_year` | `date` | Wildfire year [YYYY] of fire |
-`wildfire_states` | `character` | Wildfire US State(s) in which fire occurred (comma-delimited if more than one) |
+`wildfire_states` | `character` | Wildfire US state(s) in which fire occurred (comma-delimited if more than one) |
+`wildfire_counties` | `character` | Wildfire US county or counties in which fire occurred (comma-delimited if more than one) |
 `wildfire_complex` | `boolean` | Fire is a complex of multiple member fires |
 `wildfire_complex_names` | `character` | List of wildfires in the wildfire complex |
 
@@ -33,10 +34,19 @@ A paper describing this dataset is currently in review.
 | Variable      | Data Type     | Description|
 | ------------- | ------------- | ---------- | 
 `wildfire_ignition_date` | `date` | Wildfire date of fire ignition (earliest recorded date) | 
-`wildfire_containment_date` | `date` | Wildfire date of fire end (earliest recorded containment date) |
 `wildfire_ignition_date_max` | `date` | Wildfire date of fire ignition (latest recorded date) | 
+`wildfire_containment_date` | `date` | Wildfire date of fire end (earliest recorded containment date) |
 `wildfire_containment_date_max` | `date` | Wildfire date of fire end (latest recorded containment date) |
 `wildfire_fema_dec_date` | `date` | Date of FEMA FMAG disaster declaration | 
+
+### Location 
+
+| Variable      | Data Type     | Description|
+| ------------- | ------------- | ---------- | 
+`wildfire_poo_lat` | `decimal` | Fire point of origin latitude in NAD83 (EPSG: 4269) |
+`wildfire_poo_lon` | `decimal` | Fire point of origin longitude in NAD83 (EPSG: 4269) |
+`geometry_src`| `character` | Data set from which `geometry` originates (One of "FIRED", "MTBS", "NIFC") | 
+`geometry` | `geometry` | Geometry of Fire |
 
 ### Criteria 
 
@@ -46,9 +56,10 @@ A paper describing this dataset is currently in review.
 `wildfire_max_civil_fatalities` | `integer` | Best estimate of civilian fatalities from 2000-2019. From 2000-2013, only California RedBooks reported civilian fatalities alone. Therefore, from 2000-2013, this variable reports the maximum total fatalities for wildfires outside California but civilian specific fatalities from California. From 2014-2019, this variable reports the maximum civilian fatalities from each fire. |
 `wildfire_civil_fatalities` | `integer` | Total wildfire civilian fatalities (before 2014, these data are only available from CalFire. all other states are missing information on civilian only fatalities prior to 2014). |
 `wildfire_struct_destroyed` | `integer` | Wildfire criteria was met for number of structures destroyed |
-`wildfire_community_intersect` | `boolean` | Wildfire criteria was met for community intersection based on population density of either 96 people per square kilometer or building density of 6.17 houses per square kilometer|
 `wildfire_fema_dec` | `boolean` | FEMA disaster declaration | 
 `wildfire_disaster_criteria_met` | `integer` | Wildfire disaster criteria met, including civilian fatalities, structures burned, or an FMAG declaration, or a combination of these variables |
+`wildfire_community_intersect` | `boolean` | Wildfire criteria was met for community intersection based on population density of either 96 people per square kilometer or building density of 6.17 houses per square kilometer|
+
 
 ### Additional wildfire descriptors 
 | Variable      | Data Type     | Description|
@@ -61,16 +72,6 @@ A paper describing this dataset is currently in review.
 `wildfire_injuries` | `integer` | Number of people who were injured | 
 `wildfire_evac` | `integer` | Number of people evacuated | 
 `wildfire_cost` | `integer` | Cost of wildfire response in USD (does not include damages) |
-
-
-### Location 
-
-| Variable      | Data Type     | Description|
-| ------------- | ------------- | ---------- | 
-`wildfire_poo_lat` | `decimal` | Fire point of origin latitude in NAD83 (EPSG: 4269) |
-`wildfire_poo_lon` | `decimal` | Fire point of origin longitude in NAD83 (EPSG: 4269) |
-`geometry_src`| `character` | Data set from which `geometry` originates (One of "FIRED", "MTBS", "NIFC") | 
-`geometry` | `geometry` | Geometry of Fire |
 
 ### Native IDs
 
