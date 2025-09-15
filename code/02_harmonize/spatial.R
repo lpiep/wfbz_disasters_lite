@@ -380,11 +380,11 @@ harmonize_spatial <- function(
 	
 	# Final round of deduping (joining disjoint groups into one)
 	#   Take geometry from best join, integrate attributes from all available
-	all_tiers$wildfire_id <- assign_clusters(all_tiers$event_id)
+	all_tiers$cluster_id <- assign_clusters(all_tiers$event_id)
 	all_tiers_sf <- all_tiers %>% select(temp_id, geometry)
 	all_tiers <- all_tiers %>%
 		st_drop_geometry() %>% # temporarily get rid of geom to play nice with summarize
-		group_by(wildfire_id) %>%
+		group_by(cluster_id) %>%
 		arrange(desc(priority), wildfire_area) %>% 
 		summarize(
 			temp_id = first(temp_id),
@@ -426,18 +426,22 @@ harmonize_spatial <- function(
 	### Add State/County from final geometry
 
 	wildfire_states <- all_tiers %>%
-		st_join(spatial_tiger_counties$`2020`) %>%
+		mutate(decade = floor(wildfire_year/10)*10) %>%
+		st_join(bind_rows(spatial_tiger_counties, .id = 'decade')) %>%
+		filter(decade.x == decade.y) %>%
 		st_drop_geometry() %>% 
 		filter(STATE_ABB %in% unique(readRDS("data/reference/fips_codes.rds")$STATE_NAME)) %>%
-		group_by(wildfire_id) %>% 
-		summarize(wildfire_states = paste(unique(STATE_ABB), collapse = '|')) 
+		group_by(cluster_id) %>% 
+		summarize(
+			wildfire_states = paste(sort(unique(STATE_ABB)), collapse = '|'),
+			wildfire_counties = paste(sort(unique(COUNTY_NAME)), collapse = '|')
+		) 
 
 	### Add in events that had no match
 	unmatched_events <- event %>%
 		filter(!(event_id %in% unique(unlist(all_tiers$event_id, recursive = T)))) %>%
 		mutate(
 			event_id = list(event_id),
-			wildfire_id = row_number() + nrow(all_tiers), # add wildfire id starting from end of matched fires
 			geometry_src = "MISSING",
 			geometry_method = "Unmatched",
 			wildfire_states = if_else(
@@ -453,9 +457,10 @@ harmonize_spatial <- function(
 				NA_character_
 			)
 		)
-	all_tiers <- bind_rows(all_tiers, unmatched_events) %>% st_as_sf(na.fail = FALSE)
+	all_tiers <- bind_rows(all_tiers, unmatched_events) %>% 
+		st_as_sf(na.fail = FALSE)
 	
-	left_join(all_tiers, wildfire_states, by = 'wildfire_id') %>%
+	left_join(all_tiers, wildfire_states, by = 'cluster_id') %>%
 		mutate(
 			wildfire_states = coalesce(wildfire_states.y, wildfire_states.x), # take the original state when spatially determined one was missing (unmatched fires)
 			civ_crit    = if_else(
@@ -472,6 +477,6 @@ harmonize_spatial <- function(
 		) %>%
 		unite(wildfire_disaster_criteria_met, c(civ_crit, struct_crit, fema_crit), sep = '|', na.rm = TRUE) %>%
 		filter(wildfire_disaster_criteria_met != '') %>% # when fatalities are the only passing criteria and we know that there were deaths, but no civ deaths
-		select(-event_id, -wildfire_states.x, -wildfire_states.y)
+		mutate(wildfire_id = row_number())
 }
 

@@ -35,12 +35,16 @@ theme_set(
 pal <- c('WFBZ Disaster' = '#AB3329', 'ICS-209-PLUS' = '#EBAA6C')
 ```
 
+
+
 ## Comparison Data Sets
 
 ICS-209-PLUS https://github.com/katiemcconnell/ICS-209-PLUS_spatiotemporal_linkage
 <!--
 FRESC https://www.sciencebase.gov/catalog/item/61707c2ad34ea36449a6b066 (metadata: https://www.sciencebase.gov/catalog/file/get/61aa537dd34eb622f699df81?f=__disk__d0%2F63%2F53%2Fd063532049be8e1bc83d1d3047b4df1a5cb56f15&transform=1&allowOpen=true)
 --> 
+
+
 
 ```{r data}
 ours <- read_sf('../wfbz.geojson') %>% 
@@ -76,18 +80,21 @@ compare <- bind_rows(
 
 ```
 
+
+
 ## Comparison Figures
 
 ### Number of Disaster Fires
 
 For ICS209-PLUS, we defined a disaster fire as a fire that destroyed a building, had any fatality in or before 2013, or had a civilian fatality after 2013. 
 
+
+
 ```{r}
 ggplot(compare) + 
   geom_line(aes(x = Year, y = `Wildfire burn zone disasters, N`, color = dataset)) +
 	scale_color_manual(values = pal)
 ```
-
 
 ```{r}
 compare %>% 
@@ -101,7 +108,11 @@ compare %>%
 	pivot_longer(everything())
 ```
 
+
+
 ### Fatalities
+
+
 
 ```{r}
 #| fig-height: 8
@@ -118,7 +129,11 @@ p2 <- ggplot() +
 p1 + p2 + plot_layout(ncol = 1)
 ```
 
+
+
 Stats for 2014 - 2020 only: 
+
+
 
 ```{r}
 compare %>% 
@@ -133,7 +148,11 @@ compare %>%
 	pivot_longer(everything())
 ```
 
+
+
 ### Structures
+
+
 
 ```{r}
 ggplot(compare) + 
@@ -154,9 +173,13 @@ compare %>%
 	) %>%
 	pivot_longer(everything())
 ```
+
+
 ## Direct Comparisons
 
 ### Comparison of sizes of fires
+
+
 
 ```{r}
 ics209plus_dedup <- ics209plus %>%
@@ -183,6 +206,8 @@ ggplot(matches) +
 	theme(axis.title.x = element_text())
 ```
 
+
+
 We were able to match `r length(unique(matches$INCIDENT_ID))` ICS-209-PLUS records to `r length(unique(matches$wildfire_id))` WFBZ Disaster records (some WFBZ Disasters included multiple records from ICS-209 and therefore corresponded to multiple ICS-209-PLUS records). 
 
 Median Difference (WFBZ Disaster - ICS-209-PLUS): `r median(matches$wildfire_area - (matches$FINAL_ACRES*0.00404686), na.rm = TRUE)`
@@ -196,3 +221,4 @@ IQR Abs. Difference: `r median(abs(matches$wildfire_area - (matches$FINAL_ACRES*
 Spearman Correlation: `r cor(matches$wildfire_area, matches$FINAL_ACRES*0.00404686, method = "spearman",  use = 'pairwise')`
 
 Pearson Correlation: `r cor(matches$wildfire_area, matches$FINAL_ACRES*0.00404686, method = "pearson",  use = 'pairwise')`
+

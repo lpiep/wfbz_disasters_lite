@@ -96,7 +96,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="red-books">Red Books</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1375</code></pre>
+<pre><code>[1] 1126</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
@@ -125,19 +125,19 @@ ul.task-list li input[type="checkbox"] {
 <p>total count</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 6511</code></pre>
+<pre><code>[1] 7053</code></pre>
 </div>
 </div>
 <p>met criteria</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 6377</code></pre>
+<pre><code>[1] NA</code></pre>
 </div>
 </div>
 <p>met criteria pct</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9794194</code></pre>
+<pre><code>[1] NA</code></pre>
 </div>
 </div>
 </section>
@@ -145,22 +145,23 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="bz-types">BZ types</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7 × 2
+<pre><code># A tibble: 8 × 2
   geometry_method                  `n()`
   &lt;chr&gt;                            &lt;int&gt;
-1 FIRED by Place/Time                476
-2 ICS by Point of Origin, POO-only   139
-3 ICS by Point of Origin, Size      3778
-4 MTBS by ID                         463
-5 MTBS by Name/Place/Time           1149
-6 NIFC by ID                          87
-7 NIFC by Name/Place/Time            419</code></pre>
+1 FIRED by Place/Time                  9
+2 ICS by Point of Origin, POO-only   207
+3 ICS by Point of Origin, Size      5213
+4 MTBS by ID                         493
+5 MTBS by Name/Place/Time            122
+6 NIFC by ID                          91
+7 NIFC by Name/Place/Time             85
+8 Unmatched                          833</code></pre>
 </div>
 </div>
 <p>with burn zones from spatial files</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2594</code></pre>
+<pre><code>[1] 800</code></pre>
 </div>
 </div>
 </section>
@@ -172,8 +173,8 @@ ul.task-list li input[type="checkbox"] {
 <pre><code># A tibble: 2 × 2
   wildfire_year     n
           &lt;dbl&gt; &lt;int&gt;
-1          2001    70
-2          2011   581</code></pre>
+1          2001   122
+2          2011   622</code></pre>
 </div>
 </div>
 <p>Compared to 2000-2009, the years between 2010 and 2019 had more wildfire burn disasters</p>
@@ -182,8 +183,8 @@ ul.task-list li input[type="checkbox"] {
 <pre><code># A tibble: 2 × 2
   `wildfire_year &lt; 2010`     n
   &lt;lgl&gt;                  &lt;int&gt;
-1 FALSE                   2748
-2 TRUE                    2412</code></pre>
+1 FALSE                   2830
+2 TRUE                    2818</code></pre>
 </div>
 </div>
 <p>more fires that met FMAG</p>
@@ -192,8 +193,8 @@ ul.task-list li input[type="checkbox"] {
 <pre><code># A tibble: 2 × 2
   `wildfire_year &lt; 2010`     n
   &lt;lgl&gt;                  &lt;int&gt;
-1 FALSE                    364
-2 TRUE                     265</code></pre>
+1 FALSE                    466
+2 TRUE                     593</code></pre>
 </div>
 </div>
 <p>More fires that met structure criterion</p>
@@ -202,8 +203,8 @@ ul.task-list li input[type="checkbox"] {
 <pre><code># A tibble: 2 × 2
   `wildfire_year &lt; 2010`     n
   &lt;lgl&gt;                  &lt;int&gt;
-1 FALSE                   2425
-2 TRUE                    2272</code></pre>
+1 FALSE                   2455
+2 TRUE                    2433</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -211,8 +212,8 @@ ul.task-list li input[type="checkbox"] {
 <pre><code># A tibble: 2 × 2
   `wildfire_year &lt; 2010`     n
   &lt;lgl&gt;                  &lt;int&gt;
-1 FALSE                    101
-2 TRUE                      78</code></pre>
+1 FALSE                     54
+2 TRUE                      16</code></pre>
 </div>
 </div>
 </section>
@@ -225,21 +226,21 @@ ul.task-list li input[type="checkbox"] {
 the `.groups` argument.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 26 × 3
+<pre><code># A tibble: 27 × 3
 # Groups:   wildfire_year [26]
    wildfire_states wildfire_year     n
    &lt;chr&gt;                   &lt;dbl&gt; &lt;int&gt;
- 1 OK                       2000    19
- 2 CA                       2001    22
- 3 CA                       2002    50
- 4 CA                       2003    44
- 5 CA                       2004    58
- 6 OK                       2005    50
- 7 TX                       2006    66
- 8 SC                       2007    79
- 9 TX                       2008    55
-10 FL                       2009    44
-# ℹ 16 more rows</code></pre>
+ 1 TX                       2000    26
+ 2 FL                       2001    23
+ 3 CA                       2002    61
+ 4 CA                       2003    49
+ 5 CA                       2004    74
+ 6 OK                       2005    55
+ 7 OK                       2006    82
+ 8 SC                       2007    81
+ 9 TX                       2008    69
+10 TX                       2009    46
+# ℹ 17 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -248,31 +249,31 @@ the `.groups` argument.</code></pre>
 <p>structure</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "5883 90.4 %"</code></pre>
+<pre><code>[1] "6104 86.5 %"</code></pre>
 </div>
 </div>
 <p>fema</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "814 12.5 %"</code></pre>
+<pre><code>[1] "1370 19.4 %"</code></pre>
 </div>
 </div>
 <p>fatal</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "227 3.5 %"</code></pre>
+<pre><code>[1] "107 1.5 %"</code></pre>
 </div>
 </div>
 <p>total struct</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 118044</code></pre>
+<pre><code>[1] 128374</code></pre>
 </div>
 </div>
 <p>total death</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 536</code></pre>
+<pre><code>[1] 414</code></pre>
 </div>
 </div>
 </section>
@@ -281,25 +282,25 @@ the `.groups` argument.</code></pre>
 <p>cali had the most disasters…</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "936 14.4 %"</code></pre>
+<pre><code>[1] "992 14.1 %"</code></pre>
 </div>
 </div>
 <p>fatalities</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "237 44.2 %"</code></pre>
+<pre><code>[1] "214 51.7 %"</code></pre>
 </div>
 </div>
 <p>and structures</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "81377 68.9 %"</code></pre>
+<pre><code>[1] "86020 67 %"</code></pre>
 </div>
 </div>
 <p>… and fmags</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "226 27.8 %"</code></pre>
+<pre><code>[1] "271 19.8 %"</code></pre>
 </div>
 </div>
 </section>
@@ -311,7 +312,7 @@ the `.groups` argument.</code></pre>
 <pre><code># A tibble: 1 × 2
     gt4 `gt4/n()`
   &lt;int&gt;     &lt;dbl&gt;
-1  4737     0.805</code></pre>
+1  4914     0.805</code></pre>
 </div>
 </div>
 </section>
@@ -323,13 +324,13 @@ the `.groups` argument.</code></pre>
 <pre><code># A tibble: 1 × 2
    gt10 `gt10/n()`
   &lt;int&gt;      &lt;dbl&gt;
-1   653      0.100</code></pre>
+1   675     0.0957</code></pre>
 </div>
 </div>
 <p>however these fires accounted for…</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 653</code></pre>
+<pre><code>[1] 675</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -337,27 +338,38 @@ the `.groups` argument.</code></pre>
 <pre><code># A tibble: 1 × 3
   n                        struct                      fatal                   
   &lt;chr&gt;                    &lt;chr&gt;                       &lt;chr&gt;                   
-1 653 ( 10.0291813853479 ) 107317 ( 90.9127105147233 ) 397 ( 74.0671641791045 )</code></pre>
+1 675 ( 9.57039557635049 ) 117235 ( 91.3230093321077 ) 347 ( 83.8164251207729 )</code></pre>
 </div>
 </div>
 </section>
 <section id="unmatched-events" class="level2">
 <h2 class="anchored" data-anchor-id="unmatched-events">Unmatched Events</h2>
-<p>unmatched events total: 666</p>
+<p>unmatched events total: 0</p>
 <p>By criteria met:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 2
-  wildfire_disaster_criteria_met          n
-  &lt;chr&gt;                               &lt;int&gt;
-1 civilian_death                         11
-2 civilian_death|structures_destroyed     7
-3 fema_fmag_declaration                 502
-4 structures_destroyed                  146</code></pre>
+<pre><code># A tibble: 0 × 2
+# ℹ 2 variables: wildfire_disaster_criteria_met &lt;chr&gt;, n &lt;int&gt;</code></pre>
 </div>
 </div>
-<p>Of the actual lat longs provided (n = 22), none fall in the united states.</p>
+<p>Of the actual lat longs provided (n = 0), none fall in the united states.</p>
 <div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(cc[[1]], na.rm = TRUE): no non-missing arguments to min;
+returning Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(cc[[2]], na.rm = TRUE): no non-missing arguments to min;
+returning Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(cc[[1]], na.rm = TRUE): no non-missing arguments to max;
+returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(cc[[2]], na.rm = TRUE): no non-missing arguments to max;
+returning -Inf</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -366,52 +378,12 @@ the `.groups` argument.</code></pre>
 </div>
 </div>
 </div>
-<p>4 Had no state information or invalid state information</p>
+<p>0 Had no state information or invalid state information</p>
 <p>Of the ones that did have a recoverable state:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 39 × 2
-   wildfire_states     n
-   &lt;chr&gt;           &lt;int&gt;
- 1 TX                 97
- 2 CA                 91
- 3 OK                 91
- 4 FL                 41
- 5 WA                 32
- 6 OR                 31
- 7 NM                 29
- 8 CO                 23
- 9 NV                 19
-10 AZ                 18
-11 MT                 17
-12 MI                 16
-13 MS                 15
-14 HI                 14
-15 MN                 13
-16 NC                 13
-17 KS                 11
-18 AL                  8
-19 SD                  8
-20 TN                  8
-21 WY                  7
-22 AK                  6
-23 KY                  6
-24 UT                  6
-25 GA                  5
-26 ID                  5
-27 MD                  5
-28 SC                  4
-29 VA                  4
-30 ND                  3
-31 NE                  3
-32 WV                  3
-33 LA                  2
-34 NJ                  2
-35 OH                  2
-36 CT                  1
-37 MO                  1
-38 NH                  1
-39 RI                  1</code></pre>
+<pre><code># A tibble: 0 × 2
+# ℹ 2 variables: wildfire_states &lt;chr&gt;, n &lt;int&gt;</code></pre>
 </div>
 </div>
 <p>The data sources for the unmatched events were:</p>
@@ -421,13 +393,10 @@ the `.groups` argument.</code></pre>
 override using the `.groups` argument.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 4
-# Groups:   match_ics209, match_redbook [3]
-  match_ics209 match_redbook match_fema `n()`
-  &lt;lgl&gt;        &lt;lgl&gt;         &lt;lgl&gt;      &lt;int&gt;
-1 TRUE         NA            NA           137
-2 NA           TRUE          NA            27
-3 NA           NA            TRUE         502</code></pre>
+<pre><code># A tibble: 0 × 4
+# Groups:   match_ics209, match_redbook [0]
+# ℹ 4 variables: match_ics209 &lt;lgl&gt;, match_redbook &lt;lgl&gt;, match_fema &lt;lgl&gt;,
+#   n() &lt;int&gt;</code></pre>
 </div>
 </div>
 </section>

@@ -289,7 +289,7 @@ list(
   				geometry = geometry_temp
   			) %>%
   			select(-geometry_temp) %>% # put back original geometry
-  			bind_rows(spatial %>% filter(!st_is_empty(geometry))) # append missing geoms
+  			bind_rows(spatial %>% filter(st_is_empty(geometry))) # append missing geoms
   	},
   ),
   tar_target(

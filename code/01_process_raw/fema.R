@@ -43,7 +43,7 @@ clean_fema <- function(event_fema_raw){
 		transmute(
 			fema_id = femaDeclarationString,
 			wildfire_states = state,
-			wilfire_year = year(declarationDate),
+			wildfire_year = year(declarationDate),
 			wildfire_fema_dec_date = declarationDate,
 			wildfire_name = declarationTitle,
 			wildfire_ignition_date = incidentBeginDate,
