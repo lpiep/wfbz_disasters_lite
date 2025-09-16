@@ -84,8 +84,9 @@ append_county <- function(dat_sf, refdate, spatial_tiger_counties){
 dedupe_pipe_delim <- function(z){
    str_split(z, pattern = '\\|') %>% 
       map(unique) %>% 
-      map(~ setdiff(.x, 'NA')) %>% 
-      map(paste, collapse = '|') %>% 
+			map(~ setdiff(.x, 'NA')) %>% 
+			map(sort) %>% 
+			map(paste, collapse = '|') %>% 
       unlist() %>%
       na_if('')
 }
@@ -296,3 +297,5 @@ assign_clusters <- function(lol){ # take list of lists, do a union find to assig
 	uf(nrow(dt), dt_links)
 	
 }
+
+as_numeric <- function(x) as.numeric(gsub(",", "", x))

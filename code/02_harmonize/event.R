@@ -39,8 +39,8 @@ harmonize_event <- function(
 		join_by(wildfire_states, wildfire_counties, overlaps(fuzzystart_ics209, fuzzyend_ics209, fuzzystart_redbook, fuzzyend_redbook))
 	) %>%
 		mutate(
-			fuzzystart_any = pmin(fuzzystart_ics209, fuzzystart_redbook),
-			fuzzyend_any = pmax(fuzzyend_ics209, fuzzyend_redbook)
+			fuzzystart_any = pmin(fuzzystart_ics209, fuzzystart_redbook, na.rm = TRUE),
+			fuzzyend_any = pmax(fuzzyend_ics209, fuzzyend_redbook, na.rm = TRUE)
 		) %>%
 		filter( # keep un-matched and matches with similar names
 			xor(is.na(match_ics209), is.na(match_redbook)) | 
@@ -69,16 +69,55 @@ harmonize_event <- function(
 		nomatch_redbook,
 		nomatch_fema
 	)
-	
+			
 	# re-collapse state/county
 	event_merged <- event_merged %>%
-		group_by(ics_id, redbook_id, fema_id) %>% 
+		mutate(gid = coalesce(as.character(redbook_id), as.character(ics_id), as.character(fema_id))) %>% 
+		group_by(gid) %>% 
 		nest(data = c(wildfire_counties, wildfire_states)) %>%
 		mutate(
 			wildfire_counties = map(data, ~ pluck(.x, 'wildfire_counties') %>% na.omit() %>% unique() %>% paste(collapse = '|')) %>% unlist(), 
 			wildfire_states = map(data, ~ pluck(.x, 'wildfire_states') %>% na.omit() %>% unique() %>% paste(collapse = '|')) %>% unlist(),
 		) %>%
-		select(-data, -matches('fuzzy')) %>%
+		select(-data) %>%
+		summarize( # summarize across rows
+			ics_id = dedupe_pipe_delim(paste(ics_id, collapse = '|')),
+			wildfire_name_ics209 = dedupe_pipe_delim(paste(wildfire_name_ics209, collapse = '|')),
+			wildfire_poo_lat_ics209 = first((wildfire_poo_lat_ics209), na_rm = TRUE),
+			wildfire_poo_lon_ics209 = first((wildfire_poo_lon_ics209), na_rm = TRUE),
+			wildfire_counties = dedupe_pipe_delim(paste(wildfire_counties, collapse = '|')),
+			wildfire_states =  dedupe_pipe_delim(paste(wildfire_states, collapse = '|')),
+			wildfire_ignition_date_ics209 = suppressWarnings(min(wildfire_ignition_date_ics209, na.rm = TRUE)) %>% na_if(as.Date(Inf)) %>% na_if(as.Date(-Inf)),
+			wildfire_area_ics209 = suppressWarnings(max(wildfire_area_ics209, na.rm = TRUE)) %>% na_if(Inf) %>% na_if(-Inf),
+			wildfire_complex_ics209 = any(wildfire_complex_ics209, na.rm = TRUE),
+			wildfire_civil_fatalities_ics209 = suppressWarnings(max(wildfire_civil_fatalities_ics209, na.rm = TRUE)) %>% na_if(Inf) %>% na_if(-Inf),
+			wildfire_total_fatalities_ics209 = suppressWarnings(max(wildfire_total_fatalities_ics209, na.rm = TRUE)) %>% na_if(Inf) %>% na_if(-Inf),
+			wildfire_civil_injuries_ics209 = suppressWarnings(max(wildfire_civil_injuries_ics209, na.rm = TRUE)) %>% na_if(Inf) %>% na_if(-Inf),
+			wildfire_total_injuries_ics209 = suppressWarnings(max(wildfire_total_injuries_ics209, na.rm = TRUE)) %>% na_if(Inf) %>% na_if(-Inf),
+			wildfire_civil_evacuation_ics209 = suppressWarnings(max(wildfire_civil_evacuation_ics209, na.rm = TRUE)) %>% na_if(Inf) %>% na_if(-Inf),
+			wildfire_total_evacuation_ics209 = suppressWarnings(max(wildfire_total_evacuation_ics209, na.rm = TRUE)) %>% na_if(Inf) %>% na_if(-Inf),
+			wildfire_struct_destroyed_ics209 = suppressWarnings(max(wildfire_struct_destroyed_ics209, na.rm = TRUE)) %>% na_if(Inf) %>% na_if(-Inf),
+			wildfire_struct_threatened_ics209 = suppressWarnings(max(wildfire_struct_threatened_ics209, na.rm = TRUE)) %>% na_if(Inf) %>% na_if(-Inf),
+			wildfire_cost_ics209 = suppressWarnings(max(wildfire_cost_ics209, na.rm = TRUE)) %>% na_if(Inf) %>% na_if(-Inf),
+			irwin_id = dedupe_pipe_delim(paste(irwin_id, collapse = '|')),
+			redbook_id = dedupe_pipe_delim(paste(redbook_id, collapse = '|')),
+			wildfire_name_redbook = dedupe_pipe_delim(paste(wildfire_name_redbook, collapse = '|')),
+			wildfire_year_redbook = first((wildfire_year_redbook), na_rm = TRUE),
+			wildfire_ignition_date_redbook = suppressWarnings(min(wildfire_ignition_date_redbook, na.rm = TRUE)) %>% na_if(as.Date(Inf)) %>% na_if(as.Date(-Inf)),
+			wildfire_containment_date_redbook = suppressWarnings(max(wildfire_containment_date_redbook, na.rm = TRUE)) %>% na_if(as.Date(Inf)) %>% na_if(as.Date(-Inf)),
+			wildfire_struct_destroyed_redbook = suppressWarnings(max(wildfire_struct_destroyed_redbook, na.rm = TRUE)) %>% na_if(Inf) %>% na_if(-Inf),
+			wildfire_civil_fatalities_redbook = suppressWarnings(max(wildfire_civil_fatalities_redbook, na.rm = TRUE)) %>% na_if(Inf) %>% na_if(-Inf),
+			wildfire_total_fatalities_redbook = suppressWarnings(max(wildfire_total_fatalities_redbook, na.rm = TRUE)) %>% na_if(Inf) %>% na_if(-Inf),
+			wildfire_area_redbook = suppressWarnings(max(wildfire_area_redbook, na.rm = TRUE)) %>% na_if(Inf) %>% na_if(-Inf),
+			fuzzystart_any = suppressWarnings(min(fuzzystart_any, na.rm = TRUE)) %>% na_if(as.Date(Inf)) %>% na_if(as.Date(-Inf)),
+			fuzzyend_any = suppressWarnings(max(fuzzyend_any, na.rm = TRUE)) %>% na_if(as.Date(Inf)) %>% na_if(as.Date(-Inf)),
+			fema_id = dedupe_pipe_delim(paste(fema_id, collapse = '|')),
+			wildfire_year_fema = first((wildfire_year_fema), na_rm = TRUE),
+			wildfire_fema_dec_date_fema = suppressWarnings(min(wildfire_fema_dec_date_fema, na.rm = TRUE)) %>% na_if(as.Date(Inf)) %>% na_if(as.Date(-Inf)),
+			wildfire_name_fema = dedupe_pipe_delim(paste(wildfire_name_fema, collapse = '|')),
+			wildfire_ignition_date_fema = suppressWarnings(min(wildfire_ignition_date_fema, na.rm = TRUE)) %>% na_if(as.Date(Inf)) %>% na_if(as.Date(-Inf)),
+			wildfire_containment_date_fema = suppressWarnings(max(wildfire_containment_date_fema, na.rm = TRUE)) %>% na_if(as.Date(Inf)) %>% na_if(as.Date(-Inf))
+		) %>% 
 		ungroup() 
 	
 	# create disaster criteria and filter
@@ -89,6 +128,7 @@ harmonize_event <- function(
 		 	wildfire_struct_destroyed = coalesce(wildfire_struct_destroyed_redbook, wildfire_struct_destroyed_ics209),
 		 	wildfire_civil_fatalities = coalesce(wildfire_civil_fatalities_redbook, wildfire_civil_fatalities_ics209),
 		 	wildfire_total_fatalities = coalesce(wildfire_total_fatalities_redbook, wildfire_total_fatalities_ics209),
+		 	wildfire_total_fatalities = if_else(wildfire_total_fatalities < wildfire_civil_fatalities, wildfire_civil_fatalities, wildfire_total_fatalities), # fix weird cases where total reported as less than civil
 		 	wildfire_max_civil_fatalities = case_when(
 		 		str_detect(wildfire_states, 'CA') & wildfire_year < 2014 ~ wildfire_civil_fatalities_redbook,
 		 		str_detect(wildfire_states, 'CA') & wildfire_year >= 2014 ~ pmax(wildfire_civil_fatalities_ics209, wildfire_civil_fatalities_redbook, na.rm = TRUE),

@@ -6,20 +6,35 @@ clean_redbook <- function(event_redbook_raw){
 		fs::dir_ls(event_redbook_raw, recurse = TRUE, glob = '*_csv.csv'),
 		file.path(event_redbook_raw, glue('redbook_{2000:2007}_combined_pdf.csv'))
 	) %>%
-		map(read_csv, show_col_types = FALSE, col_types = cols(.default = 'c'), na = c('', 'NA', 'na')) %>%
+		map(
+			read_csv, 
+			show_col_types = FALSE, 
+			col_types = cols_only(
+				incident_name = col_character(),
+				start_year = col_integer(),
+				date_start = col_integer(),
+				date_cont = col_integer(),
+				county_unit = col_character(),
+				structures_dest = col_number(),
+				fatalities_civilian = col_number(),
+				fatalities_fire = col_number(),
+				acres_burned = col_number()
+			), 
+			na = c('', 'NA', 'na')
+		) %>%
 		bind_rows(.id = 'src') %>%
 		transmute(
 			src,
 			redbook_id = row_number(),
 			wildfire_name = standardize_place_name(incident_name),
-			wildfire_year = as.numeric(start_year),
+			wildfire_year = start_year,
 			wildfire_ignition_date = if_else(str_detect(date_start, '^[0-9]{5}$'), as.Date(as.numeric(date_start), origin = "1899-12-30"), mdy(date_start)), #excel date for csvs
 			wildfire_containment_date = if_else(str_detect(date_cont, '^[0-9]{5}$'), as.Date(as.numeric(date_cont), origin = "1899-12-30"), mdy(date_cont)),
 			wildfire_counties = standardize_county_name(county_unit),
-			wildfire_struct_destroyed = as.numeric(structures_dest), 
-			wildfire_civil_fatalities = as.numeric(fatalities_civilian),
-			wildfire_total_fatalities = coalesce(wildfire_civil_fatalities, 0) + as.numeric(fatalities_fire),
-			wildfire_area = as.numeric(acres_burned) * 0.00404686 # sq km
+			wildfire_struct_destroyed = structures_dest, 
+			wildfire_civil_fatalities = fatalities_civilian,
+			wildfire_total_fatalities = coalesce(wildfire_civil_fatalities, 0) + fatalities_fire,
+			wildfire_area = acres_burned * 0.00404686 # sq km
 		) %>%
 		filter(
 			!is.na(wildfire_ignition_date),

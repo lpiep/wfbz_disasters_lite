@@ -261,7 +261,7 @@ list(
   tar_target(
   	wui,
   	{
-  		z <- spatial # need to copy explicitly here for some reason
+  		z <- spatial %>% filter(!st_is_empty(geometry))
   		# temporarily turn points into very small polygons to satisfy exact_extract
   		z$geometry_temp <- st_geometry(z)
   		st_geometry(z)[st_geometry_type(z$geometry) == 'POINT'] <- st_buffer(z$geometry[st_geometry_type(z$geometry) == 'POINT'], .01)
@@ -288,7 +288,8 @@ list(
   				),
   				geometry = geometry_temp
   			) %>%
-  			select(-geometry_temp) # put back original geometry
+  			select(-geometry_temp) %>% # put back original geometry
+  			bind_rows(spatial %>% filter(st_is_empty(geometry))) # append missing geoms
   	},
   ),
   tar_target(
@@ -324,6 +325,7 @@ list(
   				wildfire_id,
   				wildfire_year,
   				wildfire_states,
+  				wildfire_counties,
   				wildfire_area,
   				wildfire_complex,
   				wildfire_complex_names,
