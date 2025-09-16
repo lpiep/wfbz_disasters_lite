@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -69,24 +103,29 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="ics209">ICS209</h3>
 <p>Rows in ics-minimal data set post 2000.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(event_ics209)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 35961</code></pre>
 </div>
 </div>
 <p>Non-Missing POO Lat/long</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(event_ics209<span class="sc">$</span>wildfire_poo_lat))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 35093</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(event_ics209<span class="sc">$</span>wildfire_poo_lat)) <span class="sc">/</span> <span class="fu">nrow</span>(event_ics209)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9758627</code></pre>
 </div>
 </div>
 <p>Non-Missing County Name (N, pct):</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(event_ics209<span class="sc">$</span>wildfire_counties))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 32981</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(event_ics209<span class="sc">$</span>wildfire_counties)) <span class="sc">/</span> <span class="fu">nrow</span>(event_ics209)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9171324</code></pre>
 </div>
@@ -95,9 +134,11 @@ ul.task-list li input[type="checkbox"] {
 <section id="red-books" class="level3">
 <h3 class="anchored" data-anchor-id="red-books">Red Books</h3>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(event_redbook<span class="sc">$</span>wildfire_counties))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1126</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(event_redbook<span class="sc">$</span>wildfire_counties)) <span class="sc">/</span> <span class="fu">nrow</span>(event_redbook)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
@@ -106,14 +147,17 @@ ul.task-list li input[type="checkbox"] {
 <section id="fema" class="level3">
 <h3 class="anchored" data-anchor-id="fema">FEMA</h3>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(event_fema)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1731</code></pre>
 </div>
 </div>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(event_fema<span class="sc">$</span>wildfire_counties))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1693</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(event_fema<span class="sc">$</span>wildfire_counties)) <span class="sc">/</span> <span class="fu">nrow</span>(event_fema)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9780474</code></pre>
 </div>
@@ -124,18 +168,22 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="count-in-final-data">Count in Final Data</h2>
 <p>total count</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>final <span class="ot">&lt;-</span> final <span class="sc">%&gt;%</span> <span class="fu">filter</span>(wildfire_community_intersect)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(final) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6212</code></pre>
 </div>
 </div>
 <p>met criteria</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(final<span class="sc">$</span>wildfire_community_intersect) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6212</code></pre>
 </div>
 </div>
 <p>met criteria pct</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(final<span class="sc">$</span>wildfire_community_intersect) <span class="sc">/</span> <span class="fu">nrow</span>(final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
@@ -144,6 +192,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="bz-types" class="level2">
 <h2 class="anchored" data-anchor-id="bz-types">BZ types</h2>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>final <span class="sc">%&gt;%</span> <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(geometry_method) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 2
   geometry_method                  `n()`
@@ -159,6 +208,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>with burn zones from spatial files</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">str_detect</span>(final<span class="sc">$</span>geometry_src, <span class="st">'(FIRED|MTBS|NIFC)'</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2392</code></pre>
 </div>
@@ -168,6 +218,8 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="time-trend">Time trend</h2>
 <p>fluctuated from</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>final <span class="sc">%&gt;%</span> <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(wildfire_year) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">n=</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(n <span class="sc">%in%</span> <span class="fu">range</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   wildfire_year     n
@@ -178,6 +230,9 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>Compared to 2000-2009, the years between 2010 and 2019 had more wildfire burn disasters</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>final <span class="sc">%&gt;%</span> <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">between</span>(wildfire_year, <span class="dv">2000</span>, <span class="dv">2019</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(wildfire_year <span class="sc">&lt;</span> <span class="dv">2010</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">n=</span><span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   `wildfire_year &lt; 2010`     n
@@ -188,6 +243,9 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>more fires that met FMAG</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>final <span class="sc">%&gt;%</span> <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">between</span>(wildfire_year, <span class="dv">2000</span>, <span class="dv">2019</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(wildfire_year <span class="sc">&lt;</span> <span class="dv">2010</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">n=</span><span class="fu">sum</span>(wildfire_fema_dec, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   `wildfire_year &lt; 2010`     n
@@ -198,6 +256,9 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>More fires that met structure criterion</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>final <span class="sc">%&gt;%</span> <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">between</span>(wildfire_year, <span class="dv">2000</span>, <span class="dv">2019</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(wildfire_year <span class="sc">&lt;</span> <span class="dv">2010</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">n=</span><span class="fu">sum</span>(<span class="fu">str_detect</span>(wildfire_disaster_criteria_met, <span class="st">'struct'</span>), <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   `wildfire_year &lt; 2010`     n
@@ -207,6 +268,9 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>final <span class="sc">%&gt;%</span> <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">between</span>(wildfire_year, <span class="dv">2000</span>, <span class="dv">2019</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(wildfire_year <span class="sc">&lt;</span> <span class="dv">2010</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">n=</span><span class="fu">sum</span>(<span class="fu">str_detect</span>(wildfire_disaster_criteria_met, <span class="st">'death'</span>), <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   `wildfire_year &lt; 2010`     n
@@ -220,6 +284,10 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="states">States</h2>
 <p>States with greated number of fires each by year were…</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>final <span class="sc">%&gt;%</span> <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span> <span class="fu">unnest</span>(wildfire_states) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(wildfire_states, wildfire_year) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(wildfire_year) <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(n <span class="sc">==</span> <span class="fu">max</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(wildfire_year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'wildfire_states'. You can override using
 the `.groups` argument.</code></pre>
@@ -247,30 +315,44 @@ the `.groups` argument.</code></pre>
 <h2 class="anchored" data-anchor-id="criteria">Criteria</h2>
 <p>structure</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">str_detect</span>(final<span class="sc">$</span>wildfire_disaster_criteria_met, <span class="st">'struct'</span>)),</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">100</span><span class="sc">*</span><span class="fu">round</span>(<span class="fu">sum</span>(<span class="fu">str_detect</span>(final<span class="sc">$</span>wildfire_disaster_criteria_met, <span class="st">'struct'</span>)) <span class="sc">/</span> <span class="fu">nrow</span>(final), <span class="at">digits =</span> <span class="dv">3</span>), <span class="st">'%'</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "5717 92 %"</code></pre>
 </div>
 </div>
 <p>fema</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">str_detect</span>(final<span class="sc">$</span>wildfire_disaster_criteria_met, <span class="st">'dec'</span>)),</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">100</span><span class="sc">*</span><span class="fu">round</span>(<span class="fu">sum</span>(<span class="fu">str_detect</span>(final<span class="sc">$</span>wildfire_disaster_criteria_met, <span class="st">'dec'</span>)) <span class="sc">/</span> <span class="fu">nrow</span>(final), <span class="at">digits =</span> <span class="dv">3</span>), <span class="st">'%'</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "930 15 %"</code></pre>
 </div>
 </div>
 <p>fatal</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">str_detect</span>(final<span class="sc">$</span>wildfire_disaster_criteria_met, <span class="st">'death'</span>)),</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">100</span><span class="sc">*</span><span class="fu">round</span>(<span class="fu">sum</span>(<span class="fu">str_detect</span>(final<span class="sc">$</span>wildfire_disaster_criteria_met, <span class="st">'death'</span>)) <span class="sc">/</span> <span class="fu">nrow</span>(final), <span class="at">digits =</span> <span class="dv">3</span>), <span class="st">'%'</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "101 1.6 %"</code></pre>
 </div>
 </div>
 <p>total struct</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(final<span class="sc">$</span>wildfire_struct_destroyed,<span class="at">na.rm=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 120634</code></pre>
 </div>
 </div>
 <p>total death</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(final<span class="sc">$</span>wildfire_max_civil_fatalities,<span class="at">na.rm=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 407</code></pre>
 </div>
@@ -280,24 +362,67 @@ the `.groups` argument.</code></pre>
 <h2 class="anchored" data-anchor-id="california-only">California only</h2>
 <p>cali had the most disasters…</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nrow</span>(final <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">str_detect</span>(wildfire_states, <span class="st">'CA'</span>))),</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">format</span>(<span class="dv">100</span><span class="sc">*</span><span class="fu">nrow</span>(final <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">str_detect</span>(wildfire_states, <span class="st">'CA'</span>))) <span class="sc">/</span> <span class="fu">nrow</span>(final), <span class="at">digits =</span> <span class="dv">3</span>), <span class="st">'%'</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "878 14.1 %"</code></pre>
 </div>
 </div>
 <p>fatalities</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>    final <span class="sc">%&gt;%</span> </span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(<span class="fu">str_detect</span>(wildfire_states, <span class="st">'CA'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pull</span>(wildfire_max_civil_fatalities) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sum</span>(<span class="at">na.rm=</span>T),</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">format</span>(</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>        <span class="dv">100</span><span class="sc">*</span>    final <span class="sc">%&gt;%</span> </span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(<span class="fu">str_detect</span>(wildfire_states, <span class="st">'CA'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pull</span>(wildfire_max_civil_fatalities) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sum</span>(<span class="at">na.rm=</span>T) <span class="sc">%&gt;%</span></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">/</span><span class="st">`</span>(<span class="fu">sum</span>(final<span class="sc">$</span>wildfire_max_civil_fatalities,<span class="at">na.rm=</span>T))</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>    , <span class="at">digits =</span> <span class="dv">3</span>), <span class="st">'%'</span></span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "213 52.3 %"</code></pre>
 </div>
 </div>
 <p>and structures</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    final <span class="sc">%&gt;%</span> </span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(<span class="fu">str_detect</span>(wildfire_states, <span class="st">'CA'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pull</span>(wildfire_struct_destroyed) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sum</span>(<span class="at">na.rm=</span>T),</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">format</span>(</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>        <span class="dv">100</span><span class="sc">*</span>    final <span class="sc">%&gt;%</span> </span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(<span class="fu">str_detect</span>(wildfire_states, <span class="st">'CA'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pull</span>(wildfire_struct_destroyed) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sum</span>(<span class="at">na.rm=</span>T) <span class="sc">%&gt;%</span></span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">/</span><span class="st">`</span>(<span class="fu">sum</span>(final<span class="sc">$</span>wildfire_struct_destroyed,<span class="at">na.rm=</span>T))</span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>    , <span class="at">digits =</span> <span class="dv">3</span>), <span class="st">'%'</span></span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "84417 70 %"</code></pre>
 </div>
 </div>
 <p>… and fmags</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>    final <span class="sc">%&gt;%</span> </span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(<span class="fu">str_detect</span>(wildfire_states, <span class="st">'CA'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pull</span>(wildfire_fema_dec) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sum</span>(<span class="at">na.rm=</span>T),</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">format</span>(</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>        <span class="dv">100</span><span class="sc">*</span>    final <span class="sc">%&gt;%</span> </span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(<span class="fu">str_detect</span>(wildfire_states, <span class="st">'CA'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pull</span>(wildfire_fema_dec) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sum</span>(<span class="at">na.rm=</span>T) <span class="sc">%&gt;%</span></span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">/</span><span class="st">`</span>(<span class="fu">sum</span>(final<span class="sc">$</span>wildfire_fema_dec,<span class="at">na.rm=</span>T))</span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>    , <span class="at">digits =</span> <span class="dv">3</span>), <span class="st">'%'</span></span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "228 24.5 %"</code></pre>
 </div>
@@ -307,6 +432,13 @@ the `.groups` argument.</code></pre>
 <h2 class="anchored" data-anchor-id="among-structure-destroying-fires">Among structure destroying fires</h2>
 <p>this many destroyed fewer than 5</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>    final <span class="sc">%&gt;%</span> </span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(<span class="fu">str_detect</span>(wildfire_disaster_criteria_met, <span class="st">'struct'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">summarize</span>(</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">gt4 =</span> <span class="fu">sum</span>(<span class="fu">coalesce</span>(wildfire_struct_destroyed, <span class="dv">0</span>)<span class="sc">&lt;=</span> <span class="dv">4</span>, <span class="at">na.rm =</span> T),</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>         gt4 <span class="sc">/</span> <span class="fu">n</span>()</span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
     gt4 `gt4/n()`
@@ -319,6 +451,12 @@ the `.groups` argument.</code></pre>
 <h2 class="anchored" data-anchor-id="of-fatal-fires">Of fatal fires</h2>
 <p>only this many resulted in 10 fatalities or 10 structures destroeyd</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>    final <span class="sc">%&gt;%</span> </span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">summarize</span>(</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">gt10 =</span> <span class="fu">sum</span>((<span class="fu">coalesce</span>(wildfire_struct_destroyed, <span class="dv">0</span>) <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">|</span> (<span class="fu">coalesce</span>(wildfire_max_civil_fatalities,<span class="dv">0</span>) <span class="sc">&gt;</span> <span class="dv">10</span>), <span class="at">na.rm =</span> T),</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>            gt10 <span class="sc">/</span> <span class="fu">n</span>()</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
    gt10 `gt10/n()`
@@ -328,11 +466,21 @@ the `.groups` argument.</code></pre>
 </div>
 <p>however these fires accounted for…</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>final <span class="sc">%&gt;%</span> </span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>((<span class="fu">coalesce</span>(wildfire_struct_destroyed, <span class="dv">0</span>) <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">|</span> (<span class="fu">coalesce</span>(wildfire_max_civil_fatalities,<span class="dv">0</span>) <span class="sc">&gt;</span> <span class="dv">10</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nrow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 636</code></pre>
 </div>
 </div>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>final <span class="sc">%&gt;%</span> </span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>((<span class="fu">coalesce</span>(wildfire_struct_destroyed, <span class="dv">0</span>) <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">|</span> (<span class="fu">coalesce</span>(wildfire_max_civil_fatalities,<span class="dv">0</span>) <span class="sc">&gt;</span> <span class="dv">10</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">n =</span> <span class="fu">paste</span>(<span class="fu">n</span>(), <span class="st">'('</span>,  <span class="dv">100</span><span class="sc">*</span> <span class="fu">n</span>() <span class="sc">/</span> <span class="fu">nrow</span>(final), <span class="st">')'</span>),</span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">struct =</span> <span class="fu">paste</span>(<span class="fu">sum</span>(wildfire_struct_destroyed, <span class="at">na.rm =</span>T), <span class="st">'('</span>, <span class="dv">100</span><span class="sc">*</span><span class="fu">sum</span>(wildfire_struct_destroyed, <span class="at">na.rm =</span>T) <span class="sc">/</span> <span class="fu">sum</span>(final<span class="sc">$</span>wildfire_struct_destroyed,<span class="at">na.rm =</span>T), <span class="st">')'</span>),</span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">fatal =</span> <span class="fu">paste</span>(<span class="fu">sum</span>(wildfire_max_civil_fatalities, <span class="at">na.rm =</span>T), <span class="st">'('</span>, <span class="dv">100</span><span class="sc">*</span><span class="fu">sum</span>(wildfire_max_civil_fatalities, <span class="at">na.rm =</span>T) <span class="sc">/</span> <span class="fu">sum</span>(final<span class="sc">$</span>wildfire_max_civil_fatalities,<span class="at">na.rm =</span>T), <span class="st">')'</span>),    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   n                        struct                     fatal                   
@@ -343,9 +491,31 @@ the `.groups` argument.</code></pre>
 </section>
 <section id="unmatched-events" class="level2">
 <h2 class="anchored" data-anchor-id="unmatched-events">Unmatched Events</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>matched_events <span class="ot">&lt;-</span> spatial<span class="sc">$</span>event_id <span class="sc">%&gt;%</span> <span class="fu">unlist</span>(<span class="at">recursive =</span> T) <span class="sc">%&gt;%</span> <span class="fu">unique</span>() </span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>unmatched_events <span class="ot">&lt;-</span> event <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>(event_id <span class="sc">%in%</span> matched_events)) <span class="sc">%&gt;%</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>( <span class="co"># add in criteria just like we did in spatial</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">civ_crit    =</span> <span class="fu">if_else</span>(</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>                <span class="fu">coalesce</span>(wildfire_max_civil_fatalities, wildfire_civil_fatalities, <span class="dv">0</span>) <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">|</span> (<span class="fu">is.na</span>(wildfire_max_civil_fatalities) <span class="sc">&amp;</span> (<span class="fu">coalesce</span>(wildfire_total_fatalities, <span class="dv">0</span>) <span class="sc">&gt;</span> <span class="dv">0</span>)), </span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>                <span class="st">'civilian_death'</span>, </span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>                <span class="cn">NA_character_</span></span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>            ),</span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">struct_crit =</span> <span class="fu">if_else</span>(</span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>                <span class="fu">coalesce</span>(wildfire_struct_destroyed, <span class="dv">0</span>) <span class="sc">&gt;</span> <span class="dv">0</span>, </span>
+<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>                <span class="st">'structures_destroyed'</span>, </span>
+<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>                <span class="cn">NA_character_</span></span>
+<span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a>            ),</span>
+<span id="cb70-14"><a href="#cb70-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">fema_crit   =</span> <span class="fu">if_else</span>(wildfire_fema_dec, <span class="st">'fema_fmag_declaration'</span>, <span class="cn">NA_character_</span>)</span>
+<span id="cb70-15"><a href="#cb70-15" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">%&gt;%</span></span>
+<span id="cb70-16"><a href="#cb70-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">unite</span>(wildfire_disaster_criteria_met, <span class="fu">c</span>(civ_crit, struct_crit, fema_crit), <span class="at">sep =</span> <span class="st">'|'</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb70-17"><a href="#cb70-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(wildfire_disaster_criteria_met <span class="sc">!=</span> <span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>unmatched events total: 0</p>
 <p>By criteria met:</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>unmatched_events <span class="sc">%&gt;%</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(wildfire_disaster_criteria_met) <span class="sc">%&gt;%</span></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 0 × 2
 # ℹ 2 variables: wildfire_disaster_criteria_met &lt;chr&gt;, n &lt;int&gt;</code></pre>
@@ -353,6 +523,9 @@ the `.groups` argument.</code></pre>
 </div>
 <p>Of the actual lat longs provided (n = 0), none fall in the united states.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> tigris<span class="sc">::</span><span class="fu">states</span>(<span class="at">cb =</span> <span class="cn">TRUE</span>, <span class="at">year =</span> <span class="dv">2024</span>, <span class="at">progress_bar =</span> <span class="cn">FALSE</span>)) <span class="sc">+</span> </span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_as_sf</span>(unmatched_events, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">'wildfire_poo_lon_ics209'</span>, <span class="st">'wildfire_poo_lat_ics209'</span>), <span class="at">crs =</span> <span class="dv">4269</span>, <span class="at">na.fail =</span> <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in min(cc[[1]], na.rm = TRUE): no non-missing arguments to min;
 returning Inf</code></pre>
@@ -380,6 +553,12 @@ returning -Inf</code></pre>
 <p>0 Had no state information or invalid state information</p>
 <p>Of the ones that did have a recoverable state:</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>unmatched_events <span class="sc">%&gt;%</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(wildfire_states <span class="sc">%in%</span> <span class="fu">c</span>(state.abb, <span class="st">'DC'</span>, <span class="st">'PR'</span>, <span class="st">'GU'</span>, <span class="st">'VI'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(wildfire_states) <span class="sc">%&gt;%</span></span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(n), wildfire_states) <span class="sc">%&gt;%</span></span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">40</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 0 × 2
 # ℹ 2 variables: wildfire_states &lt;chr&gt;, n &lt;int&gt;</code></pre>
@@ -387,6 +566,9 @@ returning -Inf</code></pre>
 </div>
 <p>The data sources for the unmatched events were:</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>unmatched_events <span class="sc">%&gt;%</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(<span class="at">match_ics209 =</span> <span class="sc">!</span><span class="fu">is.na</span>(ics_id), <span class="at">match_redbook =</span> <span class="sc">!</span><span class="fu">is.na</span>(redbook_id), <span class="at">match_fema =</span> <span class="sc">!</span><span class="fu">is.na</span>(fema_id)) <span class="sc">%&gt;%</span></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'match_ics209', 'match_redbook'. You can
 override using the `.groups` argument.</code></pre>
@@ -396,6 +578,60 @@ override using the `.groups` argument.</code></pre>
 # Groups:   match_ics209, match_redbook [0]
 # ℹ 4 variables: match_ics209 &lt;lgl&gt;, match_redbook &lt;lgl&gt;, match_fema &lt;lgl&gt;,
 #   n() &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>max pop den summary</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(final<span class="sc">$</span>wildfire_max_pop_den)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+    10.81   1162.76   2700.28   6458.67   6808.77 179186.72 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(final<span class="sc">$</span>wildfire_max_pop_den)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11304.49</code></pre>
+</div>
+</div>
+<p>cost</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(final<span class="sc">$</span>wildfire_cost))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3831</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(final<span class="sc">$</span>wildfire_cost[final<span class="sc">$</span>wildfire_cost <span class="sc">&gt;</span> <span class="dv">0</span>]) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA's 
+        1      1200     37000   4904932   2000000 542539952      3831 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(final<span class="sc">$</span>wildfire_cost[final<span class="sc">$</span>wildfire_cost <span class="sc">&gt;</span> <span class="dv">0</span>] , <span class="at">na.rm =</span> <span class="cn">TRUE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20374818</code></pre>
+</div>
+</div>
+<p>evac</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(final<span class="sc">$</span>wildfire_civil_evacuation))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5879</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(final<span class="sc">$</span>wildfire_civil_evacuation[final<span class="sc">$</span>wildfire_civil_evacuation <span class="sc">&gt;</span> <span class="dv">0</span>]) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
+     1.0     50.0    209.5   3202.5   1175.0 104621.0     5879 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(final<span class="sc">$</span>wildfire_civil_evacuation[final<span class="sc">$</span>wildfire_civil_evacuation <span class="sc">&gt;</span> <span class="dv">0</span>] , <span class="at">na.rm =</span> <span class="cn">TRUE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12530.83</code></pre>
 </div>
 </div>
 </section>

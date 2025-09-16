@@ -3,7 +3,7 @@ title: "Manuscript Numbers"
 format: html
 editor: visual
 execute:
-  echo: false
+  echo: true
 ---
 
 Numbers included in text of manuscript.
@@ -361,4 +361,42 @@ The data sources for the unmatched events were:
 unmatched_events %>%
 	group_by(match_ics209 = !is.na(ics_id), match_redbook = !is.na(redbook_id), match_fema = !is.na(fema_id)) %>%
 	summarize(n())
+```
+max pop den summary
+```{r}
+summary(final$wildfire_max_pop_den)
+```
+
+```{r}
+sd(final$wildfire_max_pop_den)
+```
+
+cost
+
+```{r}
+sum(is.na(final$wildfire_cost))
+
+```
+
+```{r}
+summary(final$wildfire_cost[final$wildfire_cost > 0]) 
+```
+
+```{r}
+sd(final$wildfire_cost[final$wildfire_cost > 0] , na.rm = TRUE) 
+```
+
+
+evac
+
+```{r}
+sum(is.na(final$wildfire_civil_evacuation))
+```
+
+```{r}
+summary(final$wildfire_civil_evacuation[final$wildfire_civil_evacuation > 0]) 
+```
+
+```{r}
+sd(final$wildfire_civil_evacuation[final$wildfire_civil_evacuation > 0] , na.rm = TRUE) 
 ```
