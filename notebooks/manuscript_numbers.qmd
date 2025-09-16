@@ -72,6 +72,7 @@ sum(!is.na(event_fema$wildfire_counties)) / nrow(event_fema)
 total count
 
 ```{r}
+final <- final %>% filter(wildfire_community_intersect)
 nrow(final) 
 ```
 
