@@ -147,7 +147,7 @@ def main(
             'wildfire_id': [str(wildfire_id)],
             'wildfire_community_intersect': [wildfire_community_intersect],
             'wildfire_max_pop_den': [max_pop_density],
-            'wildfire_buffered_avg_pop_den': [avg_pop_density_keep]
+            'wildfire_buffered_avg_pop_den': [avg_pop_density_keep.iloc[0]]
         })
 
         fire_dfs.append(df_fire)
