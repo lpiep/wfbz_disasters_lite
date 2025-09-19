@@ -355,11 +355,13 @@ harmonize_spatial <- function(
 		select(-radius, -wildfire_states) %>%
 		filter(wildfire_area <= (5284*2))  # cutoff for believability of resulting geometry (twice the largest reported fire between 2000 and 2025: Alaska's Taylor Fire)
 		
+	### Tier 5: POO-only ICS 
+	
 	t5 <- event %>% 
 		filter(
 			!(event_id %in% c(unlist(t1$event_id), unlist(t2$event_id), unlist(t3a$event_id), unlist(t3b$event_id), unlist(t3c$event_id)))
 		) %>%
-		mutate(tier = 4, geometry_src = 'ICS209') %>%
+		mutate(tier = 5, geometry_src = 'ICS209') %>%
 		filter(!is.na(wildfire_poo_lat), !is.na(wildfire_poo_lon), is.na(wildfire_area)) %>%
 		st_as_sf(coords = c('wildfire_poo_lon', 'wildfire_poo_lat'), remove = FALSE, crs = 4269) %>% 
 		select(-wildfire_states)
@@ -434,7 +436,8 @@ harmonize_spatial <- function(
 		group_by(cluster_id) %>% 
 		summarize(
 			wildfire_states = paste(sort(unique(STATE_ABB)), collapse = '|'),
-			wildfire_counties = paste(sort(unique(COUNTY_NAME)), collapse = '|')
+			wildfire_counties = paste(sort(unique(COUNTY_NAME)), collapse = '|'),
+			wildfire_counties_fips = paste(sort(unique(COUNTY_FIPS)), collapse = '|')
 		) 
 
 	### Add in events that had no match
@@ -455,8 +458,11 @@ harmonize_spatial <- function(
 															 "WY", "DC", "AS", "GU", "MP", "PR", "VI"),
 				wildfire_states,
 				NA_character_
-			)
+			),
+			wildfire_counties_fips = find_fips(wildfire_counties, wildfire_states, wildfire_year, spatial_tiger_counties) # try to find county fips by name
 		)
+		
+  browser() ######!!!!!!!!!!!!!
 	all_tiers <- bind_rows(all_tiers, unmatched_events) %>% 
 		st_as_sf(na.fail = FALSE)
 	
@@ -464,6 +470,7 @@ harmonize_spatial <- function(
 		mutate(
 			wildfire_states = coalesce(wildfire_states.y, wildfire_states.x), # take the original state when spatially determined one was missing (unmatched fires)
 			wildfire_counties = coalesce(wildfire_counties.y, wildfire_counties.x), # take the original county when spatially determined one was missing (unmatched fires)
+			wildfire_counties_fips = coalesce(wildfire_counties_fips.y, wildfire_counties_fips.x), # take the original county when spatially determined one was missing (unmatched fires)
 			civ_crit    = if_else(
 				coalesce(wildfire_max_civil_fatalities, wildfire_civil_fatalities, 0) > 0 | (is.na(wildfire_max_civil_fatalities) & (coalesce(wildfire_total_fatalities, 0) > 0)), 
 				'civilian_death', 
