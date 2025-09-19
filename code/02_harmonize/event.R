@@ -128,13 +128,12 @@ harmonize_event <- function(
 		 	wildfire_struct_destroyed = coalesce(wildfire_struct_destroyed_redbook, wildfire_struct_destroyed_ics209),
 		 	wildfire_civil_fatalities = coalesce(wildfire_civil_fatalities_redbook, wildfire_civil_fatalities_ics209),
 		 	wildfire_total_fatalities = coalesce(wildfire_total_fatalities_redbook, wildfire_total_fatalities_ics209),
-		 	wildfire_total_fatalities = if_else(wildfire_total_fatalities < wildfire_civil_fatalities, wildfire_civil_fatalities, wildfire_total_fatalities), # fix weird cases where total reported as less than civil
 		 	wildfire_max_civil_fatalities = case_when(
 		 		str_detect(wildfire_states, 'CA') & wildfire_year < 2014 ~ wildfire_civil_fatalities_redbook,
 		 		str_detect(wildfire_states, 'CA') & wildfire_year >= 2014 ~ pmax(wildfire_civil_fatalities_ics209, wildfire_civil_fatalities_redbook, na.rm = TRUE),
 		 		!str_detect(wildfire_states, 'CA') & wildfire_year < 2014 ~ wildfire_total_fatalities_ics209,
 		 		!str_detect(wildfire_states, 'CA') & wildfire_year >=2014 ~ wildfire_civil_fatalities_ics209
-		 	) # hopefully do the below:
+		 	), # hopefully do the below:
 		 	#Best estimate of civilian fatalities from 2000-2019. From 2000-2013, only California RedBooks reported civilian 
 		 	#fatalities alone. Therefore, from 2000-2013, this variable reports the maximum total fatalities for wildfires 
 		 	#outside California but civilian specific fatalities from California. From 2014-2019, this variable reports 
@@ -142,6 +141,7 @@ harmonize_event <- function(
 		 	#only California RedBooks reported civilian fatalities alone. Therefore, from 2000-2013, this variable reports the maximum 
 		 	#total fatalities for wildfires outside California but civilian specific fatalities from California. From 2014-2019, 
 		 	#this variable reports the maximum civilian fatalities from each fire.
+		 	wildfire_total_fatalities = if_else(wildfire_total_fatalities < wildfire_max_civil_fatalities, wildfire_max_civil_fatalities, wildfire_total_fatalities), # fix weird cases where total reported as less than civil
 		 ) %>%
 		filter(
 			wildfire_fema_dec | 
