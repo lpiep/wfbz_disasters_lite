@@ -1,0 +1,986 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+        <link rel="next" href="wildfire_disasters_lite_diagram.png">
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>Wildfire Disaster Dataset Harmonization</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.bcfcd587.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#wildfire-disaster-dataset-harmonization" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="Wildfire Disaster Dataset Harmonization" class="md-header__button md-logo" aria-label="Wildfire Disaster Dataset Harmonization" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Wildfire Disaster Dataset Harmonization
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Wildfire Disaster Dataset Harmonization" class="md-nav__button md-logo" aria-label="Wildfire Disaster Dataset Harmonization" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Wildfire Disaster Dataset Harmonization
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-dictionary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Dictionary
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Dictionary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-descriptors" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Descriptors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#location" class="md-nav__link">
+    <span class="md-ellipsis">
+      Location
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criteria
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-wildfire-descriptors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional wildfire descriptors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#native-ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      Native IDs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wildfire_disasters_lite_diagram.png" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Process Flow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Raw Data Descriptions
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Raw Data Descriptions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="raw_data_desc/nifc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NIFC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="raw_data_desc/fema/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FEMA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="raw_data_desc/mtbs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MTBS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="raw_data_desc/fired/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FIRED
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="raw_data_desc/ics209/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ICS209
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="raw_data_desc/wui/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WUI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="raw_data_desc/redbook/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Red Book
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="raw_data_desc/ghs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GHS Population
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-dictionary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Dictionary
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Dictionary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-descriptors" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Descriptors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#location" class="md-nav__link">
+    <span class="md-ellipsis">
+      Location
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criteria
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-wildfire-descriptors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional wildfire descriptors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#native-ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      Native IDs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="wildfire-disaster-dataset-harmonization">Wildfire Disaster Dataset Harmonization</h1>
+<h2 id="description">Description</h2>
+<p>The proximity of communities to wildfire burn zones is a growing concern due to the increase in wildfire frequency and 
+urban development around wildlands. When burn zones come near or cross into communities, the heat, flames, and smoke 
+can harm human health—directly or via psychosocial stressors—to the point of becoming a disaster. We harmonized six 
+wildfire datasets to create the first U.S.-wide spatial dataset of wildfire burn zone disasters. Our criteria for a 
+wildfire burn zone disaster were wildfires that burned near a community (according to a population density or housing
+density threshold) and resulted in at least one civilian fatality, one destroyed structure, or received federal disaster 
+relief. </p>
+<p>This work was funded by the National Institute for Environmental Health Sciences (NIEHS) P30ES009089 (JAC), 
+P30ES007033 (JAC), and T32ES007322-22 (GYM), the National Institute on Aging (NIA) grant R01AG071024 
+(TB, EMB, DB, JAC, MG, LBW), and the Canadian Institute for Health Research Doctoral Foreign Study Award (HM).</p>
+<p>A paper describing this dataset is currently in review. </p>
+<h2 id="data-dictionary">Data Dictionary</h2>
+<h3 id="general-descriptors">General Descriptors</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wildfire_id</code></td>
+<td><code>character</code></td>
+<td>Wildfire ID generated as row number of output dataset</td>
+</tr>
+<tr>
+<td><code>wildfire_year</code></td>
+<td><code>date</code></td>
+<td>Wildfire year [YYYY] of fire</td>
+</tr>
+<tr>
+<td><code>wildfire_states</code></td>
+<td><code>character</code></td>
+<td>Wildfire US state(s) in which fire occurred (comma-delimited if more than one)</td>
+</tr>
+<tr>
+<td><code>wildfire_counties</code></td>
+<td><code>character</code></td>
+<td>Wildfire US county or counties in which fire occurred (comma-delimited if more than one)</td>
+</tr>
+<tr>
+<td><code>wildfire_complex</code></td>
+<td><code>boolean</code></td>
+<td>Fire is a complex of multiple member fires</td>
+</tr>
+<tr>
+<td><code>wildfire_complex_names</code></td>
+<td><code>character</code></td>
+<td>List of wildfires in the wildfire complex</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dates">Dates</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wildfire_ignition_date</code></td>
+<td><code>date</code></td>
+<td>Wildfire date of fire ignition (earliest recorded date)</td>
+</tr>
+<tr>
+<td><code>wildfire_ignition_date_max</code></td>
+<td><code>date</code></td>
+<td>Wildfire date of fire ignition (latest recorded date)</td>
+</tr>
+<tr>
+<td><code>wildfire_containment_date</code></td>
+<td><code>date</code></td>
+<td>Wildfire date of fire end (earliest recorded containment date)</td>
+</tr>
+<tr>
+<td><code>wildfire_containment_date_max</code></td>
+<td><code>date</code></td>
+<td>Wildfire date of fire end (latest recorded containment date)</td>
+</tr>
+<tr>
+<td><code>wildfire_fema_dec_date</code></td>
+<td><code>date</code></td>
+<td>Date of FEMA FMAG disaster declaration</td>
+</tr>
+</tbody>
+</table>
+<h3 id="location">Location</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wildfire_poo_lat</code></td>
+<td><code>decimal</code></td>
+<td>Fire point of origin latitude in NAD83 (EPSG: 4269)</td>
+</tr>
+<tr>
+<td><code>wildfire_poo_lon</code></td>
+<td><code>decimal</code></td>
+<td>Fire point of origin longitude in NAD83 (EPSG: 4269)</td>
+</tr>
+<tr>
+<td><code>geometry_src</code></td>
+<td><code>character</code></td>
+<td>Data set from which <code>geometry</code> originates (One of "FIRED", "MTBS", "NIFC")</td>
+</tr>
+<tr>
+<td><code>geometry</code></td>
+<td><code>geometry</code></td>
+<td>Geometry of Fire</td>
+</tr>
+</tbody>
+</table>
+<h3 id="criteria">Criteria</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wildfire_total_fatalities</code></td>
+<td><code>integer</code></td>
+<td>Total wildfire fatalities, firefighter and civilian combined</td>
+</tr>
+<tr>
+<td><code>wildfire_max_civil_fatalities</code></td>
+<td><code>integer</code></td>
+<td>Best estimate of civilian fatalities from 2000-2019. From 2000-2013, only California RedBooks reported civilian fatalities alone. Therefore, from 2000-2013, this variable reports the maximum total fatalities for wildfires outside California but civilian specific fatalities from California. From 2014-2019, this variable reports the maximum civilian fatalities from each fire.</td>
+</tr>
+<tr>
+<td><code>wildfire_civil_fatalities</code></td>
+<td><code>integer</code></td>
+<td>Total wildfire civilian fatalities (before 2014, these data are only available from CalFire. all other states are missing information on civilian only fatalities prior to 2014).</td>
+</tr>
+<tr>
+<td><code>wildfire_struct_destroyed</code></td>
+<td><code>integer</code></td>
+<td>Wildfire criteria was met for number of structures destroyed</td>
+</tr>
+<tr>
+<td><code>wildfire_fema_dec</code></td>
+<td><code>boolean</code></td>
+<td>FEMA disaster declaration</td>
+</tr>
+<tr>
+<td><code>wildfire_disaster_criteria_met</code></td>
+<td><code>integer</code></td>
+<td>Wildfire disaster criteria met, including civilian fatalities, structures burned, or an FMAG declaration, or a combination of these variables</td>
+</tr>
+<tr>
+<td><code>wildfire_community_intersect</code></td>
+<td><code>boolean</code></td>
+<td>Wildfire criteria was met for community intersection based on population density of either 96 people per square kilometer or building density of 6.17 houses per square kilometer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="additional-wildfire-descriptors">Additional wildfire descriptors</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wildfire_buffered_avg_pop_den</code></td>
+<td><code>float</code></td>
+<td>Average population density in the buffered wildfire burn zone (people per square meter)</td>
+</tr>
+<tr>
+<td><code>wildfire_max_pop_den</code></td>
+<td><code>float</code></td>
+<td>Maximum population density in the wildfire burn zone (people per square meter)</td>
+</tr>
+<tr>
+<td><code>wildfire_wui</code></td>
+<td><code>character</code></td>
+<td>Types of wildland-urban areas intersected by the burn zone ("interface" and/or "intermix"), pipe separated</td>
+</tr>
+<tr>
+<td><code>wildfire_area</code></td>
+<td><code>decimal</code></td>
+<td>Wildfire burned area in square kilometers</td>
+</tr>
+<tr>
+<td><code>wildfire_threatened_structures</code></td>
+<td><code>integer</code></td>
+<td>Number of structures potentially threatened by the incident within the next 72 hours</td>
+</tr>
+<tr>
+<td><code>wildfire_injuries</code></td>
+<td><code>integer</code></td>
+<td>Number of people who were injured</td>
+</tr>
+<tr>
+<td><code>wildfire_evac</code></td>
+<td><code>integer</code></td>
+<td>Number of people evacuated</td>
+</tr>
+<tr>
+<td><code>wildfire_cost</code></td>
+<td><code>integer</code></td>
+<td>Cost of wildfire response in USD (does not include damages)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="native-ids">Native IDs</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>redbook_id</code></td>
+<td><code>character</code></td>
+<td>Native ID of associated Red Book data, if applicable</td>
+</tr>
+<tr>
+<td><code>ics_id</code></td>
+<td><code>character</code></td>
+<td>Native ID of associated ICS/209 data, if applicable</td>
+</tr>
+<tr>
+<td><code>fired_id</code></td>
+<td><code>character</code></td>
+<td>Native ID of associated FIRED data, if applicable</td>
+</tr>
+<tr>
+<td><code>mtbs_id</code></td>
+<td><code>character</code></td>
+<td>Native ID of associated MTBS data, if applicable</td>
+</tr>
+<tr>
+<td><code>fema_id</code></td>
+<td><code>character</code></td>
+<td>Native ID of associated FEMA data, if applicable</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+    
+  </body>
+</html>
