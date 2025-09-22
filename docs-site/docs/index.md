@@ -81,7 +81,5 @@ A paper describing this dataset is currently in review.
 `ics_id` | `character` | Native ID of associated ICS/209 data, if applicable | 
 `fired_id` | `character` | Native ID of associated FIRED data, if applicable | 
 `mtbs_id` | `character` | Native ID of associated MTBS data, if applicable | 
-`usgs_id` | `character` | Native ID of associated USGS data, if applicable | 
-`geomac_id` | `character` | Native ID of associated GEOMAC data, if applicable | 
 `fema_id` | `character` | Native ID of associated FEMA data, if applicable | 
 
