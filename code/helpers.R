@@ -299,3 +299,27 @@ assign_clusters <- function(lol){ # take list of lists, do a union find to assig
 }
 
 as_numeric <- function(x) as.numeric(gsub(",", "", x))
+
+find_fips <- function(county, state, year, spatial_tiger_counties){ # Find fips for a vector of (possibly pipe delimited) counties, states, years
+	stopifnot(all(unlist(str_split(state, pattern = '\\|')) %in% STATE_FIPS$STATE_ABB))
+	stopifnot(all(between(year, 1990, 2029)))
+  decade <- floor(year/10)*10
+	county_lookup <- spatial_tiger_counties %>% 
+		bind_rows() %>% 
+		st_drop_geometry() %>% 
+		distinct() %>%
+		select(decade = CENSUS_YEAR, state = STATE_ABB, county = COUNTY_NAME, COUNTY_FIPS)
+	tibble(
+		county = county, state = state, decade = decade
+	) %>%
+			mutate(id = row_number()) %>%
+			mutate(county = str_split(county, pattern = '\\|')) %>%
+			mutate(state = str_split(state, pattern = '\\|')) %>%
+			unnest(cols = c(county)) %>% 
+			unnest(cols = c(state)) %>%
+			left_join(county_lookup, by = c('decade', 'state', 'county')) %>%
+			group_by(id) %>%
+			summarize(fips = paste(sort(unique(COUNTY_FIPS)), collapse = '|')) %>%
+			mutate(fips = na_if(fips, '')) %>%
+			pull(fips)
+}
