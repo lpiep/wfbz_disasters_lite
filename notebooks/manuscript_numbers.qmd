@@ -1,6 +1,6 @@
 ---
 title: "Manuscript Numbers"
-format: html
+format: pdf
 editor: visual
 execute:
   echo: true
@@ -362,7 +362,9 @@ unmatched_events %>%
 	group_by(match_ics209 = !is.na(ics_id), match_redbook = !is.na(redbook_id), match_fema = !is.na(fema_id)) %>%
 	summarize(n())
 ```
+
 max pop den summary
+
 ```{r}
 summary(final$wildfire_max_pop_den)
 ```
@@ -385,7 +387,6 @@ summary(final$wildfire_cost[final$wildfire_cost > 0])
 ```{r}
 sd(final$wildfire_cost[final$wildfire_cost > 0] , na.rm = TRUE) 
 ```
-
 
 evac
 
