@@ -31,37 +31,37 @@ Sample Data:
 | 24 | 2017 | OR | CURRY\|JOSEPHINE | 41015\|41033 | 787.395247 | FALSE | CHETCO BAR | NA | NA | NA | 0 | 5 | 5122 | 5122 | 24 | 0 | 7.20e+07 | TRUE | 4660.8501 | 3.1912364 | intermix | FALSE | structures_destroyed | 2017-07-12 | NA | 2017-07-12 | NA | NA | 42.29667 | -123.95361 | MTBS | MTBS by ID | NA | 2017_000326_CHETCO BAR | NA | OR4229712395420170712 | NA |
 | 25 | 2024 | CA | LOS ANGELES\|VENTURA | 06037\|06111 | 64.079217 | FALSE | POST | NA | NA | NA | 1 | 1 | 1200 | 1200 | 2 | 10 | 2.00e+07 | TRUE | 3751.2883 | 2.0942439 | intermix | FALSE | structures_destroyed | 2024-06-15 | NA | 2024-06-15 | NA | NA | 34.80285 | -118.87760 | MTBS | MTBS by ID | NA | 2024_205253_POST | NA | CA3480311887820240615 | NA |
 
-*Last run: 2025-09-19*
+*Last run: 2025-12-31*
 
 Output File Details:
 
 wfbz.geojson
 
-- File Size: 311M
-- File Checksum (md5): a7fa79bf33505ff610a2809994f6542d
+- File Size: 303M
+- File Checksum (md5): a247ed0df193413d58da12cac721f54b
 
 | Cleaned Data Set   | N Obs. |
 |:-------------------|-------:|
-| FEMA               |   1731 |
+| FEMA               |   1740 |
 | ICS209 Minimal     |  35961 |
-| Redbooks           |   1126 |
-| Harmonized Events  |   7119 |
+| Redbooks           |   1375 |
+| Harmonized Events  |   7072 |
 | FIRED              | 219383 |
 | MTBS               |  14321 |
 | NIFC               |  60803 |
-| Harmonized Spatial |   6911 |
+| Harmonized Spatial |   6770 |
 
 Burn Perimeter Join Types
 
 | geometry_method                  | N Events |
 |:---------------------------------|---------:|
-| ICS by Point of Origin, Size     |     3793 |
-| MTBS by Name/Place/Time          |     1002 |
-| Unmatched                        |      508 |
-| FIRED by Place/Time              |      496 |
+| ICS by Point of Origin, Size     |     3264 |
+| MTBS by Name/Place/Time          |     1214 |
+| FIRED by Place/Time              |      616 |
+| Unmatched                        |      516 |
 | MTBS by ID                       |      493 |
-| NIFC by Name/Place/Time          |      391 |
-| ICS by Point of Origin, POO-only |      137 |
+| NIFC by Name/Place/Time          |      442 |
+| ICS by Point of Origin, POO-only |      134 |
 | NIFC by ID                       |       91 |
 
 ## Documentation
