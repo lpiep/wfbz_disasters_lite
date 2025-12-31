@@ -12,8 +12,8 @@ clean_redbook <- function(event_redbook_raw){
 			col_types = cols_only(
 				incident_name = col_character(),
 				start_year = col_integer(),
-				date_start = col_integer(),
-				date_cont = col_integer(),
+				date_start = col_character(),
+				date_cont = col_character(),
 				county_unit = col_character(),
 				structures_dest = col_number(),
 				fatalities_civilian = col_number(),
