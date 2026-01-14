@@ -53,18 +53,29 @@ chmod +x ./wfbz_disasters_lite.sh
 
 ### Spatial 
 
-* MBTS (updates on run)
-* FIRED (updates on run)
-* NIFC (updates on run)
+* MBTS - Updated in full from public API automatically when pipeline is run. Source data is
+  updated on a rolling basis.
+* FIRED - Not expected to be updated. The last available version of the data (through 2022) is downloaded automatically
+  if needed. 
+* NIFC - Updated in full from public API automatically when pipeline is run. Source data is
+  updated on a rolling basis.
 
 ### Non-Spatial
 
-* FEMA Disaster Declarations (updates on run)
+* FEMA Disaster Declarations - Updated in full from public API automatically when pipeline is run. Source data is
+  updated on a rolling basis.
 * ICS-209
-  * Will be updated with access to API(s) (see https://github.com/lpiep/ics209_minimal)
-  * The ICS209_minimal repository is configured to update itself automatically
+  * Data is pulled automatically from https://github.com/lpiep/ics209_minimal automatically when pipeline is run. 
+  * The ICS209_minimal repository is configured to update itself automatically. Historical data is archived in that
+    repository. More recent data is pulled monthly from a USFS private API (instructions for access are included in
+    the README). Each year, however, an archive containing more variables than the API is released. This can be downloaded
+    and added to the archived data, although the archives' data formatting changes periodically and this may require
+    custom coding. 
 * REDBOOKS 
-	* Will need to manually redo each year as it currently stands. 
+  * Email CalFire each year to obtain last year's data file. See
+    [2023](https://github.com/lpiep/wfbz_disasters_lite/blob/main/data/01_raw/event/redbook/redbook_2023_combined_csv.csv)
+    for an example of the expected file naming convention and contents. Once added to the data folder, the new data will
+    be included into the data pipeline. 
 
 ### Updating Docs
 
